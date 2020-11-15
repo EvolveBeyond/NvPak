@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =1
+let g:netrw_dirhist_1='/home/ap/.config/nvim/CfgPlug'
+let g:netrw_dirhist_0='/home/ap/.config/nvim'
+let g:netrw_dirhist_9='/home/ap/.SpaceVim'
+let g:netrw_dirhist_8='/home/ap'
+let g:netrw_dirhist_7='/home/ap/.SpaceVim.d'
+let g:netrw_dirhist_6='/home/ap/Projects/Csharp/tamrin'
+let g:netrw_dirhist_5='/home/ap/Projects/Csharp'
+let g:netrw_dirhist_4='/home/ap/Projects'
+let g:netrw_dirhist_3='/home/ap/Projects/PyProjects/FastAPI/Practis_1'
+let g:netrw_dirhist_2='/home/ap/Projects/PyProjects/FastAPI'

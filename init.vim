@@ -11,7 +11,7 @@ runtime! CfgPlug/Term.vim
 " runtime! CfgPlug/defxCFG.vim
 " themes
 runtime! CfgPlug/airline.vim
-runtime! Themes/citylights.vim
+" runtime! Themes/citylights.vim 
 " Keymaps
 runtime! key.vim 
 runtime! CfgPlug/which-key.vim " vim-which-key Config 

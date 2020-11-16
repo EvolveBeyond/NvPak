@@ -175,6 +175,13 @@ function! s:show_documentation()
   endif
 endfunction
 
+" CocDisable Markdown Sappurt
+autocmd FileType markdown :call CocDisable()
+
 nmap <leader>rn <Plug>(coc-rename)
 
-let g:coc_global_extensions=[ 'coc-omnisharp', 'coc-python', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', "coc-explorer"]
+let g:coc_global_extensions=[ 'coc-omnisharp', 'coc-dictionary', 'coc-tag', 'coc-emoji',
+      \'coc-omni', 'coc-syntax', 'coc-markdownlint',
+      \'coc-word', 'coc-python', 'coc-emmet',
+      \'coc-css', 'coc-html', 'coc-json',
+      \'coc-prettier', 'coc-tsserver', "coc-explorer"]

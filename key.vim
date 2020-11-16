@@ -15,3 +15,14 @@ nnoremap <A-l> <C-w>l
 
 nnoremap <space> za
 
+""MarkdownPreview"" 
+
+"normal/insert
+<Plug>MarkdownPreview
+<Plug>MarkdownPreviewStop
+<Plug>MarkdownPreviewToggle
+
+"example
+nmap <C-s> <Plug>MarkdownPreview
+nmap <M-s> <Plug>MarkdownPreviewStop
+nmap <C-p> <Plug>MarkdownPreviewToggle

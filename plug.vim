@@ -53,6 +53,9 @@ Plug 'dense-analysis/ale'
 " C# Plugins
  Plug 'OmniSharp/omnisharp-vim'
  Plug 'nickspoons/vim-sharpenup'
+ " Markdown 
+ Plug 'godlygeek/tabular'
+ Plug 'plasticboy/vim-markdown'
  " Js And TypeScript
  Plug 'leafgarland/typescript-vim'
  Plug 'peitalin/vim-jsx-typescript'

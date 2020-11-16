@@ -1,6 +1,6 @@
 set encoding=UTF-8
 syntax enable
-let g:codedark_conservative = 1
+let g:codedark_conservative = 3
 colorscheme codedark              " color themes
 set termguicolors
 set background=dark
@@ -10,11 +10,6 @@ set splitbelow
 set splitright
 set clipboard+=unnamedplus
 set mouse=a
-
-autocmd BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
 
 set completeopt-=preview
 
@@ -33,4 +28,5 @@ au BufNewFile,BufRead *.py
     \ set softtabstop=4
     \ set shiftwidth=4
 
+   
 

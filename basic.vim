@@ -11,6 +11,14 @@ set splitright
 set clipboard+=unnamedplus
 set mouse=a
 
+" http://vimdoc.sourceforge.net/htmldoc/eval.html#last-position-jump
+" https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
+" :help last-position-jump
+autocmd BufReadPost *
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | endif
+
 set completeopt-=preview
 
 set colorcolumn=92

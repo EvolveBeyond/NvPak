@@ -23,6 +23,6 @@ runtime! CfgPlug/ale.vim
 runtime! CfgPlug/OmniSharp.vim
 " python config 
 runtime! CfgPlug/pythonsense.vim
-
-" other 
+" Markdown Config
+runtime! CfgPlug/Markdown.vim 
 

@@ -176,7 +176,7 @@ function! s:show_documentation()
 endfunction
 
 " CocDisable Markdown Sappurt
-autocmd FileType markdown :call CocDisable()
+"autocmd FileType markdown let b:coc_suggest_disable = 1
 
 nmap <leader>rn <Plug>(coc-rename)
 

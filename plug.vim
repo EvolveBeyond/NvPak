@@ -56,6 +56,7 @@ Plug 'dense-analysis/ale'
  " Markdown 
  Plug 'godlygeek/tabular'
  Plug 'plasticboy/vim-markdown'
+ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
  " Js And TypeScript
  Plug 'leafgarland/typescript-vim'
  Plug 'peitalin/vim-jsx-typescript'

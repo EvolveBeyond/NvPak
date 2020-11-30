@@ -19,7 +19,7 @@ This is a configuration for the **NeoVIM** editor, My goal in **sharing** and de
 
 ## Installing
 
- Make sure your nvim folder is empty.
+Make sure your nvim folder is empty.
 
 * Gnu/Linux and MacOs
 ```

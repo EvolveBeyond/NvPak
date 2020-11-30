@@ -3,3 +3,7 @@ This is a configuration for the **NeoVIM** editor, My goal in **sharing** and de
 
 ## Prerequisites
 
+** NodeJS **
+** Vim_Plug **
+** OmniSharp-Roslyn ** | (Vim-OmniSharp)[https://github.com/OmniSharp/Omnisharp-vim]
+** PipPython 3.8 or later **

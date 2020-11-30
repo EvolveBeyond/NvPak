@@ -49,7 +49,6 @@ Plug 'dense-analysis/ale'
  Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
  Plug 'jeetsukumaran/vim-pythonsense'
  Plug 'vim-scripts/indentpython.vim'
- Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " C# Plugins
  Plug 'OmniSharp/omnisharp-vim'
  Plug 'nickspoons/vim-sharpenup'

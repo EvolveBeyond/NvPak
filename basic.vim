@@ -2,7 +2,7 @@ set encoding=UTF-8
 syntax enable
 let g:codedark_conservative = 3
 colorscheme codedark              " color themes
-set termguicolors
+" set termguicolors
 set background=dark
 set number                     " Show current line number
 set relativenumber             " Show relative line numbers

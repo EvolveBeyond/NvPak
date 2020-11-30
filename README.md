@@ -3,6 +3,3 @@ This is a configuration for the **NeoVIM** editor, My goal in **sharing** and de
 
 ## Prerequisites
 
-
-
-

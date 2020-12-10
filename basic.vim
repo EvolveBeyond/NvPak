@@ -28,7 +28,7 @@ au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ set softtabstop=2
     \ set shiftwidth=2
-
+" Python Configure
 au BufNewFile,BufRead *.py
     \ set expandtab       |" replace tabs with spaces
     \ set autoindent      |" copy indent when starting a new line

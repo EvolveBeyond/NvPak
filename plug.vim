@@ -51,7 +51,6 @@ Plug 'dense-analysis/ale'
  Plug 'vim-scripts/indentpython.vim'
 " C# Plugins
  Plug 'OmniSharp/omnisharp-vim'
- Plug 'nickspoons/vim-sharpenup'
  " Markdown 
  Plug 'godlygeek/tabular'
  Plug 'plasticboy/vim-markdown'

@@ -30,10 +30,6 @@ nnoremap <C-o><C-r> :!dotnet run
 augroup omnisharp_commands
   autocmd!
 
-  " Show type information automatically when the cursor stops moving.
-  " Note that the type is echoed to the Vim command line, and will overwrite
-  " any other messages in this space including e.g. ALE linting messages.
-  autocmd CursorHold *.cs OmniSharpTypeLookup
 
   " The following commands are contextual, based on the cursor position.
   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
@@ -70,7 +66,7 @@ augroup omnisharp_commands
 augroup END
 
 " Enable snippet completion, using the ultisnips plugin
-" let g:OmniSharp_want_snippet=1
+let g:OmniSharp_want_snippet=1
 let g:sharpenup_create_mappings = 0
 
 " Creates “Find implementations” mapping: '<Space>osfi'
@@ -79,4 +75,4 @@ let maplocalleader = "\<Space>"
 " Creates “Find implementations” mapping: ',fi'
 let g:sharpenup_map_prefix = ','
 
-let g:OmniSharp_server_stdio = 0
+let g:OmniSharp_server_stdio = 1

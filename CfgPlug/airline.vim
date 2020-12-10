@@ -1,4 +1,4 @@
-let g:airline_theme = 'codedark'
+let g:airline_theme = 'one'
 let g:airline#extensions#tabline#enabled = 1
 
 " TAB in general mode will move to text buffer

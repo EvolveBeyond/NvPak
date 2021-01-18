@@ -180,8 +180,8 @@ endfunction
 
 nmap <leader>rn <Plug>(coc-rename)
 
-let g:coc_global_extensions=[ 'coc-omnisharp', 'coc-dictionary', 'coc-tag', 'coc-emoji',
-      \'coc-omni', 'coc-syntax', 'coc-markdownlint',
-      \'coc-word', 'coc-python', 'coc-emmet',
-      \'coc-css', 'coc-html', 'coc-json',
-      \'coc-prettier', 'coc-tsserver', "coc-explorer"]
+let g:coc_global_extensions=[ 'coc-python', 'coc-omnisharp',
+      \'coc-dictionary', 'coc-tag', 'coc-emoji',
+      \'coc-syntax', 'coc-markdownlint',
+      \'coc-word', 'coc-emmet',
+      \'coc-prettier', 'coc-tsserver', "coc-explorer","coc-html"]

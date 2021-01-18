@@ -1,15 +1,17 @@
 set encoding=UTF-8
 syntax enable
-let g:codedark_conservative = 3
-colorscheme one              " color themes
+colorscheme dracula           " color themes
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
 " set termguicolors
-set background=dark
+" set background=dark          " disable transparent Background
 set number                     " Show current line number
 set relativenumber             " Show relative line numbers
 set splitbelow
 set splitright
 set clipboard+=unnamedplus
 set mouse=a
+
 
 " http://vimdoc.sourceforge.net/htmldoc/eval.html#last-position-jump
 " https://vim.fandom.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session

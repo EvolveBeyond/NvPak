@@ -7,6 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
+" suda NeoVim Root Manager
 
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -29,6 +30,7 @@ Plug 'jnurmine/Zenburn'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'rakr/vim-one'
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'kaicataldo/material.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'wadackel/vim-dogrun'

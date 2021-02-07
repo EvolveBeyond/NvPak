@@ -7,6 +7,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
+" suda NeoVim Root Manager
 
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -29,26 +30,24 @@ Plug 'jnurmine/Zenburn'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'rakr/vim-one'
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'kaicataldo/material.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'wadackel/vim-dogrun'
 Plug 'rmolin88/pomodoro.vim'
 Plug 'liuchengxu/vim-which-key'
+" vim polyglot
+Plug 'sheerun/vim-polyglot'
+Plug 'https://github.com/McSinyx/vim-octave.git', {'for': 'octave'}
 " coc vim 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tabnine', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 " Syntax Plugins
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
 " Python 
- Plug 'jmcantrell/vim-virtualenv'
- Plug 'Vimjas/vim-python-pep8-indent'
- Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
- Plug 'jeetsukumaran/vim-pythonsense'
- Plug 'vim-scripts/indentpython.vim'
+Plug 'jmcantrell/vim-virtualenv'
 " C# Plugins
  Plug 'OmniSharp/omnisharp-vim'
  " Markdown 

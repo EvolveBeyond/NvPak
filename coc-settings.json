@@ -12,7 +12,7 @@
     //explorer
     "explorer.width": 30,
     "explorer.file.showHiddenFiles": true,
-    "explorer.file.autoReveal": false,
+    "explorer.file.autoReveal": true,
     "explorer.previewAction.onHover": false,
     "explorer.icon.enableVimDevicons": true,
     "explorer.icon.enableNerdfont": true,
@@ -30,26 +30,25 @@
     "mA": "addDirectory"
 },
     //Csharp 
-    "omnisharp.version": "v1.37.3"
     "omnisharp.trace.server": "information",
     "omnisharp.debug.server": true,
 
     // python
     // jedi
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
+    "python.jediPath": "~/.virtualenvs/NeoVim/lib/python3.9/site-packages/jedi/",
     "suggest.timeout": 5000,
     //formatting
     "python.formatting.provider": "black",
-    "python.formatting.blackPath": "/home/ap/.virtualenvs/NeoVim/lib/python3.8/site-packages/black/",
+    "python.formatting.blackPath": "~/.virtualenvs/NeoVim/lib/python3.9/site-packages/black/",
     //linting
     "python.linting.pylintEnabled": true,
-    "python.linting.flake8Enabled": false,
-    "python.linting.pylintPath": "/home/ap/.virtualenvs/NeoVim/lib/python3.8/site-packages/pylint/",
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintPath": "~/.virtualenvs/NeoVim/lib/python3.9/site-packages/pylint/",
     "python.linting.pylintArgs": ["--errors-only"],
-
 	
-  // emmet
-  "emmet.includeLanguages": {
+    // emmet
+    "emmet.includeLanguages": {
     "vue-html": "html",
     "javascript": "javascriptreact"
   }

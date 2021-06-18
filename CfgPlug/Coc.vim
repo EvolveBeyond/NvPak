@@ -77,20 +77,17 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+" Code action on <leader>a
+vmap <leader>a <Plug>(coc-codeaction-selected)<CR>
+nmap <leader>a <Plug>(coc-codeaction-selected)<CR>
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
+" Format action on <leader>f
+vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" Goto definition
+nmap <silent> gd <Plug>(coc-definition)
+" Open definition in a split window
+nmap <silent> gv :vsp<CR><Plug>(coc-definition)<C-W>L
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -180,8 +177,8 @@ endfunction
 
 nmap <leader>rn <Plug>(coc-rename)
 
-let g:coc_global_extensions=[ 'coc-python', 'coc-omnisharp',
-      \'coc-dictionary', 'coc-tag', 'coc-emoji',
-      \'coc-syntax', 'coc-markdownlint',
-      \'coc-word', 'coc-emmet',
-      \'coc-prettier', 'coc-tsserver', "coc-explorer","coc-html"]
+let g:coc_global_extensions=[ 'coc-omnisharp', 'coc-pyright', 'coc-yaml',
+      \'coc-dictionary', 'coc-tag', 'coc-emoji', 'coc-json', 
+      \'coc-syntax', 'coc-markdownlint', 'coc-git', 'coc-docker',
+      \'coc-word', 'coc-emmet', 'coc-spell-checker',
+      \'coc-prettier', 'coc-tsserver', "coc-html"]

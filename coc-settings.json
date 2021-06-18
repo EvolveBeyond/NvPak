@@ -34,19 +34,11 @@
     "omnisharp.debug.server": true,
 
     // python
-    // jedi
-    "python.jediEnabled": false,
-    "python.jediPath": "~/.virtualenvs/NeoVim/lib/python3.9/site-packages/jedi/",
-    "suggest.timeout": 5000,
-    //formatting
-    "python.formatting.provider": "black",
-    "python.formatting.blackPath": "~/.virtualenvs/NeoVim/lib/python3.9/site-packages/black/",
-    //linting
-    "python.linting.pylintEnabled": true,
+    "coc.preferences.formatOnSaveFiletypes": ["py", "yaml", "json"],
     "python.linting.flake8Enabled": true,
-    "python.linting.pylintPath": "~/.virtualenvs/NeoVim/lib/python3.9/site-packages/pylint/",
-    "python.linting.pylintArgs": ["--errors-only"],
-	
+    "python.formatting.provider": "black",
+
+    	
     // emmet
     "emmet.includeLanguages": {
     "vue-html": "html",

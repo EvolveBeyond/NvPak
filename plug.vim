@@ -7,12 +7,20 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
-" suda NeoVim Root Manager
-
 " Any valid git URL is allowed
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+" Git integration
+Plug 'tpope/vim-fugitive'
+" Auto-close braces and scopes
+Plug 'jiangmiao/auto-pairs
 " Unmanaged plugin (manually installed and updated)
 Plug 'itchyny/vim-gitbranch'
+" Comment/Uncomment tool
+Plug 'scrooloose/nerdcommenter'
+" Switch to the begining and the end of a block by pressing %
+Plug 'tmhedberg/matchit'
+" A Tree-like side bar for better navigation
+Plug 'scrooloose/nerdtree'
 " start screen strtify 
 Plug 'mhinz/vim-startify'
 " FzF Plugins
@@ -20,10 +28,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " themes and modeline
 Plug 'tomasiser/vim-code-dark'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons' " Use the icon plugin for better behavior
-Plug 'sheerun/vim-polyglot'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
@@ -35,14 +40,14 @@ Plug 'kaicataldo/material.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'wadackel/vim-dogrun'
 Plug 'rmolin88/pomodoro.vim'
-Plug 'liuchengxu/vim-which-key'
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " vim polyglot
 Plug 'sheerun/vim-polyglot'
 Plug 'https://github.com/McSinyx/vim-octave.git', {'for': 'octave'}
 " coc vim 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 " Syntax Plugins
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'

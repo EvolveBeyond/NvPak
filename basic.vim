@@ -1,5 +1,6 @@
 set encoding=UTF-8
-syntax enable
+filetype plugin indent on
+syntax on
 colorscheme dracula           " color themes
 highlight Normal ctermbg=none
 highlight NonText ctermbg=none

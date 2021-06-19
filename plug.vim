@@ -12,7 +12,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 " Git integration
 Plug 'tpope/vim-fugitive'
 " Auto-close braces and scopes
-Plug 'jiangmiao/auto-pairs
+Plug 'jiangmiao/auto-pairs'
 " Unmanaged plugin (manually installed and updated)
 Plug 'itchyny/vim-gitbranch'
 " Comment/Uncomment tool

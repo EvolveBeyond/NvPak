@@ -8,7 +8,7 @@ runtime! basic.vim
 runtime! CfgPlug/start-screen.vim
 
 " file explore configure
-runtime! CfgPlug/Coc-explorer.vim
+runtime! CfgPlug/NerdTree.vim
 runtime! CfgPlug/fzfConfig.vim
 runtime! CfgPlug/Term.vim
 

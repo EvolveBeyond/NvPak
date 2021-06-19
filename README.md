@@ -35,7 +35,7 @@ nvim +PlugInstall
 ## Install python & node support
 
 ```
-pip install pynvim
+pip install pynvim black flake8
 ```
 
 ```

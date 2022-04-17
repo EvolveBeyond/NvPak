@@ -1,35 +1,21 @@
-" Plugin list and Plugin manager config 
-runtime! plug.vim
+" config Fils
+lua require('cfg.basic')
 
-" basic sitteng 
-runtime! basic.vim
+" Packer 
+lua require('plugins')
 
-" start screen config
-runtime! CfgPlug/start-screen.vim
+augroup packer_user_config
+  autocmd!
+  autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+augroup end
 
-" file explore configure
-runtime! CfgPlug/NerdTree.vim
-runtime! CfgPlug/fzfConfig.vim
-runtime! CfgPlug/Term.vim
+" Treesitter
+lua require('cfg.treesitter')
 
-" themes
-runtime! CfgPlug/airline.vim
-" runtime! Themes/ThNvPakrohk.vim
+" lsp config
+lua require('cfg.lsp')
 
-" Keymaps
-runtime! key.vim 
-runtime! CfgPlug/which-key.vim " vim-which-key Config 
 
-" AutoComplate configure
-runtime! CfgPlug/Coc.vim
-runtime! CfgPlug/ale.vim
-
-" Omni config
-runtime! CfgPlug/OmniSharp.vim
-
-" python config 
-runtime! CfgPlug/pythonsense.vim
-
-" Markdown Config
-runtime! CfgPlug/Markdown.vim 
-
+" Folding
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()

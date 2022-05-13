@@ -7,8 +7,7 @@ require('plugins')
 -- Treesitter
 require('cfg.treesitter')
 
--- lsp config
-require('cfg.lsp')
--- Cmp Autocomplete
-require('cfg.Cmp')
+
+-- Auto-complete Cmp with the help of tabnine or LSP
+require('cfg.cmp-zero')
 

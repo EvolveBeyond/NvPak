@@ -20,10 +20,10 @@ set.splitright = true
 set.clipboard = "unnamedplus"
 set.mouse = "a"
 -- Tab set to two spaces
-set.tabstop = 2
-set.shiftwidth = 2
-set.softtabstop = 2
-set.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
 -- Folding
 set.foldmethod='expr'
 set.foldexpr='nvim_treesitter#foldexpr()'

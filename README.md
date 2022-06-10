@@ -1,0 +1,2 @@
+# NvPakrohk
+Pakrohk Nvim Config

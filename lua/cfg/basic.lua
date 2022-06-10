@@ -8,6 +8,7 @@ set.termguicolors = true
 vim.cmd [[ 
 colorscheme dracula
 syntax enable
+highlight NvimTreeFolderIcon guibg=blue
 ]]
 -- Disable transparent Background
 set.background = 'dark'           
@@ -25,5 +26,5 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 -- Folding
-set.foldmethod='expr'
-set.foldexpr='nvim_treesitter#foldexpr()'
+-- set.foldmethod='expr'
+-- set.foldexpr='nvim_treesitter#foldexpr()'

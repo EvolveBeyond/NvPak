@@ -1,5 +1,5 @@
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
+   ensure_installed = {
     "python",
     "kotlin",
     "bash",
@@ -10,23 +10,23 @@ require'nvim-treesitter.configs'.setup {
     "dart",
   },
   -- Install languages synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+  sync_install = true,
   -- List of parsers to ignore installing
-  ignore_install = { "haskell" },
-  highlight = {
+  -- ignore_install = { "haskell" },
+   highlight = {
     -- `false` will disable the whole extension
     enable = true,
     -- list of language that will be disabled
-    disable = { "" },
+    -- disable = { "" },
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
+    additional_vim_regex_highlighting = true,
   },
   indent = {
     -- dont enable this, messes up python indentation
-    enable = false,
+    enable = true,
     disable = {},
-  },
+   },
 }

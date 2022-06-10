@@ -29,13 +29,22 @@ return require('packer').startup(function()
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
       {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'},
-
+      
       -- Snippets
       {'L3MON4D3/LuaSnip'},
       {'rafamadriz/friendly-snippets'},
     }
   }
-   -- Themes and more customize Plugins
+  
+  -- File Explorer
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons', -- optional, for file icon
+    },
+    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
+  -- Themes and more customize Plugins
   use {'norcalli/nvim-colorizer.lua'}
   use {'dracula/vim', as = 'dracula'}
 

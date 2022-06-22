@@ -6,6 +6,8 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
    -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  -- Speed up loading Lua modules in Neovim to improve startup time.
+  use 'lewis6991/impatient.nvim'
 
    -- treesitter --
   use {
@@ -15,20 +17,24 @@ return require('packer').startup(function()
 
 
   use {
-          'VonHeikemen/lsp-zero.nvim',
+      'VonHeikemen/lsp-zero.nvim',
       requires = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
       {'williamboman/nvim-lsp-installer'},
+      {'j-hui/fidget.nvim'},
 
       -- Autocompletion
       {'hrsh7th/nvim-cmp'},
+      {'tzachar/cmp-tabnine'}, -- Tabnine Support Plugin 
       {'hrsh7th/cmp-buffer'},
       {'hrsh7th/cmp-path'},
       {'saadparwaiz1/cmp_luasnip'},
       {'hrsh7th/cmp-nvim-lsp'},
       {'hrsh7th/cmp-nvim-lua'},
-      {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'},
+      {'hrsh7th/cmp-cmdline'}, -- NeoVim Comment System Autocomple
+      {'hrsh7th/cmp-nvim-lsp-signature-help'},
+      {'hrsh7th/cmp-nvim-lsp-document-symbol'},
       
       -- Snippets
       {'L3MON4D3/LuaSnip'},
@@ -36,16 +42,19 @@ return require('packer').startup(function()
     }
   }
   
+  -- Run Rust Code and Debugging System
+  use 'simrat39/rust-tools.nvim'
+  use 'nvim-lua/plenary.nvim'
+  use 'mfussenegger/nvim-dap'
+  
   -- File Explorer
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icon
-    },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
+     tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
   -- Themes and more customize Plugins
-  use {'norcalli/nvim-colorizer.lua'}
+  use 'norcalli/nvim-colorizer.lua'
   use {'dracula/vim', as = 'dracula'}
+  use 'kyazdani42/nvim-web-devicons'
 
 end)

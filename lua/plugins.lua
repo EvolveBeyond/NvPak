@@ -1,10 +1,24 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
-   -- Packer can manage itself
+return require('packer').startup(function(use)
+
+  -- My plugins here
+  -- use 'foo1/bar1.nvim'
+  -- use 'foo2/bar2.nvim'
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+
+  -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- Speed up loading Lua modules in Neovim to improve startup time.
   use 'lewis6991/impatient.nvim'
@@ -26,7 +40,7 @@ return require('packer').startup(function()
 
       -- Autocompletion
       {'hrsh7th/nvim-cmp'},
-      {'tzachar/cmp-tabnine'}, -- Tabnine Support Plugin 
+      {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}, -- Tabnine Support Plugin
       {'hrsh7th/cmp-buffer'},
       {'hrsh7th/cmp-path'},
       {'saadparwaiz1/cmp_luasnip'},
@@ -35,18 +49,18 @@ return require('packer').startup(function()
       {'hrsh7th/cmp-cmdline'}, -- NeoVim Comment System Autocomple
       {'hrsh7th/cmp-nvim-lsp-signature-help'},
       {'hrsh7th/cmp-nvim-lsp-document-symbol'},
-      
+
       -- Snippets
       {'L3MON4D3/LuaSnip'},
       {'rafamadriz/friendly-snippets'},
     }
   }
-  
+
   -- Run Rust Code and Debugging System
   use 'simrat39/rust-tools.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'mfussenegger/nvim-dap'
-  
+
   -- File Explorer
   use {
     'kyazdani42/nvim-tree.lua',
@@ -63,4 +77,7 @@ return require('packer').startup(function()
   -- LuaLine Neovim StatusLine
   use 'tamton-aquib/staline.nvim'
 
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)

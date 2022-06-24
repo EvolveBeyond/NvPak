@@ -1,8 +1,8 @@
--- Config Fils
-require('cfg.basic')
-
 -- Packer 
 require('plugins')
+
+-- Basic Config Fils
+require('cfg.basic')
 
 -- This plugin does several things to speed loading Lua modules and files.
 require('impatient')

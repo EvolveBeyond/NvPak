@@ -6,11 +6,10 @@ local set = vim.opt
 -- Color themes           
 set.termguicolors = true
 vim.cmd [[ 
-colorscheme iceberg
+colorscheme onedark
 syntax enable
 highlight NvimTreeFolderIcon guibg=blue
 ]]
-
 -- Disable transparent Background
 set.background = 'dark'           
 -- Show current line number

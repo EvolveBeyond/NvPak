@@ -8,6 +8,8 @@ require'nvim-treesitter.configs'.setup {
     "bibtex",
     "latex",
     "dart",
+    "rust",
+    "lua",
   },
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = true,

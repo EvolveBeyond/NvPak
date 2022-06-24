@@ -54,7 +54,13 @@ return require('packer').startup(function()
     }
   -- Themes and more customize Plugins
   use 'norcalli/nvim-colorizer.lua'
-  use {'dracula/vim', as = 'dracula'}
   use 'kyazdani42/nvim-web-devicons'
+  use {'dracula/vim', as = 'dracula'} -- Color theme
+  use 'cocopon/iceberg.vim'   -- color theme
+  use 'joshdick/onedark.vim'   -- color theme
+  use 'shaunsingh/nord.nvim'
+
+  -- LuaLine Neovim StatusLine
+  use 'tamton-aquib/staline.nvim'
 
 end)

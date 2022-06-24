@@ -22,6 +22,10 @@ require("cfg.tree")
 -- Colors and themes
 require("cfg.colorizer")
 
+-- StatusLine
+require("cfg.staline")
+
+
 -- Bindings
 require("cfg.bindings")
 

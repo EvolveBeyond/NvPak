@@ -6,10 +6,11 @@ local set = vim.opt
 -- Color themes           
 set.termguicolors = true
 vim.cmd [[ 
-colorscheme dracula
+colorscheme iceberg
 syntax enable
 highlight NvimTreeFolderIcon guibg=blue
 ]]
+
 -- Disable transparent Background
 set.background = 'dark'           
 -- Show current line number
@@ -25,6 +26,8 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
+vim.opt.laststatus= 3 -- Status Line Mode
+vim.opt.showtabline= 2 -- Tab Line Mode
 -- Folding
 -- set.foldmethod='expr'
 -- set.foldexpr='nvim_treesitter#foldexpr()'

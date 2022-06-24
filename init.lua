@@ -1,4 +1,4 @@
--- Packer 
+-- Packer
 require('plugins')
 
 -- Basic Config Fils
@@ -15,6 +15,7 @@ require("cfg.lsp-zero")
 require("cfg.cmp")
 require("cfg.figget")
 require("cfg.rust-tools")
+require("cfg.tabnine")
 
 -- File explorer
 require("cfg.tree")

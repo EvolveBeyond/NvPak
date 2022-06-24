@@ -1,37 +1,56 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-
+-- Automatically set up your configuration after cloning packer.nvim
+-- Put this at the end after all plugins
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+  packer_bootstrap = fn.system(
+    {
+      'git', 
+      'clone',
+      '--depth',
+      '1',
+      'https://github.com/wbthomason/packer.nvim',
+      install_path
+    }
+  )
 end
 
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+-- Auto Sync Packer after chnage plugin.lua
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
 
+-- Use a protected call so we don`t error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+-- Move Packer use a popup window
+packer.init {
+    display = {
+      open_fn = function()
+        return require("packer.util").float { border = "rounded" }
+    end,
+  },
+}
+
+-- start call Packer list plugin
 return require('packer').startup(function(use)
-
-  -- My plugins here
-  -- use 'foo1/bar1.nvim'
-  -- use 'foo2/bar2.nvim'
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
 
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
   -- Speed up loading Lua modules in Neovim to improve startup time.
   use 'lewis6991/impatient.nvim'
 
-   -- treesitter --
-  use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
+   -- treesitter
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
 
-  use {
-      'VonHeikemen/lsp-zero.nvim',
+  use {'VonHeikemen/lsp-zero.nvim', -- Lsp and Autocompletion System Manager
       requires = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
@@ -62,17 +81,15 @@ return require('packer').startup(function(use)
   use 'mfussenegger/nvim-dap'
 
   -- File Explorer
-  use {
-    'kyazdani42/nvim-tree.lua',
-     tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
+  use 'kyazdani42/nvim-tree.lua'
+
   -- Themes and more customize Plugins
   use 'norcalli/nvim-colorizer.lua'
   use 'kyazdani42/nvim-web-devicons'
   use {'dracula/vim', as = 'dracula'} -- Color theme
-  use 'cocopon/iceberg.vim'   -- color theme
-  use 'joshdick/onedark.vim'   -- color theme
-  use 'shaunsingh/nord.nvim'
+  use 'cocopon/iceberg.vim'  -- color theme
+  use 'joshdick/onedark.vim' -- color theme
+  use 'shaunsingh/nord.nvim' -- color theme
 
   -- LuaLine Neovim StatusLine
   use 'tamton-aquib/staline.nvim'

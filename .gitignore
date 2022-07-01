@@ -41,3 +41,4 @@ luac.out
 
 # Neovim Config
 plugin/
+Session.vim

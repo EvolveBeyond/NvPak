@@ -112,6 +112,10 @@ return require('packer').startup(function(use)
   -- StaLine Neovim StatusLine
   use 'tamton-aquib/staline.nvim'
 
+  -- users plugin
+  require("usercustom.plugin")
+
+
   if packer_bootstrap then
     require('packer').sync()
   end

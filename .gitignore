@@ -43,3 +43,4 @@ luac.out
 plugin/
 Session.vim
 lua/usercustom/
+lua/userinit

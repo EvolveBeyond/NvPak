@@ -34,4 +34,4 @@ require("default.staline")
 require("default.bindings")
 
 -- user configs
-require("user.init")
+require("userinit")

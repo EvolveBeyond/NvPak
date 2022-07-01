@@ -5,7 +5,7 @@ local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system(
     {
-      'git', 
+      'git',
       'clone',
       '--depth',
       '1',
@@ -46,8 +46,19 @@ return require('packer').startup(function(use)
   -- Speed up loading Lua modules in Neovim to improve startup time.
   use 'lewis6991/impatient.nvim'
 
-   -- treesitter
+  -- Nvim dashboard
+  use 'glepnir/dashboard-nvim'
+
+
+  -- telescope File Search
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+      }
+
+  -- treesitter
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+
 
 
   use {'VonHeikemen/lsp-zero.nvim', -- Lsp and Autocompletion System Manager
@@ -59,7 +70,7 @@ return require('packer').startup(function(use)
 
       -- Autocompletion
       {'hrsh7th/nvim-cmp'},
-      {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}, -- Tabnine Support Plugin
+      -- {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}, -- Tabnine Support Plugin
       {'hrsh7th/cmp-buffer'},
       {'hrsh7th/cmp-path'},
       {'saadparwaiz1/cmp_luasnip'},
@@ -75,8 +86,15 @@ return require('packer').startup(function(use)
     }
   }
 
-  -- Run Rust Code and Debugging System
+  -- Markdown Previews
+  use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+      })
+  -- Rust Code tools
   use 'simrat39/rust-tools.nvim'
+
+  -- Debugging System
   use 'nvim-lua/plenary.nvim'
   use 'mfussenegger/nvim-dap'
 
@@ -91,7 +109,7 @@ return require('packer').startup(function(use)
   use 'joshdick/onedark.vim' -- color theme
   use 'shaunsingh/nord.nvim' -- color theme
 
-  -- LuaLine Neovim StatusLine
+  -- StaLine Neovim StatusLine
   use 'tamton-aquib/staline.nvim'
 
   if packer_bootstrap then

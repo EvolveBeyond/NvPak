@@ -17,8 +17,9 @@ mappings = {
 -- Buffer manager
 vim.keymap.set('n', '<Tab>', ':bn<CR>')
 
--- tab switch 
--- vim.keymap.set('n', '<Tab>', ':tabnext<CR>')
+-- Save mode
+vim.keymap.set('n', '<C-s>', ':w<CR>')
+vim.keymap.set('i',  'C-s',  ':w<CR>')
 
 
 

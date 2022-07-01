@@ -2,31 +2,34 @@
 require('plugins')
 
 -- Basic Config Fils
-require('cfg.basic')
+require('default.basic')
+
+-- dashboard
+require("default.dashbord")
 
 -- This plugin does several things to speed loading Lua modules and files.
 require('impatient')
 
 -- Treesitter
-require('cfg.treesitter')
+require('default.treesitter')
 
 -- Auto-complete Cmp with the help of tabnine or LSP
-require("cfg.lsp-zero")
-require("cfg.cmp")
-require("cfg.figget")
-require("cfg.rust-tools")
-require("cfg.tabnine")
+require("default.lsp-zero")
+require("default.cmp")
+require("default.figget")
+require("default.rust-tools")
+-- require("default.tabnine")
 
 -- File explorer
-require("cfg.tree")
+require("default.tree")
 
 -- Colors and themes
-require("cfg.colorizer")
+require("default.colorizer")
 
 -- StatusLine
-require("cfg.staline")
+require("default.staline")
 
 
 -- Bindings
-require("cfg.bindings")
+require("default.bindings")
 

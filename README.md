@@ -1,7 +1,7 @@
 # NvPakrohk
 Pakrohk Nvim Config
 
-## Requirements
+### Requirements
 
  In order to make the best use of this config, you must meet the following prerequisites.
 
@@ -10,7 +10,7 @@ Pakrohk Nvim Config
 * `bash` or `dash`
 
 
-# We will add or modify.
+### We will add or modify.
 
 [Todo List](https://github.com/orgs/Pakrohk-DotFiles/projects/1/views/1)\
 [Bug List](https://github.com/orgs/Pakrohk-DotFiles/projects/2/views/1)

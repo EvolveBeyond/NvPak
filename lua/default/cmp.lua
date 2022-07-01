@@ -24,14 +24,6 @@ function M:config()
             { name = 'buffer', keyword_length = 5},
             { name = 'calc' }
         },
-        mapping = {
-            ['<c-k>'] = M.cmp.mapping.select_prev_item(),
-            ['<c-j>'] = M.cmp.mapping.select_next_item(),
-            ['<CR>'] = M.cmp.mapping.confirm({
-                behavior = M.cmp.ConfirmBehavior.Replace,
-                select = true,
-            })
-        },
         formatting = {
             format = M.lspkind.cmp_format {
                 with_text = false,

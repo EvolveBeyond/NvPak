@@ -4,7 +4,6 @@ vim.cmd[[
 colorscheme onedark
 syntax enable
 highlight NvimTreeFolderIcon guibg=blue
-set tabline=%.50F\ -\ FileType:\ %y
 ]]
 -- Disable transparent Background
 vim.opt.background = 'dark'

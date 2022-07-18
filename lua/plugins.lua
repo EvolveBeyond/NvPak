@@ -115,7 +115,7 @@ return require('packer').startup(function(use)
   use 'shaunsingh/nord.nvim' -- color theme
 
   -- StaLine Neovim StatusLine
-  -- use 'tamton-aquib/staline.nvim'
+  use 'tamton-aquib/staline.nvim'
 
   -- BarBar for Tabline
   use {

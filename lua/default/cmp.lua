@@ -53,7 +53,7 @@ require'cmp'.setup.cmdline(":", {
 
 -- lsp_document_symbols
 require'cmp'.setup.cmdline('/', {
-    sources = require'cmp'.config.sources({{ name = 'nvim_lsp_document_symbol' }}, 
+    sources = require'cmp'.config.sources({{ name = 'nvim_lsp_document_symbol' }},
                                  {{ name = 'buffer' }}
                                 )
                         }

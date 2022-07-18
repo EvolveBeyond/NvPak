@@ -5,7 +5,7 @@ require('plugins')
 require('default.basic')
 
 -- dashboard
-require("default.dashbord")
+-- require("default.dashbord")
 
 -- This plugin does several things to speed loading Lua modules and files.
 require('impatient')
@@ -23,12 +23,17 @@ require("default.rust-tools")
 -- File explorer
 require("default.tree")
 
+-- nvim terminal
+require("default.toggleterm")
+
 -- Colors and themes
 require("default.colorizer")
 
 -- StatusLine
 require("default.staline")
 
+-- TabLine 
+require("default.barbar")
 
 -- Bindings
 require("default.bindings")

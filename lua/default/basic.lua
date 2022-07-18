@@ -1,4 +1,3 @@
-
 -- local utf8 = require("utf8")
 -- let g:do_filetype_lua = 1
 
@@ -10,3 +9,4 @@ vim.opt.mouse = "a"
 
 vim.opt.laststatus= 3 -- Status Line Mode
 vim.opt.showtabline= 2 -- Tab Line Mode
+

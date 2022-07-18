@@ -98,6 +98,11 @@ return require('packer').startup(function(use)
   use 'nvim-lua/plenary.nvim'
   use 'mfussenegger/nvim-dap'
 
+  -- Toggle Terminal
+  use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = function()
+      require("toggleterm").setup()
+    end}
+
   -- File Explorer
   use 'kyazdani42/nvim-tree.lua'
 
@@ -110,7 +115,14 @@ return require('packer').startup(function(use)
   use 'shaunsingh/nord.nvim' -- color theme
 
   -- StaLine Neovim StatusLine
-  use 'tamton-aquib/staline.nvim'
+  -- use 'tamton-aquib/staline.nvim'
+
+  -- BarBar for Tabline
+  use {
+  'romgrk/barbar.nvim',
+   requires = {'kyazdani42/nvim-web-devicons'}
+      }
+
 
   -- users plugin
   require("usercustom.plugin")

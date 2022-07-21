@@ -3,17 +3,7 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system(
-    {
-      'git',
-      'clone',
-      '--depth',
-      '1',
-      'https://github.com/wbthomason/packer.nvim',
-      install_path
-    }
-    vim.cmd 'PackerSync'
-  )
+   fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
 -- Auto Sync Packer after chnage plugin.lua
@@ -39,6 +29,8 @@ packer.init {
   },
 }
 
+vim.cmd [[packadd packer.nvim]]
+
 -- start call Packer list plugin
 return require('packer').startup(function(use)
 
@@ -46,9 +38,6 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   -- Speed up loading Lua modules in Neovim to improve startup time.
   use 'lewis6991/impatient.nvim'
-
-  -- Nvim dashboard
-  use 'glepnir/dashboard-nvim'
 
 
   -- telescope File Search
@@ -90,7 +79,7 @@ return require('packer').startup(function(use)
   -- Markdown Previews
   use({
       "iamcco/markdown-preview.nvim",
-      run = function() vim.fn["mkdp#util#install"]() end,
+      run = function() fn["mkdp#util#install"]() end,
       })
   -- Rust Code tools
   use 'simrat39/rust-tools.nvim'
@@ -124,12 +113,5 @@ return require('packer').startup(function(use)
    requires = {'kyazdani42/nvim-web-devicons'}
       }
 
-
-  -- users plugin
-  require("usercustom.plugin")
-
-
-  if packer_bootstrap then
-    require('packer').sync()
-  end
 end)
+

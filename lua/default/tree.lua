@@ -1,6 +1,5 @@
--- following options are the default
--- each of these are documented in `:help nvim-tree.OPTION_NAME`
-require'nvim-tree'.setup {
+-- default NvimTreeConfig
+require("nvim-tree").setup({
   auto_reload_on_write = true,
    create_in_closed_folder = false,
   disable_netrw = false,
@@ -153,16 +152,11 @@ require'nvim-tree'.setup {
     always_show_folders = true,
   },
   log = {
-    enable = false,
-    truncate = false,
-    types = {
-      all = false,
-      config = false,
-      copy_paste = false,
-      diagnostics = false,
-      git = false,
-      profile = false,
-      watcher = false,
+  enable = true,
+  truncate = true,
+  types = {
+    git = true,
+    profile = true,
     },
   },
-}
+})

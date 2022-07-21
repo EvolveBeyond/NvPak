@@ -4,9 +4,6 @@ require('plugins')
 -- Basic Config Fils
 require('default.basic')
 
--- dashboard
--- require("default.dashbord")
-
 -- This plugin does several things to speed loading Lua modules and files.
 require('impatient')
 

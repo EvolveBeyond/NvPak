@@ -1,5 +1,5 @@
-# NvPakrohk
-Pakrohk Nvim Config.
+# NvPak
+NvPak Nvim Config.
 The purpose of creating this config is not to create a ready-made neovim for new users, the goal is to create something that evry normal user does for config.\
 If you intend to configure neovim, you will spend a lot of time collecting plugins, all neovim configurations or distributions try to help you by creating a great configuration, but I do not intend to help you by creating this configuration.\
 Rather, I will give you a background to increase your speed in making your own configuration.\

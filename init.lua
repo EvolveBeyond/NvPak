@@ -21,7 +21,7 @@ require("default.rust-tools")
 require("default.tree")
 
 -- nvim terminal
-require("default.toggleterm")
+require("default.NTerm")
 
 -- Colors and themes
 require("default.colorizer")

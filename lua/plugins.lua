@@ -11,17 +11,18 @@ end
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
 
 vim.cmd [[packadd packer.nvim]]
 
+
 -- Use a protected call so we don`t error out on first use
- local status_ok, packer = pcall(require, "packer")
- if not status_ok then
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
   return
- end
+else 
 
 -- Move Packer use a popup window
 packer.init {
@@ -79,6 +80,15 @@ startup(
       }
     }
 
+
+    -- Neovim Terminal
+    use {
+    's1n7ax/nvim-terminal',
+    config = function()
+        vim.o.hidden = true
+        require('nvim-terminal').setup()
+    end,
+        }
     -- Markdown Previews
     use({
         "iamcco/markdown-preview.nvim",
@@ -90,11 +100,6 @@ startup(
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
-
-    -- Toggle Terminal
-    use {"akinsho/toggleterm.nvim", tag = 'v1.*', config = function()
-        require("toggleterm").setup()
-      end}
 
     -- File Explorer
     use 'kyazdani42/nvim-tree.lua'
@@ -120,4 +125,4 @@ startup(
    end
   end
 )
-
+end

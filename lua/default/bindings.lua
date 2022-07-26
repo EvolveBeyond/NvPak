@@ -14,6 +14,10 @@ mappings = {
     },
   }
 
+
+-- Debugin System
+vim.keymap.set("","<Leader>l",require("lsp_lines").toggle,{ desc = "Toggle lsp_lines" })
+
 -- Buffer manager
 vim.keymap.set('n', '<Tab>', ':bn<CR>') -- Buffer Switch
 vim.keymap.set('n', '<C-b>', ':bd<CR>') -- Buffer Close

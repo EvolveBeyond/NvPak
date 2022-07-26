@@ -22,7 +22,7 @@ vim.cmd [[packadd packer.nvim]]
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
   return
-else 
+else
 
 -- Move Packer use a popup window
 packer.init {
@@ -73,6 +73,8 @@ startup(
         {'hrsh7th/cmp-cmdline'}, -- NeoVim Comment System Autocomple
         {'hrsh7th/cmp-nvim-lsp-signature-help'},
         {'hrsh7th/cmp-nvim-lsp-document-symbol'},
+        {'onsails/diaglist.nvim'},
+        {'onsails/lspkind.nvim'},
 
         -- Snippets
         {'L3MON4D3/LuaSnip'},
@@ -100,6 +102,7 @@ startup(
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
+    use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
 
     -- File Explorer
     use 'kyazdani42/nvim-tree.lua'
@@ -121,7 +124,7 @@ startup(
      requires = {'kyazdani42/nvim-web-devicons'}
         }
    if packer_bootstrap then
-     require('packer').install()
+     require('packer').Sync()
    end
   end
 )

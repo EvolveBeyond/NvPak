@@ -12,7 +12,7 @@ function M:config()
     M.lspkind = require('lspkind')
 
     M.cmp.setup {
-        snippet = {
+            snippet = {
             expand = function(args)
                 vim.fn['UltiSnips#Anon'](args.body)
             end
@@ -58,3 +58,5 @@ require'cmp'.setup.cmdline('/', {
                                 )
                         }
                   )
+
+

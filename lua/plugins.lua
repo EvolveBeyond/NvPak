@@ -112,8 +112,12 @@ startup(
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
-    use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
-
+    use {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+          config = function()
+            require("lsp_lines").setup()
+          end,
+      }
     -- File Explorer
     use 'kyazdani42/nvim-tree.lua'
 

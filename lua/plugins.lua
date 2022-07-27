@@ -53,7 +53,17 @@ startup(
     -- treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
-
+	
+    use {
+  	"ahmedkhalf/lsp-rooter.nvim",
+  	config = function()
+    		  require("lsp-rooter").setup {
+     	 	  -- your configuration comes here
+      	 	  -- or leave it empty to use the default settings
+      	 	  -- refer to the configuration section below
+    				              }
+  		 end
+	}
 
     use {'VonHeikemen/lsp-zero.nvim', -- Lsp and Autocompletion System Manager
         requires = {
@@ -124,7 +134,7 @@ startup(
      requires = {'kyazdani42/nvim-web-devicons'}
         }
    if packer_bootstrap then
-     require('packer').Sync()
+     require('packer').sync()
    end
   end
 )

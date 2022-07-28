@@ -53,7 +53,7 @@ startup(
     -- treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
-	
+
     use {
   	"ahmedkhalf/lsp-rooter.nvim",
   	config = function()
@@ -85,12 +85,11 @@ startup(
         {'hrsh7th/cmp-nvim-lsp-document-symbol'},
         {'onsails/diaglist.nvim'},
         {'onsails/lspkind.nvim'},
-
-        -- Snippets
-        {'L3MON4D3/LuaSnip'},
-        {'rafamadriz/friendly-snippets'},
       }
     }
+      -- Snippets
+     use 'L3MON4D3/LuaSnip'
+     use 'rafamadriz/friendly-snippets'
 
 
     -- Neovim Terminal

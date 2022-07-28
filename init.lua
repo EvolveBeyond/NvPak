@@ -17,6 +17,9 @@ require("default.figget")
 require("default.rust-tools")
 -- require("default.tabnine")
 
+-- snippets
+require("default.luasnip")
+
 -- File explorer
 require("default.tree")
 

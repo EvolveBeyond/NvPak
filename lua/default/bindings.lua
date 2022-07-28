@@ -58,16 +58,4 @@ cmp.setup({
       select = true,
     })
   },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
-    { name = 'path' },
-    {name = 'buffer',
-      -- Correct:
-     option = {keyword_pattern = [[\k\+]],}
-    },
-    { name = 'cmdline'},
-    { name = 'nvim_lsp_signature_help' },
-  },
-
 })

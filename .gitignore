@@ -41,6 +41,8 @@ luac.out
 
 # Neovim Config
 plugin/
-Session.vim
 lua/usercustom/
-lua/userinit
+lua/userinit.lua
+autoload/
+session/
+plugged/

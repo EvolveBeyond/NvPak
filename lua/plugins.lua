@@ -84,13 +84,17 @@ startup(
         {'hrsh7th/cmp-nvim-lsp-signature-help'},
         {'hrsh7th/cmp-nvim-lsp-document-symbol'},
         {'onsails/diaglist.nvim'},
+        {'L3MON4D3/LuaSnip'},
         {'onsails/lspkind.nvim'},
       }
     }
-      -- Snippets
-     use 'L3MON4D3/LuaSnip'
-     use 'rafamadriz/friendly-snippets'
-
+   -- Snippets
+   use {
+    'hrsh7th/cmp-vsnip', requires = {
+      'hrsh7th/vim-vsnip',
+      'rafamadriz/friendly-snippets',
+                                    }
+       }
 
     -- Neovim Terminal
     use {

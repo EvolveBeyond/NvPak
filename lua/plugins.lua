@@ -96,6 +96,9 @@ startup(
                                     }
        }
 
+    -- bracket autocompletion
+    use 'vim-scripts/auto-pairs-gentle'
+
     -- Neovim Terminal
     use {
     's1n7ax/nvim-terminal',

@@ -17,6 +17,9 @@ require("default.figget")
 require("default.rust-tools")
 -- require("default.tabnine")
 
+-- bracket autocompletion
+require("default.AutoPairs")
+
 -- snippets
 require("default.luasnip")
 

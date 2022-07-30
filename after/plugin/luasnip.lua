@@ -1,9 +1,13 @@
 -- Load friendly-snippets
-require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({
+	include = nil, -- Load all languages
+	exclude = {},
+})
+
 -- config for Django
 require'luasnip'.filetype_extend("python", {"django"})
 require'luasnip'.filetype_extend("html", {"djangohtml"})
-require'luasnip'.filetype_extend("htmldjango", {"html"}, {"djangohtml"})
+require'luasnip'.filetype_extend("htmldjango", {"djangohtml"}, {"html"})
 
 -- vim-vsnip config
 local server_specific_opts = {

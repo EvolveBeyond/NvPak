@@ -65,29 +65,28 @@ startup(
   		 end
 	}
 
-    use {'VonHeikemen/lsp-zero.nvim', -- Lsp and Autocompletion System Manager
-        requires = {
+    
         -- LSP Support
-        {'neovim/nvim-lspconfig'},
-        {'williamboman/nvim-lsp-installer'},
-        {'j-hui/fidget.nvim'},
+        use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+        use 'williamboman/nvim-lsp-installer'
+        use 'j-hui/fidget.nvim'
 
         -- Autocompletion
-        {'hrsh7th/nvim-cmp'},
-        -- {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}, -- Tabnine Support Plugin
-        {'hrsh7th/cmp-buffer'},
-        {'hrsh7th/cmp-path'},
-        {'saadparwaiz1/cmp_luasnip'},
-        {'hrsh7th/cmp-nvim-lsp'},
-        {'hrsh7th/cmp-nvim-lua'},
-        {'hrsh7th/cmp-cmdline'}, -- NeoVim Comment System Autocomple
-        {'hrsh7th/cmp-nvim-lsp-signature-help'},
-        {'hrsh7th/cmp-nvim-lsp-document-symbol'},
-        {'onsails/diaglist.nvim'},
-        {'L3MON4D3/LuaSnip'},
-        {'onsails/lspkind.nvim'},
-      }
-    }
+        use 'hrsh7th/nvim-cmp'
+        use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'saadparwaiz1/cmp_luasnip'
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-nvim-lua'
+        use 'hrsh7th/cmp-cmdline'
+        use 'hrsh7th/cmp-nvim-lsp-signature-help'
+        use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+        use 'onsails/diaglist.nvim'
+        use 'L3MON4D3/LuaSnip'
+        use 'onsails/lspkind.nvim'
+      
+    
    -- Snippets
    use {
     'hrsh7th/cmp-vsnip', requires = {

@@ -1,4 +1,7 @@
-local M = {}
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+local luasnip = require('luasnip')
+
 
 local function feedkey(key, mode)
     vim.api.nvim_feedkeys(
@@ -6,57 +9,84 @@ local function feedkey(key, mode)
     mode, true)
 end
 
-function M:config()
+-- Tabnine setup
+local tabnine = require('cmp_tabnine.config')
+tabnine:setup({
+	max_lines = 1000;
+	max_num_results = 20;
+	sort = true;
+	run_on_every_keystroke = true;
+	snippet_placeholder = '..';
+	ignored_file_types = { -- default is not to ignore
+		-- uncomment to ignore in lua:
+		-- lua = true
+	};
+	show_prediction_strength = false;
+})
 
-    M.cmp = require('cmp')
-    M.lspkind = require('lspkind')
 
-    M.cmp.setup {
+
+local source_mapping = {
+              buffer = "[Buf]",
+	            nvim_lsp = "[LSP]",
+	            cmp_tabnine = "[TN]",
+	            path = "[Path]",
+              luasnip = "[Snp]",
+              vsnip = "[VSp]",
+              nvim_lua = "[Lua]",
+              latex_symbols = "[Ltx]",
+                        }
+
+
+    cmp.setup {
             snippet = {
             expand = function(args)
                 vim.fn['UltiSnips#Anon'](args.body)
             end
-        },
-        sources = {
-            { name = 'cmp_tabnine' },
-            { name = 'ultisnips' },
-            { name = 'path' },
-            { name = 'buffer', keyword_length = 5},
-            { name = 'calc' }
-        },
-        formatting = {
-            format = M.lspkind.cmp_format {
-                with_text = false,
-                menu = {
-                    cmp_tabnine = "[tabnine]",
-                    ultisnips = "[snip]",
-                    buffer = "[buf]",
-                    path = "[path]",
-                    calc = "[calc]"
-                }
-            }
-        },
-        experimental = {
-            native_menu = false,
-            ghost_text = true
+          },
+           sources = {
+                     { name = 'nvim_lsp' },
+                     { name = 'luasnip' },
+                     { name = 'vsnip' },
+                     { name = 'buffer' },
+                     { name = 'path' },
+                     { name = 'cmp_tabnine' },
+          },
+          formatting = {
+               format = function(entry, vim_item)
+               vim_item.kind = lspkind.presets.default[vim_item.kind]
+               local menu = source_mapping[entry.source.name]
+               if entry.source.name == 'cmp_tabnine' then
+                 if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+                     menu = entry.completion_item.data.detail .. ' ' .. menu
+                 end
+                 vim_item.kind = ''
+               end
+               vim_item.menu = menu
+               return vim_item
+            end
+         },
+          experimental = {
+              native_menu = false,
+              ghost_text = true
+                         }
         }
-}
-
-end
 
 
--- cmdline
-require'cmp'.setup.cmdline(":", {
-    sources = {{ name = "cmdline" }},
-                       }
-                  )
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
 
--- lsp_document_symbols
-require'cmp'.setup.cmdline('/', {
-    sources = require'cmp'.config.sources({{ name = 'nvim_lsp_document_symbol' }},
-                                 {{ name = 'buffer' }}
-                                )
-                        }
-                  )
-
-
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })

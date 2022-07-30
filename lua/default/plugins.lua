@@ -136,6 +136,7 @@ startup(
     use 'cocopon/iceberg.vim'  -- color theme
     use 'joshdick/onedark.vim' -- color theme
     use 'shaunsingh/nord.nvim' -- color theme
+    use  'NvChad/base46'-- color theme
 
     -- StaLine Neovim StatusLine
     use 'tamton-aquib/staline.nvim'

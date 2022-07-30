@@ -98,6 +98,8 @@ startup(
 
     -- bracket autocompletion
     use 'vim-scripts/auto-pairs-gentle'
+    use 'windwp/nvim-ts-autotag'
+
 
     -- Neovim Terminal
     use {

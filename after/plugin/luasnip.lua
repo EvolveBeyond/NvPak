@@ -6,8 +6,8 @@ require("luasnip.loaders.from_vscode").lazy_load({
 
 -- config for Django
 require'luasnip'.filetype_extend("python", {"django"})
-require'luasnip'.filetype_extend("html", {"djangohtml"})
-require'luasnip'.filetype_extend("htmldjango", {"djangohtml"}, {"html"})
+require'luasnip'.filetype_extend("html", {"djangohtml", "html"})
+require'luasnip'.filetype_extend("htmldjango", {"djangohtml", "html"})
 
 -- vim-vsnip config
 local server_specific_opts = {
@@ -24,6 +24,9 @@ local server_specific_opts = {
   end,
 
   html = function(opts)
+    opts.filetypes = {"html", "htmldjango"}
+  end,
+  htmldjango = function (opts)
     opts.filetypes = {"html", "htmldjango"}
   end,
 }

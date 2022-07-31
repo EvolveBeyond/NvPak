@@ -22,6 +22,8 @@ vim.keymap.set("","<Leader>l",require("lsp_lines").toggle,{ desc = "Toggle lsp_l
 vim.keymap.set('n', '<Tab>', ':bn<CR>') -- Buffer Switch
 vim.keymap.set('n', '<C-b>', ':bd<CR>') -- Buffer Close
 
+-- Auto comment
+vim.keymap.set('v', '<C-/>', ':s/^/#<CR>')
 
 -- Save mode
 vim.keymap.set('n', '<C-s>', ':w<CR>')

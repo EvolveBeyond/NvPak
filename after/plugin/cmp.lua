@@ -2,7 +2,7 @@ local cmp = require('cmp')
 local lspkind = require('lspkind')
 local luasnip = require('luasnip')
 local tabnine = require('cmp_tabnine.config')
-
+local compare = require('cmp.config.compare')
 
 tabnine:setup({
 	max_lines = 1000;
@@ -14,7 +14,7 @@ tabnine:setup({
 		-- uncomment to ignore in lua:
 		-- lua = true
 	};
-	show_prediction_strength = true;
+	show_prediction_strength = false;
 })
 
 
@@ -57,6 +57,20 @@ local source_mapping = {
                       cmp.ItemField.Kind,
                       cmp.ItemField.Menu,
                                 },
+          sorting = {
+              priority_weight = 2,
+                     comparators = {
+                     require('cmp_tabnine.compare'),
+                     compare.offset,
+                     compare.exact,
+                     compare.score,
+                     compare.recently_used,
+                     compare.kind,
+                     compare.sort_text,
+                     compare.length,
+                     compare.order,
+                                  },
+                    },
 format = lspkind.cmp_format({
             mode = "symbol_text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
             maxwidth = 40, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)

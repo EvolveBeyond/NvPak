@@ -14,7 +14,7 @@ tabnine:setup({
 		-- uncomment to ignore in lua:
 		-- lua = true
 	};
-	show_prediction_strength = false;
+	show_prediction_strength = true;
 })
 
 
@@ -49,6 +49,7 @@ local source_mapping = {
                      { name = 'buffer' },
                      { name = 'path' },
                      { name = 'cmp_tabnine' },
+                     { name = 'nvim_lsp_signature_help' }, -- nvim-cmp source for displaying function signatures with the current parameter
                       },
           formatting = {
               fields = {
@@ -57,7 +58,7 @@ local source_mapping = {
                       cmp.ItemField.Menu,
                                 },
 format = lspkind.cmp_format({
-            mode = "text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+            mode = "symbol_text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
             maxwidth = 40, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
 
             -- The function below will be called before any actual modifications from lspkind
@@ -89,11 +90,12 @@ format = lspkind.cmp_format({
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
+    sources = cmp.config.sources({
+    { name = 'nvim_lsp_document_symbol' }
+  }, {
+    { name = 'buffer' }
   })
-
+})
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
@@ -103,3 +105,19 @@ cmp.setup.cmdline(':', {
       { name = 'cmdline' }
     })
   })
+
+
+vim.cmd[[
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#2A8
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#869CD6
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CB8
+highlight! CmpItemKindVariable guibg=NONE guifg=#50BCaa
+highlight! CmpItemKindInterface guibg=NONE guifg=#50FCAA
+highlight! CmpItemKindText guibg=NONE guifg=#50BCaa
+highlight! CmpItemKindFunction guibg=NONE guifg=#FCCFC6
+highlight! CmpItemKindMethod guibg=NONE guifg=#CFFCF9
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#FFFFFF
+highlight! CmpItemKindProperty guibg=NONE guifg=#FFFFFF
+highlight! CmpItemKindUnit guibg=NONE guifg=#FFFFFF
+]]

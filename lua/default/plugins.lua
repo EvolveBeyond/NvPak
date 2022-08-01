@@ -65,7 +65,7 @@ startup(
   		 end
 	}
 
-    
+
         -- LSP Support
         use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
         use 'williamboman/nvim-lsp-installer'
@@ -82,11 +82,9 @@ startup(
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-nvim-lsp-signature-help'
         use 'hrsh7th/cmp-nvim-lsp-document-symbol'
-        use 'onsails/diaglist.nvim'
         use 'L3MON4D3/LuaSnip'
         use 'onsails/lspkind.nvim'
-      
-    
+
    -- Snippets
    use {
     'hrsh7th/cmp-vsnip', requires = {
@@ -119,12 +117,15 @@ startup(
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
-    use {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+
+    -- vim diagnostics system 
+    use({
+          "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
           config = function()
-            require("lsp_lines").setup()
+          require("lsp_lines").setup()
           end,
-      }
+       })
+
     -- File Explorer
     use 'kyazdani42/nvim-tree.lua'
 
@@ -133,7 +134,7 @@ startup(
     use 'kyazdani42/nvim-web-devicons'
     use {'dracula/vim', as = 'dracula'} -- Color theme
     use 'cocopon/iceberg.vim'  -- color theme
-    use 'joshdick/onedark.vim' -- color theme
+    use 'navarasu/onedark.nvim' -- color theme
     use 'shaunsingh/nord.nvim' -- color theme
     use  'NvChad/base46'-- color theme
 

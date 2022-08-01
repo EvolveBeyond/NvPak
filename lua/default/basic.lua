@@ -32,7 +32,7 @@ local status_ok, packer = pcall(require, "packer")
 if not status_ok then
     return
 else
-	vim.cmd "colorscheme onedark"
+   require('onedark').load()
 end
 
 

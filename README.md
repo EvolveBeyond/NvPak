@@ -12,10 +12,10 @@ and only a valid configuration has been done for it (as much as needed), also it
  In order to make the best use of this config, you must meet the following prerequisites.
 
 
-* `NVIM v0.7` or higher versions 
+* `NVIM v0.7` or later versions 
 * `fd`
 * `git`
-* `bash` or `dash`
+* `bash` or `dash` and for windows `PowerShell v5.1` or later
 * just for windows `Scoop.sh`
 
 

@@ -17,6 +17,7 @@ and only a valid configuration has been done for it (as much as needed), also it
 * `git`
 * `bash` or `dash` and for windows `PowerShell v5.1` or later
 * just for windows `Scoop.sh`
+* `Nerd fonts`
 
 
 ### Screenshots

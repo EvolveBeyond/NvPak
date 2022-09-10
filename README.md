@@ -13,6 +13,8 @@ and only a valid configuration has been done for it (as much as needed), also it
 
 
 * `NVIM v0.7` or later versions 
+* `unzip`
+* `curl`
 * `fd`
 * `git`
 * `bash` or `dash` and for windows `PowerShell v5.1` or later

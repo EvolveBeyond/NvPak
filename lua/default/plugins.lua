@@ -37,7 +37,7 @@ packer.init {
 local startup = require("packer").startup
 
 startup(
-  function(use, use_rocks)
+  function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     -- Speed up loading Lua modules in Neovim to improve startup time.
@@ -67,8 +67,11 @@ startup(
 
 
         -- LSP Support
-        use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
-        use 'williamboman/nvim-lsp-installer'
+        use {
+          "williamboman/mason.nvim",
+          "williamboman/mason-lspconfig.nvim",
+          "neovim/nvim-lspconfig",
+            }
         use 'j-hui/fidget.nvim'
 
         -- Autocompletion
@@ -85,6 +88,23 @@ startup(
         use 'L3MON4D3/LuaSnip'
         use 'onsails/lspkind.nvim'
 
+
+   -- Mason LSP Installer extension
+   use 'jose-elias-alvarez/null-ls.nvim'
+   use {
+	    "jayp0521/mason-null-ls.nvim",
+	    after = {
+		    "null-ls.nvim",
+		    "mason.nvim",
+	            },
+      }
+
+   use {
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      after = {
+      "mason.nvim"
+              },
+      }
    -- Snippets
    use {
     'hrsh7th/cmp-vsnip', requires = {

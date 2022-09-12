@@ -59,8 +59,9 @@ scoop install lazygit
 (git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
 ```
 
-### We will add or modify.
+### Do you intend to help the progress of the project?
 
-[Todo List](https://github.com/orgs/Pakrohk-DotFiles/projects/1/views/1)\
-[Bug List](https://github.com/orgs/Pakrohk-DotFiles/projects/2/views/1)
-
+Great projects are not created by just one person.
+So please, if you use this project, try to help its development.
+Even if you don't have enough knowledge to help the project, you can help me troubleshoot it, just go to the issues tab.
+Also, if you plan to help me in developing its features and solving its bugs, you can see the goals and bugs of the project in the Projects tab.

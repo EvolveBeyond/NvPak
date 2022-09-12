@@ -46,12 +46,12 @@ Show
 
 ### install
 
-unix
+unix :
 ```bash
 git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim 
 ```
 
-windows
+windows :
 ```powershell
 scoop bucket add extras
 scoop install lazygit

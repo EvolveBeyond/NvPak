@@ -7,9 +7,6 @@ require('default.impatient')
 require('default.basic')
 require('default.bindings')
 
--- auto complate
-require('default.lspconfig')
-
 -- diagnostic config
 require("default.lsp-lines")
 

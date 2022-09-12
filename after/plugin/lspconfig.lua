@@ -1,5 +1,7 @@
+local mason = require('mason')
+local mason_lspconfig = require("mason-lspconfig")
 local nvim_lsp = require('lspconfig')
-local lsp_installer = require('nvim-lsp-installer')
+local mason_tool_installer = require('mason-tool-installer')
 
 
 -- Use an on_attach function to only map the following keys
@@ -26,25 +28,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
--- 1. Set up nvim-lsp-installer first!
-lsp_installer.setup {}
 
--- 2. (optional) Override the default configuration to be applied to all servers.
--- nvim_lsp.util.default_config = vim.tbl_extend(
---   "force",
---   nvim_lsp.util.default_config,
---   {
---       on_attach = on_attach
---   }
--- )
-
- -- 3. Loop through all of the installed servers and set it up via lspconfig
- for _, server in ipairs(lsp_installer.get_installed_servers()) do
-  nvim_lsp[server.name].setup {}
- end
-
-
-lsp_installer.setup({
+mason.setup({
     ui = {
         icons = {
             server_installed = "✓",
@@ -53,6 +38,12 @@ lsp_installer.setup({
         }
     }
 })
+
+-- auto install LSP List
+mason_lspconfig.setup {
+  ensure_installed = { "sumneko_lua", "rust_analyzer" }
+}
+
 
 -- Lua long Lsp Config
 nvim_lsp.sumneko_lua.setup({
@@ -70,14 +61,6 @@ nvim_lsp.sumneko_lua.setup({
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- local servers = { 'pyright', 'bashls', 'clangd', 'cssls', 'html', 'jsonls', 'pylsp', 'tsserver', 'vimls' }
--- for _, lsp in ipairs(servers) do
---    nvim_lsp[lsp].setup {
---        capabilities = capabilities,
---        on_attach = on_attach,
---    }
--- end
 
 nvim_lsp.html.setup{
   capabilities = capabilities
@@ -87,3 +70,29 @@ nvim_lsp.cssls.setup{
   capabilities = capabilities
 }
 
+
+mason_tool_installer.setup {
+
+  -- a list of all tools you want to ensure are installed upon
+  -- start; they should be the names Mason uses for each tool
+  ensure_installed = {
+  },
+
+  -- if set to true this will check each tool for updates. If updates
+  -- are available the tool will be updated. This setting does not
+  -- affect :MasonToolsUpdate or :MasonToolsInstall.
+  -- Default: false
+  auto_update = false,
+
+  -- automatically install / update on startup. If set to false nothing
+  -- will happen on startup. You can use :MasonToolsInstall or
+  -- :MasonToolsUpdate to install tools and check for updates.
+  -- Default: true
+  run_on_start = true,
+
+  -- set a delay (in ms) before the installation starts. This is only
+  -- effective if run_on_start is set to true.
+  -- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
+  -- Default: 0
+  start_delay = 3000, -- 3 second delay
+}

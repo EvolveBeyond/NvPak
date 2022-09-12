@@ -1,7 +1,7 @@
 # NvPak
 NvPak Nvim Config.
-The purpose of creating this config is not to create a ready-made neovim for new users, the goal is to create something that evry normal user does for config.\
-If you intend to configure neovim, you will spend a lot of time collecting plugins, all neovim configurations or distributions try to help you by creating a great configuration, but I do not intend to help you by creating this configuration.\
+The purpose of creating this config is not to create a ready-made neovim for new users, the goal is to create something that every normal user does for config.\
+If you intend to configure neovim, you will spend a lot of time collecting plugins, all neovim configurations or distributions try to help you by creating a perfect configuration, but I do not intend to help you by creating this configuration.\
 Rather, I will give you a background to increase your speed in making your own configuration.\
 It has been tried that all the plugins are installed at their basic level.\
 and only a valid configuration has been done for it (as much as needed), also it has been tried to use the simplest neovim plugins as much as possible (lua plugins), But this basic configuration may be enough for your use.
@@ -61,7 +61,7 @@ scoop install lazygit
 
 ### Do you intend to help the progress of the project?
 
-Great projects are not created by just one person.
-So please, if you use this project, try to help its development.
-Even if you don't have enough knowledge to help the project, you can help me troubleshoot it, just go to the issues tab.
-Also, if you plan to help me in developing its features and solving its bugs, you can see the goals and bugs of the project in the Projects tab.
+Great projects are not created by just one person.\
+So please, if you use this project, try to help its development.\
+Even if you don't have enough knowledge, you can help me troubleshoot it, just go to the issues tab.\
+Also, if you plan to help me in developing features and solving bugs, just go to Projects tab.\

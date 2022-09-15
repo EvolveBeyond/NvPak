@@ -1,1 +1,1 @@
-require('default') -- laod Default config
+require('default') -- load Default config

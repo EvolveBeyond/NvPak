@@ -7,7 +7,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 
--- Auto Sync Packer after chnage plugin.lua
+-- Auto Sync Packer after change plugin.lua
 vim.cmd([[
   augroup packer_user_config
     autocmd!

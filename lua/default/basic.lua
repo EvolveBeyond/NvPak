@@ -7,6 +7,8 @@ vim.opt.syntax="Enable"
 vim.cmd[[
 highlight NvimTreeFolderIcon guibg=blue
 ]]
+--Disable wrapping line.
+vim.cmd[[set nowrap]]
 -- Disable transparent Background
 vim.opt.background = 'dark'
 -- Show current line number

@@ -41,7 +41,7 @@ mason.setup({
 
 -- auto install LSP List
 mason_lspconfig.setup {
-  ensure_installed = { "sumneko_lua", "rust_analyzer", "pyre" }
+  ensure_installed = { "sumneko_lua", "rust_analyzer", "pyls" }
 }
 
 
@@ -70,11 +70,25 @@ nvim_lsp.cssls.setup{
   capabilities = capabilities
 }
 
-
-nvim_lsp.pyre.setup{
-  cmd = { "pyre", "persistent" },
-  filetypes = { "python" },
+-- pyls normal python lsp
+nvim_lsp.pylsp.setup{
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = {'W391'},
+          maxLineLength = 100
+        }
+      }
+    }
+  }
 }
+
+-- pyre Static Python LSP
+-- nvim_lsp.pyre.setup{
+--  cmd = { "pyre", "persistent" },
+--  filetypes = { "python" },
+-- }
 
 mason_tool_installer.setup {
 

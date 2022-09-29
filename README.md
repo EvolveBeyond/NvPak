@@ -72,4 +72,4 @@ scoop install lazygit
 Great projects are not created by just one person.\
 So please, if you use this project, try to help its development.\
 Even if you don't have enough knowledge, you can help me troubleshoot it, just go to the issues tab.\
-Also, if you plan to help me in developing features and solving bugs, just go to Projects tab.\
+Also, if you plan to help me in developing features and solving bugs, just go to Projects tab.

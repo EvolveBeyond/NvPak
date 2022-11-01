@@ -2,7 +2,7 @@ local mason = require('mason')
 local mason_lspconfig = require("mason-lspconfig")
 local nvim_lsp = require('lspconfig')
 local mason_tool_installer = require('mason-tool-installer')
-
+local cmp_lsp = require('cmp')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -28,6 +28,20 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
+cmp_lsp.setup {
+  sources = {
+    {name = 'nvim_lsp'}
+  }
+}
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+-- The following example advertise capabilities to `clangd`.
+require'lspconfig'.clangd.setup {
+  capabilities = capabilities,
+}
+
 
 mason.setup({
     ui = {
@@ -41,7 +55,7 @@ mason.setup({
 
 -- auto install LSP List
 mason_lspconfig.setup {
-  ensure_installed = { "sumneko_lua", "rust_analyzer", "pyls" }
+  ensure_installed = { "sumneko_lua", "rust_analyzer"}
 }
 
 
@@ -57,11 +71,6 @@ nvim_lsp.sumneko_lua.setup({
 })
 
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-
 nvim_lsp.html.setup{
   capabilities = capabilities
 }
@@ -71,24 +80,24 @@ nvim_lsp.cssls.setup{
 }
 
 -- pyls normal python lsp
-nvim_lsp.pylsp.setup{
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = {'W391'},
-          maxLineLength = 100
-        }
-      }
-    }
-  }
-}
+-- nvim_lsp.pylsp.setup{
+-- settings = {
+--   pylsp = {
+--     plugins = {
+--       pycodestyle = {
+--         ignore = {'W391'},
+--         maxLineLength = 100
+--       }
+--     }
+--   }
+-- }
+-- }
 
 -- pyre Static Python LSP
--- nvim_lsp.pyre.setup{
---  cmd = { "pyre", "persistent" },
---  filetypes = { "python" },
--- }
+nvim_lsp.pyre.setup{
+ cmd = { "pyre", "persistent" },
+ filetypes = { "python" },
+}
 
 mason_tool_installer.setup {
 
@@ -115,3 +124,4 @@ mason_tool_installer.setup {
   -- Default: 0
   start_delay = 3000, -- 3 second delay
 }
+vim.lsp.set_log_level('debug')

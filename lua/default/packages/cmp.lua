@@ -25,7 +25,6 @@ local source_mapping = {
 	            cmp_tabnine = "[TN]",
 	            path = "[Path]",
               luasnip = "[Snp]",
-              vsnip = "[VSp]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Ltx]",
                         }
@@ -45,7 +44,6 @@ local source_mapping = {
            sources = {
                      { name = 'nvim_lsp' },
                      { name = 'luasnip' },
-                     { name = 'vsnip' },
                      { name = 'buffer' },
                      { name = 'path' },
                      { name = 'cmp_tabnine' },

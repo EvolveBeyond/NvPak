@@ -51,7 +51,7 @@ startup(
         }
 
     -- treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = require('default.packages.treesitter') }
 
 
     use {
@@ -70,12 +70,12 @@ startup(
         use {
           "williamboman/mason.nvim",
           "williamboman/mason-lspconfig.nvim",
-          "neovim/nvim-lspconfig",
+          "neovim/nvim-lspconfig"
             }
         use 'j-hui/fidget.nvim'
 
         -- Autocompletion
-        use 'hrsh7th/nvim-cmp'
+        use {'hrsh7th/nvim-cmp', config = require('default.packages.cmp')}
         use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'

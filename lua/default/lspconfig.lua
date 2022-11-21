@@ -1,8 +1,6 @@
 local mason = require('mason')
 local mason_lspconfig = require("mason-lspconfig")
 local nvim_lsp = require('lspconfig')
-local mason_tool_installer = require('mason-tool-installer')
-local cmp_lsp = require('cmp')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -33,7 +31,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- The following example advertise capabilities to `clangd`.
-require'lspconfig'.clangd.setup {
+nvim_lsp.clangd.setup {
   capabilities = capabilities,
 }
 
@@ -94,29 +92,4 @@ nvim_lsp.pyre.setup{
  filetypes = { "python" },
 }
 
-mason_tool_installer.setup {
-
-  -- a list of all tools you want to ensure are installed upon
-  -- start; they should be the names Mason uses for each tool
-  ensure_installed = {
-  },
-
-  -- if set to true this will check each tool for updates. If updates
-  -- are available the tool will be updated. This setting does not
-  -- affect :MasonToolsUpdate or :MasonToolsInstall.
-  -- Default: false
-  auto_update = false,
-
-  -- automatically install / update on startup. If set to false nothing
-  -- will happen on startup. You can use :MasonToolsInstall or
-  -- :MasonToolsUpdate to install tools and check for updates.
-  -- Default: true
-  run_on_start = true,
-
-  -- set a delay (in ms) before the installation starts. This is only
-  -- effective if run_on_start is set to true.
-  -- e.g.: 5000 = 5 second delay, 10000 = 10 second delay, etc...
-  -- Default: 0
-  start_delay = 3000, -- 3 second delay
-}
 vim.lsp.set_log_level('debug')

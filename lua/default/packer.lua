@@ -50,11 +50,11 @@ packer.startup(
         use {
           "williamboman/mason.nvim",
           "williamboman/mason-lspconfig.nvim",
-          "neovim/nvim-lspconfig",
-          config = function()
-	  	                require('default.lspconfig')
-		               end
             }
+          use {"neovim/nvim-lspconfig",
+                after = {"mason", "mason-lspconfig"},
+                config = require('default.lspconfig')
+              }
         use 'j-hui/fidget.nvim'
 
         -- Autocompletion

@@ -112,10 +112,15 @@ packer.startup(
        }
 
     -- File Explorer
-    use 'kyazdani42/nvim-tree.lua'
+    use {'kyazdani42/nvim-tree.lua', config = require('default.packages.tree')}
 
     -- Themes and more customize Plugins
-    use 'norcalli/nvim-colorizer.lua'
+    use {
+      'norcalli/nvim-colorizer.lua', 
+      config = function ()
+      require('default.packages.colorizer')
+               end
+    }
     use 'kyazdani42/nvim-web-devicons'
     use {'dracula/vim', as = 'dracula'} -- Color theme
     use 'cocopon/iceberg.vim'  -- color theme
@@ -124,12 +129,13 @@ packer.startup(
     use  'NvChad/base46'-- color theme
 
     -- StaLine Neovim StatusLine
-    use 'tamton-aquib/staline.nvim'
+    use { 'tamton-aquib/staline.nvim', config = require('default.packages.staline') }
 
     -- BarBar for Tabline
     use {
     'romgrk/barbar.nvim',
-     requires = {'kyazdani42/nvim-web-devicons'}
+     requires = {'kyazdani42/nvim-web-devicons'},
+     config = require('default.packages.barbar')
         }
 
 -- Automatically set up your configuration after cloning packer.nvim

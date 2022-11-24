@@ -27,14 +27,14 @@ vim.opt.expandtab = true
 -- vim.opt.foldmethod='expr'
 -- vim.opt.foldexpr='nvim_treesitter#foldexpr()'
 
--- chack run Packer
-local status_ok, packer = pcall(require, "packer")
+-- chack run Atom OneDark Theme
+local status_ok, onedark = pcall(require, "onedark")
 
 -- auto install Plugins and load theme 
 if not status_ok then
     return
 else
-   require('onedark').load()
+   onedark.load()
 end
 
 
@@ -44,3 +44,16 @@ vim.opt.mouse = "a"
 
 vim.opt.laststatus= 3 -- Status Line Mode
 vim.opt.showtabline= 2 -- Tab Line Mode
+
+-- erorr and Warning managment
+vim.diagnostic.config({
+  virtual_text = false, -- Disable virtual_text since it's redundant due to lsp_lines.
+  virtual_lines =
+      {
+        only_current_line = true,
+        spacing = 5,
+        severity_limit = 'Warning',
+      }
+                    })
+
+

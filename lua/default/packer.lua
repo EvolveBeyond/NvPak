@@ -1,5 +1,3 @@
--- Automatically set up your configuration after cloning packer.nvim
--- Put this at the end after all plugins
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -34,43 +32,26 @@ packer.init {
 }
 
 -- start call Packer list plugin
-local startup = require("packer").startup
-
-startup(
+packer.startup(
   function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    -- Speed up loading Lua modules in Neovim to improve startup time.
-    use 'lewis6991/impatient.nvim'
 
-
-    -- telescope File Search
-    use {
-      'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
-        }
 
     -- treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = require('default.packages.treesitter') }
-
-
-    use {
-  	"ahmedkhalf/lsp-rooter.nvim",
-  	config = function()
-    		  require("lsp-rooter").setup {
-     	 	  -- your configuration comes here
-      	 	  -- or leave it empty to use the default settings
-      	 	  -- refer to the configuration section below
-    				              }
-  		 end
-	}
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
+    config = function()
+      require('default.packages.treesitter')
+    end
+  }
 
 
         -- LSP Support
         use {
           "williamboman/mason.nvim",
           "williamboman/mason-lspconfig.nvim",
-          "neovim/nvim-lspconfig"
+          "neovim/nvim-lspconfig",
+          config = require('default.lspconfig')
             }
         use 'j-hui/fidget.nvim'
 
@@ -85,7 +66,7 @@ startup(
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-nvim-lsp-signature-help'
         use 'hrsh7th/cmp-nvim-lsp-document-symbol'
-        use 'L3MON4D3/LuaSnip'
+        use {'L3MON4D3/LuaSnip', config = require('default.packages.snip')}
         use 'onsails/lspkind.nvim'
 
 
@@ -99,31 +80,15 @@ startup(
 	            },
       }
 
-   use {
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      after = {
-      "mason.nvim"
-              },
-      }
-   -- Snippets
-   use {
-    'hrsh7th/cmp-vsnip', requires = {
-      'hrsh7th/vim-vsnip',
-      'rafamadriz/friendly-snippets',
-                                    }
-       }
-
     -- bracket autocompletion
     use 'vim-scripts/auto-pairs-gentle'
-    use 'windwp/nvim-ts-autotag'
 
 
     -- Neovim Terminal
     use {
     's1n7ax/nvim-terminal',
     config = function()
-        vim.o.hidden = true
-        require('nvim-terminal').setup()
+      require('default.packages.NTerm')
     end,
         }
     -- Markdown Previews
@@ -132,19 +97,19 @@ startup(
         run = function() fn["mkdp#util#install"]() end,
         })
     -- Rust Code tools
-    use 'simrat39/rust-tools.nvim'
+    use {'simrat39/rust-tools.nvim', config = require('default.packages.rust-tools')}
 
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
 
     -- vim diagnostics system 
-    use({
+    use {
           "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
           config = function()
           require("lsp_lines").setup()
           end,
-       })
+       }
 
     -- File Explorer
     use 'kyazdani42/nvim-tree.lua'
@@ -166,9 +131,11 @@ startup(
     'romgrk/barbar.nvim',
      requires = {'kyazdani42/nvim-web-devicons'}
         }
+
+-- Automatically set up your configuration after cloning packer.nvim
+-- Put this at the end after all plugins
    if packer_bootstrap then
      require('packer').sync()
    end
-  end
-)
+  end)
 end

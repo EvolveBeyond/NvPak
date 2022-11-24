@@ -60,11 +60,10 @@ packer.startup(
         -- Autocompletion
         use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
         use {
-	'hrsh7th/nvim-cmp',
-	config = function()
-		   require('default.packages.cmp')
-	   	 end
-	    }
+	            'hrsh7th/nvim-cmp',
+              after = {"cmp-tabnine"},
+	            config = require('default.packages.cmp')
+	          }
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
         use 'saadparwaiz1/cmp_luasnip'
@@ -73,7 +72,12 @@ packer.startup(
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-nvim-lsp-signature-help'
         use 'hrsh7th/cmp-nvim-lsp-document-symbol'
-        use {'L3MON4D3/LuaSnip', config = require('default.packages.snip')}
+        use {
+              'L3MON4D3/LuaSnip', 
+              config = function() 
+                          require('default.packages.snip')
+                      end
+                    }
         use 'onsails/lspkind.nvim'
 
 

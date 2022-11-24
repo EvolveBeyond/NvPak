@@ -51,13 +51,20 @@ packer.startup(
           "williamboman/mason.nvim",
           "williamboman/mason-lspconfig.nvim",
           "neovim/nvim-lspconfig",
-          config = require('default.lspconfig')
+          config = function()
+	  	                require('default.lspconfig')
+		               end
             }
         use 'j-hui/fidget.nvim'
 
         -- Autocompletion
-        use {'hrsh7th/nvim-cmp', config = require('default.packages.cmp')}
         use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+        use {
+	'hrsh7th/nvim-cmp',
+	config = function()
+		   require('default.packages.cmp')
+	   	 end
+	    }
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
         use 'saadparwaiz1/cmp_luasnip'

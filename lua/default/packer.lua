@@ -48,22 +48,25 @@ packer.startup(
 
         -- LSP Support
         use {
-          "williamboman/mason.nvim",
-          "williamboman/mason-lspconfig.nvim",
+        'williamboman/mason.nvim',
+         config = function() require('default.lspconfig') end,
             }
-          use {"neovim/nvim-lspconfig",
-                after = {"mason", "mason-lspconfig"},
-                config = require('default.lspconfig')
-              }
+        use {
+	      'williamboman/mason-lspconfig.nvim',
+	      'neovim/nvim-lspconfig',
+	          }
         use 'j-hui/fidget.nvim'
 
         -- Autocompletion
-        use {'tzachar/cmp-tabnine', run='./install.sh', requires = 'hrsh7th/nvim-cmp'}
+        use {
+              'tzachar/cmp-tabnine',
+              run='./install.sh',
+              requires = 'hrsh7th/nvim-cmp'
+            }
         use {
 	            'hrsh7th/nvim-cmp',
-              after = {"cmp-tabnine"},
-	            config = require('default.packages.cmp')
-	          }
+	            config = function() require('default.packages.cmp') end,
+	     }
         use 'hrsh7th/cmp-buffer'
         use 'hrsh7th/cmp-path'
         use 'saadparwaiz1/cmp_luasnip'
@@ -72,12 +75,12 @@ packer.startup(
         use 'hrsh7th/cmp-cmdline'
         use 'hrsh7th/cmp-nvim-lsp-signature-help'
         use 'hrsh7th/cmp-nvim-lsp-document-symbol'
+        use "rafamadriz/friendly-snippets"
         use {
-              'L3MON4D3/LuaSnip', 
-              config = function() 
-                          require('default.packages.snip')
-                      end
-                    }
+              'L3MON4D3/LuaSnip',
+              tag = "v<CurrentMajor>.*",
+              config = function() require('default.packages.snip') end,
+            }
         use 'onsails/lspkind.nvim'
 
 
@@ -108,7 +111,7 @@ packer.startup(
         run = function() fn["mkdp#util#install"]() end,
         })
     -- Rust Code tools
-    use {'simrat39/rust-tools.nvim', config = require('default.packages.rust-tools')}
+    use {'simrat39/rust-tools.nvim', config = function() require('default.packages.rust-tools') end, }
 
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
@@ -121,13 +124,12 @@ packer.startup(
           require("lsp_lines").setup()
           end,
        }
-
     -- File Explorer
-    use {'kyazdani42/nvim-tree.lua', config = require('default.packages.tree')}
+    use {'kyazdani42/nvim-tree.lua', config = function() require('default.packages.tree') end, }
 
     -- Themes and more customize Plugins
     use {
-      'norcalli/nvim-colorizer.lua', 
+      'norcalli/nvim-colorizer.lua',
       config = function ()
       require('default.packages.colorizer')
                end
@@ -140,13 +142,13 @@ packer.startup(
     use  'NvChad/base46'-- color theme
 
     -- StaLine Neovim StatusLine
-    use { 'tamton-aquib/staline.nvim', config = require('default.packages.staline') }
+    use { 'tamton-aquib/staline.nvim', config = function() require('default.packages.staline') end, }
 
     -- BarBar for Tabline
     use {
     'romgrk/barbar.nvim',
      requires = {'kyazdani42/nvim-web-devicons'},
-     config = require('default.packages.barbar')
+     config = function() require('default.packages.barbar') end,
         }
 
 -- Automatically set up your configuration after cloning packer.nvim

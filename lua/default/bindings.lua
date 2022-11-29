@@ -3,28 +3,32 @@ local opts = { noremap = true, silent = true }
 local silent = { silent = true }
 
 
-local ok ,cmp = pcall(require, 'cmp')
-
-
 -- Fire Explorer
-vim.keymap.set('n', '<leader>r', ':NvimTreeRefresh<CR>') -- nnoremap <leader>r :NvimTreeRefresh<CR>
-vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<CR>') -- nnoremap <leader>n :NvimTreeFindFile<CR> 
-vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>') -- nnoremap <C-n> :NvimTreeToggle<CR>
+local ok , nvimtree = pcall(require, 'nvim-tree.config')
 
-require'nvim-tree.config'.nvim_tree_callback{
-veiw ={
-mappings = {
-      custom_only = false,
-      list = {
-					{ key = {"<CL>", "q" }, action = "edit", mode = "n"},
-        },
-      },
-    },
-  }
+if ok then
+    vim.keymap.set('n', '<leader>r', ':NvimTreeRefresh<CR>') -- nnoremap <leader>r :NvimTreeRefresh<CR>
+    vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<CR>') -- nnoremap <leader>n :NvimTreeFindFile<CR> 
+    vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>') -- nnoremap <C-n> :NvimTreeToggle<CR>
 
+  nvimtree.nvim_tree_callback{
+    veiw ={
+    mappings = {
+        custom_only = false,
+        list = {
+					  { key = {"<CL>", "q" }, action = "edit", mode = "n"},
+               },
+               },
+               },
+                             }
+
+end
 
 -- Debugin System
-vim.keymap.set("","<Leader>l",require("lsp_lines").toggle,{ desc = "Toggle lsp_lines" })
+local ok1 ,lines = pcall(require, 'lsp_lines')
+if ok1 then
+  vim.keymap.set("","<Leader>l",lines.toggle,{ desc = "Toggle lsp_lines" })
+end
 
 -- Buffer manager
 vim.keymap.set('n', '<Tab>', ':bn<CR>') -- Buffer Switch
@@ -37,9 +41,11 @@ vim.keymap.set('v', '<C-/>', ':s/^/#<CR>')
 vim.keymap.set('n', '<C-s>', ':w<CR>')
 vim.keymap.set('i',  'C-s',  ':w<CR>')
 
--- Nvim Terminal
-terminal = require('nvim-terminal').DefaultTerminal;
 
+-- Nvim Terminal
+local ok2 ,nvim_terminal = pcall(require, 'nvim-terminal')
+if ok2 then
+terminal = nvim_terminal.DefaultTerminal;
 
 vim.api.nvim_set_keymap('n', '<leader>t', ':lua terminal:toggle()<cr>', silent)
 vim.api.nvim_set_keymap('n', '<leader>1', ':lua terminal:open(1)<cr>', silent)
@@ -49,8 +55,12 @@ vim.api.nvim_set_keymap('n', '<leader>1', ':lua NTGlobal["terminal"]:open(1)<cr>
 vim.api.nvim_set_keymap('n', '<leader>+', ':lua NTGlobal["window"]:change_height(2)<cr>', silent)
 vim.api.nvim_set_keymap('n', '<leader>-', ':lua NTGlobal["window"]:change_height(-2)<cr>', silent)
 
+end
+
+
 -- cmp autocompelet
-if ok then
+local ok3 ,cmp = pcall(require, 'cmp')
+if ok3 then
   cmp.setup({
 
     mapping = {
@@ -69,6 +79,8 @@ if ok then
     },
   })
 end
+
+
 -- barbar tabline manager
 -- Move to previous/next
 map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)

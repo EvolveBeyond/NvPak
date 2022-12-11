@@ -37,7 +37,6 @@ else
    onedark.load()
 end
 
-
 -- enable mouse support and clipboard(xsel or wl-clipboard(for wayland))
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = "a"

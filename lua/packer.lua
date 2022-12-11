@@ -37,7 +37,9 @@ packer.startup(
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-
+    -- Speed up loading Lua modules in Neovim to improve startup time.
+    use 'lewis6991/impatient.nvim'
+    
     -- treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
     config = function()

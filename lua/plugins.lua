@@ -1,9 +1,15 @@
-local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if fn.empty(fn.glob(install_path)) > 0 then
-   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
 
+local packer_bootstrap = ensure_packer()
 
 -- Auto Sync Packer after change plugin.lua
 vim.cmd([[
@@ -13,10 +19,6 @@ vim.cmd([[
   augroup end
 ]])
 
-vim.cmd [[packadd packer.nvim]]
-
-
--- Use a protected call so we don`t error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
   return
@@ -32,14 +34,14 @@ packer.init {
 }
 
 -- start call Packer list plugin
-packer.startup(
-  function(use)
+return packer.startup(function(use)
+
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
     -- Speed up loading Lua modules in Neovim to improve startup time.
     use 'lewis6991/impatient.nvim'
-    
+
     -- treesitter
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
     config = function()

@@ -24,6 +24,7 @@ and only a valid configuration has been done for it (as much as needed), also it
 * `unzip`
 * `curl`
 * `fd`
+* `npm`
 * for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 * `git`
 * `bash` or `dash` and for windows `PowerShell v5.1` or later

@@ -82,7 +82,6 @@ return packer.startup(function(use)
         use "rafamadriz/friendly-snippets"
         use {
               'L3MON4D3/LuaSnip',
-              tag = "v<CurrentMajor>.*",
               config = function() require('default.packages.snip') end,
             }
         use 'onsails/lspkind.nvim'
@@ -110,10 +109,11 @@ return packer.startup(function(use)
     end,
         }
     -- Markdown Previews
-    use({
-        "iamcco/markdown-preview.nvim",
-        run = function() fn["mkdp#util#install"]() end,
-        })
+    use { "iamcco/markdown-preview.nvim",
+          run = "cd app && npm install",
+          setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+          ft = { "markdown" },
+        }
     -- Rust Code tools
     use {'simrat39/rust-tools.nvim', config = function() require('default.packages.rust-tools') end, }
 

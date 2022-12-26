@@ -1,31 +1,35 @@
+local set = vim.opt
+local vimscript = vim.cmd
+
 -- local utf8 = require("utf8")
 -- let g:do_filetype_lua = 1
--- Color themes
-vim.opt.termguicolors = true
-vim.opt.syntax="Enable"
 
-vim.cmd[[
+-- Color themes
+set.termguicolors = true
+set.syntax="Enable"
+
+vimscript[[
 highlight NvimTreeFolderIcon guibg=blue
 ]]
 --Disable wrapping line.
-vim.cmd[[set nowrap]]
+vimscript[[set nowrap]]
 -- Disable transparent Background
-vim.opt.background = 'dark'
+set.background = 'dark'
 -- Show current line number
-vim.opt.number = true
+set.number = true
 -- Show relative line numbers
-vim.opt.relativenumber = true
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+set.relativenumber = true
+set.splitbelow = true
+set.splitright = true
 -- Tab set to two spaces
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.expandtab = true
+set.tabstop = 2
+set.shiftwidth = 0
+set.softtabstop = 0
+set.expandtab = true
 
 -- Folding
--- vim.opt.foldmethod='expr'
--- vim.opt.foldexpr='nvim_treesitter#foldexpr()'
+-- set.foldmethod='expr'
+-- set.foldexpr='nvim_treesitter#foldexpr()'
 
 -- chack run Atom OneDark Theme
 local status_ok, onedark = pcall(require, "onedark")
@@ -38,8 +42,8 @@ else
 end
 
 -- enable mouse support and clipboard(xsel or wl-clipboard(for wayland))
-vim.opt.clipboard = "unnamedplus"
-vim.opt.mouse = "a"
+set.clipboard = "unnamedplus"
+set.mouse = "a"
 -- Restore cursor position
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     pattern = { "*" },
@@ -48,8 +52,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end,
 })
 
-vim.opt.laststatus= 3 -- Status Line Mode
-vim.opt.showtabline= 2 -- Tab Line Mode
+set.laststatus= 3 -- Status Line Mode
+set.showtabline= 2 -- Tab Line Mode
 
 -- erorr and Warning managment
 vim.diagnostic.config({

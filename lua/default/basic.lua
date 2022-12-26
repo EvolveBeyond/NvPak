@@ -22,7 +22,7 @@ set.relativenumber = true
 set.splitbelow = true
 set.splitright = true
 -- Tab set to two spaces
-set.tabstop = 2
+set.tabstop = 4
 set.shiftwidth = 0
 set.softtabstop = 0
 set.expandtab = true

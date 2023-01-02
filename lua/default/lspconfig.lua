@@ -91,9 +91,7 @@ settings = {
 nvim_lsp.rust_analyzer.setup{
         cmd = {'rust_analyzer'},
         filetypes = {'rust'},
-        root_dir = {root_pattern("Cargo.toml", "rust-project.json")},
     }
-    
 
 -- pyre Static Python LSP
 nvim_lsp.pyre.setup{

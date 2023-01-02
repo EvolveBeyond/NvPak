@@ -114,6 +114,17 @@ return packer.startup(function(use)
           setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
           ft = { "markdown" },
         }
+    -- Ltex 
+    use {
+    "brymer-meneses/grammar-guard.nvim",
+        requires = {
+            "neovim/nvim-lspconfig",
+            "williamboman/nvim-lsp-installer"
+               },
+        config = function ()
+            require("grammar-guard").init()
+        end
+        }
     -- Rust Code tools
     use {'simrat39/rust-tools.nvim', config = function() require('default.packages.rust-tools') end, }
 

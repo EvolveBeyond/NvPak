@@ -53,20 +53,30 @@ Show
 </details>
 
 
-### install
+### Installation
 
-unix :
+Unix :
 ```bash
 git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim 
 ```
 
-windows :
+
+Windows :
 ```powershell
 scoop bucket add extras
 scoop install lazygit
 
 (git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
 ```
+
+
+### Usage:
+Run
+```
+:PackerUpdate
+```
+inside nvim to install the packages.\
+Then restart nvim and enjoy.
 
 ### Do you intend to help the progress of the project?
 

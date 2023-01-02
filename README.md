@@ -71,9 +71,12 @@ scoop install lazygit
 
 
 ### Usage:
+If the software plugins are not installed automatically after the first run!
+Proceed as follows.
+
 Run
 ```
-:PackerUpdate
+:PackerSync
 ```
 inside nvim to install the packages.\
 Then restart nvim and enjoy.

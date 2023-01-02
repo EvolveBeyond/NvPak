@@ -58,7 +58,7 @@ local source_mapping = {
           sorting = {
               priority_weight = 2,
                      comparators = {
-                     require('cmp_tabnine.compare'),
+                     tabnine,
                      compare.offset,
                      compare.exact,
                      compare.score,

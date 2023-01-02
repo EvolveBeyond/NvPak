@@ -52,13 +52,10 @@ return packer.startup(function(use)
 
         -- LSP Support
         use {
-        'williamboman/mason.nvim',
-         config = function() require('default.lspconfig') end,
+            "williamboman/mason.nvim",
+            "williamboman/mason-lspconfig.nvim",
+            "neovim/nvim-lspconfig",
             }
-        use {
-	      'williamboman/mason-lspconfig.nvim',
-	      'neovim/nvim-lspconfig',
-	          }
         use 'j-hui/fidget.nvim'
 
         -- Autocompletion
@@ -113,17 +110,6 @@ return packer.startup(function(use)
           run = "cd app && npm install",
           setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
           ft = { "markdown" },
-        }
-    -- Ltex 
-    use {
-    "brymer-meneses/grammar-guard.nvim",
-        requires = {
-            "neovim/nvim-lspconfig",
-            "williamboman/nvim-lsp-installer"
-               },
-        config = function ()
-            require("grammar-guard").init()
-        end
         }
     -- Rust Code tools
     use {'simrat39/rust-tools.nvim', config = function() require('default.packages.rust-tools') end, }

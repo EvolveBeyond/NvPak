@@ -1,29 +1,32 @@
-local cmp = require('cmp')
-local lspkind = require('lspkind')
-local luasnip = require('luasnip')
-local tabnine = require('cmp_tabnine.config')
-local compare = require('cmp.config.compare')
+local found_cmp, cmp = pcall(require,'cmp')
+local found_lspkind, lspkind = pcall(require, 'lspkind')
+local found_luasnip, luasnip = pcall(require, 'luasnip')
+local found_tabnine_compare, tabnine_compare = pcall(require, 'cmp_tabnine.compare')
+local found_tabnine_config, tabnine_config = pcall(require, 'cmp_tabnine.config')
+local found_compare, compare = pcall(require, 'cmp.config.compare')
 
-tabnine:setup({
+if found_cmp and found_lspkind  and found_luasnip and found_tabnine_config and found_tabnine_compare and found_compare then
+
+tabnine_config:setup({
 	max_lines = 1000;
 	max_num_results = 20;
 	sort = true;
 	run_on_every_keystroke = true;
 	snippet_placeholder = '..';
-	ignored_file_types = { -- default is not to ignore
+	ignored_file_types = {
+        -- default is not to ignore
 		-- uncomment to ignore in lua:
 		-- lua = true
 	};
-	show_prediction_strength = false;
+	show_prediction_strength = true;
 })
 
 
-
 local source_mapping = {
-              buffer = "[Txt]",
-	            nvim_lsp = "[LSP]",
-	            cmp_tabnine = "[TN]",
-	            path = "[Path]",
+              buffer = "[Txnt]",
+	          nvim_lsp = "[LSP]",
+	          cmp_tabnine = "[TN]",
+	          path = "[Path]",
               luasnip = "[Snp]",
               nvim_lua = "[Lua]",
               latex_symbols = "[Ltx]",
@@ -58,7 +61,7 @@ local source_mapping = {
           sorting = {
               priority_weight = 2,
                      comparators = {
-                     require('cmp_tabnine.compare'),
+                     tabnine_compare,
                      compare.offset,
                      compare.exact,
                      compare.score,
@@ -99,6 +102,7 @@ format = lspkind.cmp_format({
                         },
 })
 
+
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
     mapping = cmp.mapping.preset.cmdline(),
@@ -118,6 +122,7 @@ cmp.setup.cmdline(':', {
     })
   })
 
+end
 
 vim.cmd[[
 highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#2A8

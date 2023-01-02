@@ -24,6 +24,7 @@ and only a valid configuration has been done for it (as much as needed), also it
 * `unzip`
 * `curl`
 * `fd`
+* for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 * `git`
 * `bash` or `dash` and for windows `PowerShell v5.1` or later
 * just for windows `Scoop.sh`
@@ -52,20 +53,33 @@ Show
 </details>
 
 
-### install
+### Installation
 
-unix :
+Unix :
 ```bash
 git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim 
 ```
 
-windows :
+
+Windows :
 ```powershell
 scoop bucket add extras
 scoop install lazygit
 
 (git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
 ```
+
+
+### Usage:
+If the software plugins are not installed automatically after the first run!
+Proceed as follows.
+
+Run
+```
+:PackerSync
+```
+inside nvim to install the packages.\
+Then restart nvim and enjoy.
 
 ### Do you intend to help the progress of the project?
 

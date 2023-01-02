@@ -98,6 +98,8 @@ nvim_lsp.pyre.setup{
  cmd = { "pyre", "persistent" },
  filetypes = { "python" },
 }
+
 end
+
 
 vim.lsp.set_log_level('debug')

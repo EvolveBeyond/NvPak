@@ -65,7 +65,6 @@ Windows :
 ```powershell
 scoop bucket add extras
 scoop install lazygit
-
 (git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
 ```
 
@@ -78,6 +77,14 @@ Run
 ```
 :PackerSync
 ```
+
+Also, if tabnine doesn't show you any offers, just log in to your account.
+
+Run
+```
+:CmpTabnineHub
+```
+
 inside nvim to install the packages.\
 Then restart nvim and enjoy.
 
@@ -87,3 +94,5 @@ Great projects are not created by just one person.\
 So please, if you use this project, try to help its development.\
 Even if you don't have enough knowledge, you can help me troubleshoot it, just go to the issues tab.\
 Also, if you plan to help me in developing features and solving bugs, just go to Projects tab.
+Footer
+

@@ -24,7 +24,6 @@ and only a valid configuration has been done for it (as much as needed), also it
 * `unzip`
 * `curl`
 * `fd`
-* `npm`
 * for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 * `git`
 * `bash` or `dash` and for windows `PowerShell v5.1` or later
@@ -54,20 +53,39 @@ Show
 </details>
 
 
-### install
+### Installation
 
-unix :
+Unix :
 ```bash
 git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim 
 ```
 
-windows :
+
+Windows :
 ```powershell
 scoop bucket add extras
 scoop install lazygit
-
 (git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
 ```
+
+
+### Usage:
+If the software plugins are not installed automatically after the first run!
+Proceed as follows.
+
+Run
+```
+:PackerSync
+```
+Also, if tabnine doesn't show you any offers, just log in to your account.
+
+Run
+```
+:CmpTabnineHub
+```
+
+inside nvim to install the packages.\
+Then restart nvim and enjoy.
 
 ### Do you intend to help the progress of the project?
 
@@ -75,3 +93,5 @@ Great projects are not created by just one person.\
 So please, if you use this project, try to help its development.\
 Even if you don't have enough knowledge, you can help me troubleshoot it, just go to the issues tab.\
 Also, if you plan to help me in developing features and solving bugs, just go to Projects tab.
+Footer
+

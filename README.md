@@ -77,6 +77,7 @@ Run
 ```
 :PackerSync
 ```
+
 Also, if tabnine doesn't show you any offers, just log in to your account.
 
 Run

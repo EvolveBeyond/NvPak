@@ -1,4 +1,4 @@
-local map = vim.api.nvim_set_keymap
+local bind = vim.keymap.set
 local opts = { noremap = true, silent = true }
 local silent = { silent = true }
 
@@ -7,9 +7,9 @@ local silent = { silent = true }
 local ok , nvimtree = pcall(require, 'nvim-tree.config')
 
 if ok then
-    vim.keymap.set('n', '<leader>r', ':NvimTreeRefresh<CR>') -- nnoremap <leader>r :NvimTreeRefresh<CR>
-    vim.keymap.set('n', '<leader>n', ':NvimTreeFindFile<CR>') -- nnoremap <leader>n :NvimTreeFindFile<CR> 
-    vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>') -- nnoremap <C-n> :NvimTreeToggle<CR>
+    bind('n', '<leader>r', ':NvimTreeRefresh<CR>') -- nnoremap <leader>r :NvimTreeRefresh<CR>
+    bind('n', '<leader>n', ':NvimTreeFindFile<CR>') -- nnoremap <leader>n :NvimTreeFindFile<CR> 
+    bind('n', '<C-n>', ':NvimTreeToggle<CR>') -- nnoremap <C-n> :NvimTreeToggle<CR>
 
   nvimtree.nvim_tree_callback{
     veiw ={
@@ -27,19 +27,19 @@ end
 -- Debugin System
 local ok1 ,lines = pcall(require, 'lsp_lines')
 if ok1 then
-  vim.keymap.set("","<Leader>l",lines.toggle,{ desc = "Toggle lsp_lines" })
+  bind("","<Leader>l",lines.toggle,{ desc = "Toggle lsp_lines" })
 end
 
 -- Buffer manager
-vim.keymap.set('n', '<Tab>', ':bn<CR>') -- Buffer Switch
-vim.keymap.set('n', '<C-b>', ':bd<CR>') -- Buffer Close
+bind('n', '<Tab>', ':bn<CR>') -- Buffer Switch
+bind('n', '<C-b>', ':bd<CR>') -- Buffer Close
 
 -- Auto comment
-vim.keymap.set('v', '<C-/>', ':s/^/#<CR>')
+bind('v', '<C-/>', ':s/^/#<CR>')
 
 -- Save mode
-vim.keymap.set('n', '<C-s>', ':w<CR>')
-vim.keymap.set('i',  'C-s',  ':w<CR>')
+bind('n', '<C-s>', ':w<CR>')
+bind('i',  'C-s',  ':w<CR>')
 
 
 -- Nvim Terminal
@@ -47,13 +47,13 @@ local ok2 ,nvim_terminal = pcall(require, 'nvim-terminal')
 if ok2 then
 terminal = nvim_terminal.DefaultTerminal;
 
-vim.api.nvim_set_keymap('n', '<leader>t', ':lua terminal:toggle()<cr>', silent)
-vim.api.nvim_set_keymap('n', '<leader>1', ':lua terminal:open(1)<cr>', silent)
-vim.api.nvim_set_keymap('n', '<leader>2', ':lua terminal:open(2)<cr>', silent)
-vim.api.nvim_set_keymap('n', '<leader>3', ':lua terminal:open(3)<cr>', silent)
-vim.api.nvim_set_keymap('n', '<leader>1', ':lua NTGlobal["terminal"]:open(1)<cr>', silent)
-vim.api.nvim_set_keymap('n', '<leader>+', ':lua NTGlobal["window"]:change_height(2)<cr>', silent)
-vim.api.nvim_set_keymap('n', '<leader>-', ':lua NTGlobal["window"]:change_height(-2)<cr>', silent)
+bind('n', '<leader>t', ':lua terminal:toggle()<cr>', silent)
+bind('n', '<leader>1', ':lua terminal:open(1)<cr>', silent)
+bind('n', '<leader>2', ':lua terminal:open(2)<cr>', silent)
+bind('n', '<leader>3', ':lua terminal:open(3)<cr>', silent)
+bind('n', '<leader>1', ':lua NTGlobal["terminal"]:open(1)<cr>', silent)
+bind('n', '<leader>+', ':lua NTGlobal["window"]:change_height(2)<cr>', silent)
+bind('n', '<leader>-', ':lua NTGlobal["window"]:change_height(-2)<cr>', silent)
 
 end
 
@@ -83,26 +83,26 @@ end
 
 -- barbar tabline manager
 -- Move to previous/next
-map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+bind('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+bind('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
 -- Re-order to previous/next
-map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+bind('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+bind('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
 -- Goto buffer in position...
-map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+bind('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+bind('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+bind('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+bind('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+bind('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+bind('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+bind('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+bind('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+bind('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+bind('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
 -- Pin/unpin buffer
-map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+bind('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
 -- Close buffer
-map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
+bind('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
 -- Wipeout buffer
 --                 :BufferWipeout
 -- Close commands
@@ -112,9 +112,9 @@ map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
 --                 :BufferCloseBuffersLeft
 --                 :BufferCloseBuffersRight
 -- Magic buffer-picking mode
-map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+bind('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 -- Sort automatically by...
-map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
-map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
-map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
-map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+bind('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
+bind('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
+bind('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
+bind('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)

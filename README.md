@@ -23,6 +23,7 @@ and only a valid configuration has been done for it (as much as needed), also it
 * `NVIM v0.7` or later versions 
 * `unzip`
 * `curl`
+* `npm`
 * `fd`
 * for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 * `git`

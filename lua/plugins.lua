@@ -43,11 +43,12 @@ return packer.startup(function(use)
     use 'lewis6991/impatient.nvim'
 
     -- treesitter
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate',
-    config = function()
-      require('default.packages.treesitter')
-    end
-  }
+    use {'nvim-treesitter/nvim-treesitter',
+         run = ':TSUpdate',
+         config = function()
+                    require('default.packages.treesitter')
+                   end
+        }
 
 
         -- LSP Support
@@ -109,7 +110,7 @@ return packer.startup(function(use)
           ft = { "markdown" },
         }
     -- Rust Code tools
-    use {'simrat39/rust-tools.nvim', config = function() require('default.packages.rust-tools') end, }
+    use {'simrat39/rust-tools.nvim', config = function() require('default.packages.rust-tools') end,}
 
     -- Debugging System
     use 'nvim-lua/plenary.nvim'

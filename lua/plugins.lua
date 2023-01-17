@@ -139,6 +139,7 @@ return packer.startup(function(use)
     use 'navarasu/onedark.nvim' -- color theme
     use 'shaunsingh/nord.nvim' -- color theme
     use  'NvChad/base46'-- color theme
+    use 'tanvirtin/monokai.nvim' -- color theme
 
     -- StaLine Neovim StatusLine
     use { 'tamton-aquib/staline.nvim', config = function() require('default.packages.staline') end, }

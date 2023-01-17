@@ -32,13 +32,13 @@ set.expandtab = true
 -- set.foldexpr='nvim_treesitter#foldexpr()'
 
 -- chack run Atom OneDark Theme
-local status_ok, onedark = pcall(require, "onedark")
+local status_ok, monokai = pcall(require, "monokai")
 
 -- auto install Plugins and load theme 
 if not status_ok then
     return
 else
-   onedark.load()
+    monokai.setup{palette = monokai.pro }    -- monokai.setup{ palette = monokai.pro or soda or ristretto }
 end
 
 -- enable mouse support and clipboard(xsel or wl-clipboard(for wayland))

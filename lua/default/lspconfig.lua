@@ -1,8 +1,10 @@
 local found_mason ,mason = pcall(require, 'mason')
 local found_mason_lspconfig ,mason_lspconfig = pcall(require, 'mason-lspconfig')
 local found_nvim_lsp, nvim_lsp = pcall(require, 'lspconfig')
+local found_mason_dap, mason_dap = pcall(require, 'mason-nvim-dap')
 
-if found_mason and found_mason_lspconfig and found_nvim_lsp then
+
+if found_mason and found_mason_lspconfig and found_nvim_lsp and found_mason_dap then
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -44,13 +46,21 @@ mason.setup({
             server_installed = "✓",
             server_pending = "➜",
             server_uninstalled = "✗"
-        }
-    }
-})
+                }
+         }
+          })
+
 
 -- auto install LSP List
 mason_lspconfig.setup {
   ensure_installed = { "sumneko_lua", "rust_analyzer", "pylsp"}
+}
+
+
+
+-- auto install debugers
+mason_dap.setup {
+  ensure_installed = { "lua", "rust", "python"}
 }
 
 
@@ -75,29 +85,55 @@ nvim_lsp.cssls.setup{
 }
 
 -- pyls normal python lsp
-nvim_lsp.pylsp.setup{
-settings = {
+ nvim_lsp.pylsp.setup{
+ settings = {
   pylsp = {
     plugins = {
       pycodestyle = {
         ignore = {'W391'},
         maxLineLength = 100
-      }
-     }
+        }
     }
    }
- }
+  }
+}
+
+
+-- python static lsp
+nvim_lsp.pyre.setup{
+   cmd = { "pyre", "persistent" },
+   filetypes = { "python" },
+   }
+
 -- rust_analyzer Config 
 nvim_lsp.rust_analyzer.setup{
         cmd = {'rust_analyzer'},
         filetypes = {'rust'},
+        root_dir = nvim_lsp.util.root_pattern("Cargo.toml", "rust-project.json"),
     }
 
--- pyre Static Python LSP
-nvim_lsp.pyre.setup{
- cmd = { "pyre", "persistent" },
- filetypes = { "python" },
-}
+-- dart lsp config
+-- nvim_lsp.dart.setup {}
+-- Or if you have Dartls installed
+-- nvim_lsp.dartls.setup{
+--       cmd = {"dart", "language-server", "--protocol=lsp"},
+--       filetypes = {"dart"},
+--       init_options = {
+--                       closingLabels = true,
+--                       flutterOutline = true,
+--                       onlyAnalyzeProjectsWithOpenFiles = true,
+--                       outline = true,
+--                       suggestFromUnimportedLibraries = true
+--                     },
+--       root_dir = nvim_lsp.util.root_pattern("pubspec.yaml"),
+--       settings = {
+--               dart = {
+--                       completeFunctionCalls = true,
+--                       showTodos = true
+--                      }
+--                  }
+--               }
+--
 
 end
 

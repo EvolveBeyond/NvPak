@@ -56,7 +56,7 @@ mason_lspconfig.setup {
   ensure_installed = {
             "sumneko_lua", -- lua language server
             "rust_analyzer", -- rust language server
-            -- "pylsp", -- python language server
+            "pylsp", -- python language server
             "pyre", -- python language server
         }
 }
@@ -90,18 +90,18 @@ nvim_lsp.cssls.setup{
 }
 
 -- pyls normal python lsp
--- nvim_lsp.pylsp.setup{
--- settings = {
---  pylsp = {
---    plugins = {
---      pycodestyle = {
---        ignore = {'W391'},
---        maxLineLength = 100
---        }
---    }
---   }
---  }
--- }
+ nvim_lsp.pylsp.setup{
+ settings = {
+  pylsp = {
+    plugins = {
+      pycodestyle = {
+        ignore = {'W391'},
+        maxLineLength = 100
+        }
+    }
+   }
+  }
+ }
 
 
 -- python static lsp

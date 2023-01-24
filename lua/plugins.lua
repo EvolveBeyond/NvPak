@@ -56,6 +56,8 @@ return packer.startup(function(use)
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
+            "mfussenegger/nvim-dap",
+            "jayp0521/mason-nvim-dap.nvim",
             }
         use 'j-hui/fidget.nvim'
 
@@ -114,7 +116,6 @@ return packer.startup(function(use)
 
     -- Debugging System
     use 'nvim-lua/plenary.nvim'
-    use 'mfussenegger/nvim-dap'
 
     -- vim diagnostics system 
     use {
@@ -139,6 +140,7 @@ return packer.startup(function(use)
     use 'navarasu/onedark.nvim' -- color theme
     use 'shaunsingh/nord.nvim' -- color theme
     use  'NvChad/base46'-- color theme
+    use 'tanvirtin/monokai.nvim' -- color theme
 
     -- StaLine Neovim StatusLine
     use { 'tamton-aquib/staline.nvim', config = function() require('default.packages.staline') end, }

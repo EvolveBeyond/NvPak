@@ -2,9 +2,12 @@ local found_mason ,mason = pcall(require, 'mason')
 local found_mason_lspconfig ,mason_lspconfig = pcall(require, 'mason-lspconfig')
 local found_nvim_lsp, nvim_lsp = pcall(require, 'lspconfig')
 local found_mason_dap, mason_dap = pcall(require, 'mason-nvim-dap')
+local found_lsp_file, lsp_file = pcall(require, 'lsp-file-operations')
+local found_null_ls, null_ls = pcall(require, 'null-ls')
+local found_mason_null_ls, mason_null_ls = pcall(require, 'mason-null-ls')
 
 
-if found_mason and found_mason_lspconfig and found_nvim_lsp and found_mason_dap then
+if found_mason and found_mason_lspconfig and found_nvim_lsp and found_mason_dap and found_lsp_file and found_null_ls and found_mason_null_ls then
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -30,6 +33,9 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
+
+
+
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -38,6 +44,11 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 nvim_lsp.clangd.setup {
   capabilities = capabilities,
 }
+
+
+-- Lsp File Operations
+lsp_file.setup{}
+
 
 
 mason.setup({
@@ -50,6 +61,20 @@ mason.setup({
          }
           })
 
+-- null ls config 
+null_ls.setup{
+    sources = {
+        -- all sources go here.
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.completion.spell,
+                },
+            }
+mason_null_ls.setup({
+    ensure_installed = nil,
+    automatic_installation = true,
+    automatic_setup = false,
+                              })
 
 -- auto install LSP List
 mason_lspconfig.setup {

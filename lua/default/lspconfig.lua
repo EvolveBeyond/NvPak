@@ -70,11 +70,14 @@ null_ls.setup{
         null_ls.builtins.completion.spell,
                 },
             }
+
 mason_null_ls.setup({
-    ensure_installed = nil,
+    ensure_installed = {"stylua", "eslint", "spell"},
     automatic_installation = true,
-    automatic_setup = false,
+    automatic_setup = true,
                               })
+
+vim.lsp.buf.format({ timeout_ms = 2000 })
 
 -- auto install LSP List
 mason_lspconfig.setup {

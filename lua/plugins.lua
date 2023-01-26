@@ -126,6 +126,17 @@ return packer.startup(function(use)
        }
     -- File Explorer
     use {'kyazdani42/nvim-tree.lua', config = function() require('default.packages.tree') end, }
+    use {
+        'antosha417/nvim-lsp-file-operations',
+        requires = {
+                    { "nvim-lua/plenary.nvim" },
+                    { "kyazdani42/nvim-tree.lua" },
+                   },
+        config = function ()
+            require("lsp-file-operations").setup()
+        end
+        }
+
 
     -- Themes and more customize Plugins
     use {

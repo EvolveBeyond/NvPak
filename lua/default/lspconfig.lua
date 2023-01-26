@@ -68,13 +68,14 @@ null_ls.setup{
         null_ls.builtins.formatting.stylua,
         null_ls.builtins.diagnostics.eslint,
         null_ls.builtins.completion.spell,
+
                 },
             }
 
 mason_null_ls.setup({
     ensure_installed = {"stylua", "eslint", "spell"},
     automatic_installation = true,
-    automatic_setup = true,
+    automatic_setup = false,
                               })
 
 vim.lsp.buf.format({ timeout_ms = 2000 })

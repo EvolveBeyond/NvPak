@@ -56,6 +56,8 @@ return packer.startup(function(use)
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "neovim/nvim-lspconfig",
+            "jose-elias-alvarez/null-ls.nvim",
+            "jay-babu/mason-null-ls.nvim",
             "mfussenegger/nvim-dap",
             "jayp0521/mason-nvim-dap.nvim",
             }
@@ -82,17 +84,6 @@ return packer.startup(function(use)
               config = function() require('default.packages.snip') end,
             }
         use 'onsails/lspkind.nvim'
-
-
-   -- Mason LSP Installer extension
-   use 'jose-elias-alvarez/null-ls.nvim'
-   use {
-	    "jayp0521/mason-null-ls.nvim",
-	    after = {
-		    "null-ls.nvim",
-		    "mason.nvim",
-	            },
-      }
 
     -- bracket autocompletion
     use 'vim-scripts/auto-pairs-gentle'
@@ -127,14 +118,11 @@ return packer.startup(function(use)
     -- File Explorer
     use {'kyazdani42/nvim-tree.lua', config = function() require('default.packages.tree') end, }
     use {
-        'antosha417/nvim-lsp-file-operations',
-        requires = {
-                    { "nvim-lua/plenary.nvim" },
-                    { "kyazdani42/nvim-tree.lua" },
-                   },
-        config = function ()
-            require("lsp-file-operations").setup()
-        end
+            'antosha417/nvim-lsp-file-operations',
+             requires = {
+                { "nvim-lua/plenary.nvim" },
+                { "kyazdani42/nvim-tree.lua" },
+                        }
         }
 
 

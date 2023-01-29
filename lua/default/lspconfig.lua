@@ -124,7 +124,6 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
     })
 
     nvim_lsp.efm.setup({
-        on_attach = on_attach,
         flags = {
             debounce_text_changes = 150,
         },

@@ -28,7 +28,7 @@ and only a valid configuration has been done for it (as much as needed), also it
 * for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 * `git`
 * `bash` or `dash` and for windows `PowerShell v5.1` or later
-* just for windows `Scoop.sh`
+* Just for windows `Scoop.sh`
 * `Nerd fonts`
 
 

@@ -6,6 +6,7 @@ local found_lsp_file, lsp_file = pcall(require, "lsp-file-operations")
 local found_null_ls, null_ls = pcall(require, "null-ls")
 local found_mason_null_ls, mason_null_ls = pcall(require, "mason-null-ls")
 
+
 if found_mason and found_mason_lspconfig and found_nvim_lsp then
     -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -32,6 +33,7 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
     })
 
     -- null ls config
+
     if found_null_ls and found_mason_null_ls then
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         null_ls.setup({
@@ -122,6 +124,27 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
             },
         },
     })
+
+    nvim_lsp.efm.setup({
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        },
+        init_options = { documentFormatting = true },
+        filetypes = { "python" },
+        settings = {
+            rootMarkers = { ".git/" },
+            languages = {
+                python = {
+                    { formatCommand = "black --quiet -", formatStdin = true },
+                },
+            },
+        },
+    })
+
+    nvim_lsp.format_on_save = {
+        pattern = { "*.lua", "*.py", "*.go" },
+    }
 
     -- python static lsp
     nvim_lsp.pyre.setup({

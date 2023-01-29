@@ -6,38 +6,8 @@ local found_lsp_file, lsp_file = pcall(require, "lsp-file-operations")
 local found_null_ls, null_ls = pcall(require, "null-ls")
 local found_mason_null_ls, mason_null_ls = pcall(require, "mason-null-ls")
 
-if found_mason
-    and found_mason_lspconfig
-    and found_nvim_lsp
-    and found_mason_dap
-    and found_lsp_file
-    and found_null_ls
-    and found_mason_null_ls
-then
-    -- Use an on_attach function to only map the following keys
-    -- after the language server attaches to the current buffer
-    local on_attach = function(client, bufnr)
-       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        -- Mappings.
-        -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-        vim.keymap.set("n", "<space>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, bufopts)
-        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
-        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-        vim.keymap.set("n", "<space>f", function() vim.lsp.buf.format { async = true } end, bufopts)
-    end
 
+if found_mason and found_mason_lspconfig and found_nvim_lsp then
     -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -48,7 +18,9 @@ then
     })
 
     -- Lsp File Operations
-    lsp_file.setup({})
+    if found_lsp_file then
+        lsp_file.setup({})
+    end
 
     mason.setup({
         ui = {
@@ -61,23 +33,47 @@ then
     })
 
     -- null ls config
-    null_ls.setup({
-        sources = {
-            -- all sources go here.
-            null_ls.builtins.formatting.stylua,
-            null_ls.builtins.diagnostics.eslint,
-            null_ls.builtins.completion.spell,
-        },
-    })
 
-    mason_null_ls.setup({
-        ensure_installed = { "stylua", "eslint", "spell" },
-        automatic_installation = true,
-        automatic_setup = false,
-    })
+    if found_null_ls and found_mason_null_ls then
+        local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+        null_ls.setup({
+            on_attach = function(client, bufnr)
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.format({ bufnr = bufnr })
+                        end,
+                    })
+                end
+            end,
+            debug = true,
+            sources = {
+                -- null-ls server Configure
+                null_ls.builtins.diagnostics.hadolint,
+                null_ls.builtins.diagnostics.markdownlint,
+                null_ls.builtins.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
+                null_ls.builtins.formatting.gofmt,
+                null_ls.builtins.formatting.black,
+                null_ls.builtins.formatting.prettier,
+                null_ls.builtins.formatting.shfmt,
+                null_ls.builtins.formatting.sql_formatter,
+                null_ls.builtins.formatting.stylua,
+                null_ls.builtins.completion.spell,
+                null_ls.builtins.formatting.terrafmt,
+                null_ls.builtins.formatting.terraform_fmt,
+                null_ls.builtins.formatting.xmlformat,
+            },
+        })
 
-    -- Never request typescript-language-server for formatting
-    
+        mason_null_ls.setup({
+            ensure_installed = { "stylua", "eslint", "spell" },
+            automatic_installation = true,
+            automatic_setup = false,
+        })
+    end
 
     -- auto install LSP List
     mason_lspconfig.setup({
@@ -90,9 +86,11 @@ then
     })
 
     -- auto install debugers
-    mason_dap.setup({
-        ensure_installed = { "lua", "rust", "python" },
-    })
+    if found_mason_dap then
+        mason_dap.setup({
+            ensure_installed = { "lua", "rust", "python" },
+        })
+    end
 
     -- Lua long Lsp Config
     nvim_lsp.sumneko_lua.setup({

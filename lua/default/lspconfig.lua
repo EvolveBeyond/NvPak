@@ -6,7 +6,6 @@ local found_lsp_file, lsp_file = pcall(require, "lsp-file-operations")
 local found_null_ls, null_ls = pcall(require, "null-ls")
 local found_mason_null_ls, mason_null_ls = pcall(require, "mason-null-ls")
 
-
 if found_mason and found_mason_lspconfig and found_nvim_lsp then
     -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
     local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -52,24 +51,23 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
             debug = true,
             sources = {
                 -- null-ls server Configure
-                null_ls.builtins.diagnostics.hadolint,
                 null_ls.builtins.diagnostics.markdownlint,
                 null_ls.builtins.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
-                null_ls.builtins.formatting.gofmt,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.prettier,
                 null_ls.builtins.formatting.shfmt,
                 null_ls.builtins.formatting.sql_formatter,
                 null_ls.builtins.formatting.stylua,
                 null_ls.builtins.completion.spell,
-                null_ls.builtins.formatting.terrafmt,
-                null_ls.builtins.formatting.terraform_fmt,
                 null_ls.builtins.formatting.xmlformat,
             },
         })
 
         mason_null_ls.setup({
-            ensure_installed = { "stylua", "eslint", "spell" },
+            ensure_installed = {
+                -- Write your desired package here instead of above (for people who don't like the automatic system and use space + f)
+                -- for example "black"
+            },
             automatic_installation = true,
             automatic_setup = false,
         })

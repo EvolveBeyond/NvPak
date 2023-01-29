@@ -14,6 +14,30 @@ if found_mason
     and found_null_ls
     and found_mason_null_ls
 then
+    -- Use an on_attach function to only map the following keys
+    -- after the language server attaches to the current buffer
+    local on_attach = function(client, bufnr)
+       vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        -- Mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local bufopts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+        vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+        vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+        vim.keymap.set("n", "<space>wl", function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, bufopts)
+        vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+        vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+        vim.keymap.set("n", "<space>f", function() vim.lsp.buf.format { async = true } end, bufopts)
+    end
+
     -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
@@ -38,17 +62,22 @@ then
 
     -- null ls config
     null_ls.setup({
-        sources = {},
+        sources = {
+            -- all sources go here.
+            null_ls.builtins.formatting.stylua,
+            null_ls.builtins.diagnostics.eslint,
+            null_ls.builtins.completion.spell,
+        },
     })
 
     mason_null_ls.setup({
-        ensure_installed = { "stylua", "eslint", "spell", "mypy", "block" },
+        ensure_installed = { "stylua", "eslint", "spell" },
         automatic_installation = true,
-        automatic_setup = true,
+        automatic_setup = false,
     })
-    mason_null_ls.setup_handlers()
 
-    vim.lsp.buf.format({ timeout_ms = 2000 })
+    -- Never request typescript-language-server for formatting
+    
 
     -- auto install LSP List
     mason_lspconfig.setup({
@@ -86,7 +115,6 @@ then
 
     -- pyls normal python lsp
     nvim_lsp.pylsp.setup({
-        on_attach = on_attach,
         settings = {
             pylsp = {
                 plugins = {
@@ -98,6 +126,27 @@ then
             },
         },
     })
+
+    nvim_lsp.efm.setup({
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        },
+        init_options = { documentFormatting = true },
+        filetypes = { "python" },
+        settings = {
+            rootMarkers = { ".git/" },
+            languages = {
+                python = {
+                    { formatCommand = "black --quiet -", formatStdin = true },
+                },
+            },
+        },
+    })
+
+    nvim_lsp.format_on_save = {
+        pattern = { "*.lua", "*.py", "*.go" },
+    }
 
     -- python static lsp
     nvim_lsp.pyre.setup({

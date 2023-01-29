@@ -45,7 +45,7 @@ else
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
             config = function()
-                require("default.packages.treesitter")
+                require("packages.treesitter")
             end,
         })
 
@@ -80,7 +80,7 @@ else
         use({
             "L3MON4D3/LuaSnip",
             config = function()
-                require("default.packages.snip")
+                require("packages.snip")
             end,
         })
         use("onsails/lspkind.nvim")
@@ -92,7 +92,7 @@ else
         use({
             "s1n7ax/nvim-terminal",
             config = function()
-                require("default.packages.NTerm")
+                require("packages.NTerm")
             end,
         })
         -- Markdown Previews
@@ -108,7 +108,7 @@ else
         use({
             "simrat39/rust-tools.nvim",
             config = function()
-                require("default.packages.rust-tools")
+                require("packages.rust-tools")
             end,
         })
 
@@ -126,7 +126,7 @@ else
         use({
             "kyazdani42/nvim-tree.lua",
             config = function()
-                require("default.packages.tree")
+                require("packages.tree")
             end,
         })
         use({
@@ -141,7 +141,7 @@ else
         use({
             "norcalli/nvim-colorizer.lua",
             config = function()
-                require("default.packages.colorizer")
+                require("packages.colorizer")
             end,
         })
         use("kyazdani42/nvim-web-devicons")
@@ -156,7 +156,7 @@ else
         use({
             "tamton-aquib/staline.nvim",
             config = function()
-                require("default.packages.staline")
+                require("packages.staline")
             end,
         })
 
@@ -165,7 +165,7 @@ else
             "romgrk/barbar.nvim",
             requires = { "kyazdani42/nvim-web-devicons" },
             config = function()
-                require("default.packages.barbar")
+                require("packages.barbar")
             end,
         })
 

@@ -1,7 +1,10 @@
 local bind = vim.keymap.set
+local set = vim.g
 local opts = { noremap = true, silent = true }
 local silent = { silent = true }
 
+-- Leader bind
+set.mapleader = " "
 -- Fire Explorer
 local ok, nvimtree = pcall(require, "nvim-tree.config")
 
@@ -65,7 +68,7 @@ if ok3 then
             ["<Tab>"] = cmp.mapping.select_next_item(),
             ["<C-d>"] = cmp.mapping.scroll_docs(-4),
             ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+            ["<C-leader>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
             ["<C-e>"] = cmp.mapping.close(),
             ["<CR>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Insert,
@@ -108,7 +111,10 @@ bind("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
 -- Magic buffer-picking mode
 bind("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
 -- Sort automatically by...
-bind("n", "<Space>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
-bind("n", "<Space>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
-bind("n", "<Space>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
-bind("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
+bind("n", "<leader>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
+bind("n", "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
+bind("n", "<leader>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
+bind("n", "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
+
+-- auto format
+bind("n", "<leader>f", ":lua vim.lsp.buf.formatting()<cr>", silent)

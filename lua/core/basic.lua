@@ -8,6 +8,7 @@ local vimscript = vim.cmd
 set.termguicolors = true
 set.syntax = "Enable"
 
+
 vimscript([[
 highlight NvimTreeFolderIcon guibg=blue
 ]])

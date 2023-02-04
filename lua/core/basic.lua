@@ -5,17 +5,16 @@ local vimscript = vim.cmd
 -- let g:do_filetype_lua = 1
 
 -- Color themes
-set.termguicolors = true
-set.syntax = "Enable"
-
+-- set.termguicolors = true
+-- set.syntax = "Enable"
 
 vimscript([[
-highlight NvimTreeFolderIcon guibg=blue
+highlight NvimTreeFolderIcon guibg=NONE
 ]])
 --Disable wrapping line.
 vimscript([[set nowrap]])
 -- Disable transparent Background
-set.background = "dark"
+-- set.background = "dark"
 -- Show current line number
 set.number = true
 -- Show relative line numbers
@@ -33,13 +32,13 @@ set.expandtab = true
 -- set.foldexpr='nvim_treesitter#foldexpr()'
 
 -- chack run Atom OneDark Theme
-local status_ok, monokai = pcall(require, "monokai")
+local status_ok = pcall(require, "monokai")
 
 -- auto install Plugins and load theme
-if not status_ok then
-    return
+if status_ok then
+	require("colors.monokia")
 else
-    monokai.setup({ palette = monokai.pro }) -- monokai.setup{ palette = monokai.pro or soda or ristretto }
+	return
 end
 
 -- enable mouse support and clipboard(xsel or wl-clipboard(for wayland))
@@ -47,10 +46,10 @@ set.clipboard = "unnamedplus"
 set.mouse = "a"
 -- Restore cursor position
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    pattern = { "*" },
-    callback = function()
-        vim.api.nvim_exec('silent! normal! g`"zv', false)
-    end,
+	pattern = { "*" },
+	callback = function()
+		vim.api.nvim_exec('silent! normal! g`"zv', false)
+	end,
 })
 
 set.laststatus = 3 -- Status Line Mode
@@ -58,10 +57,10 @@ set.showtabline = 2 -- Tab Line Mode
 
 -- erorr and Warning managment
 vim.diagnostic.config({
-    virtual_text = false, -- Disable virtual_text since it's redundant due to lsp_lines.
-    virtual_lines = {
-        only_current_line = true,
-        spacing = 5,
-        severity_limit = "Warning",
-    },
+	virtual_text = false, -- Disable virtual_text since it's redundant due to lsp_lines.
+	virtual_lines = {
+		only_current_line = true,
+		spacing = 5,
+		severity_limit = "Warning",
+	},
 })

@@ -151,6 +151,7 @@ else
 		use("navarasu/onedark.nvim") -- color theme
 		use("shaunsingh/nord.nvim") -- color theme
 		use("NvChad/base46") -- color theme
+		use({ "catppuccin/nvim", as = "catppuccin" }) -- color theme
 		use("tanvirtin/monokai.nvim") -- color theme
 
 		-- StaLine Neovim StatusLine

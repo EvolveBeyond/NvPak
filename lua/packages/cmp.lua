@@ -38,6 +38,20 @@ then
 	}
 
 	cmp.setup({
+		sorting = {
+			priority_weight = 2,
+			comparators = {
+				tabnine_compare,
+				compare.offset,
+				compare.exact,
+				compare.score,
+				compare.recently_used,
+				compare.kind,
+				compare.sort_text,
+				compare.length,
+				compare.order,
+			},
+		},
 		snippet = {
 			expand = function(args)
 				luasnip.lsp_expand(args.body)
@@ -61,20 +75,6 @@ then
 				cmp.ItemField.Abbr,
 				cmp.ItemField.Kind,
 				cmp.ItemField.Menu,
-			},
-			sorting = {
-				priority_weight = 4,
-				comparators = {
-					compare.offset,
-					compare.exact,
-					compare.score,
-					compare.recently_used,
-					compare.kind,
-					compare.sort_text,
-					compare.length,
-					compare.order,
-					tabnine_compare,
-				},
 			},
 			format = lspkind.cmp_format({
 				mode = "symbol_text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'

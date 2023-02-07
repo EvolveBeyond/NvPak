@@ -24,7 +24,7 @@ In order to make the best use of this config, you must meet the following prereq
 - `git`
 - `bash` or `dash` and for windows `PowerShell v5.1` or later
 - Just for windows `Scoop.sh`
-- `Nerd fonts`
+- [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) install `Nerd Fonts` from repo
 
 ### Screenshots
 

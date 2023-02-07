@@ -16,7 +16,6 @@ local function open_nvim_tree(data)
 	require("nvim-tree.api").tree.open()
 end
 
-
 local options = {
 	filters = {
 		dotfiles = true,

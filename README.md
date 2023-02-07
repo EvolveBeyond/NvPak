@@ -17,10 +17,9 @@ In order to make the best use of this config, you must meet the following prereq
 - `NVIM v0.7` or later versions
 - `unzip`
 - `curl`
-- `npm`
-- `fd`
+- `node.js` and `npm` or `pnpm` or 'yarn'
+- `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)
 - for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
-- [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) is required for `Fuzzy Finder Telescope`
 - `git`
 - `bash` or `dash` and for windows `PowerShell v5.1` or later
 - Just for windows `Scoop.sh`

@@ -20,6 +20,7 @@ In order to make the best use of this config, you must meet the following prereq
 - `npm`
 - `fd`
 - for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
+- [BurntSushi/ripgrep](https://github.com/BurntSushi/ripgrep) is required for `Fuzzy Finder Telescope`
 - `git`
 - `bash` or `dash` and for windows `PowerShell v5.1` or later
 - Just for windows `Scoop.sh`

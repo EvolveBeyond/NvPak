@@ -125,4 +125,4 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	--
 end
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")

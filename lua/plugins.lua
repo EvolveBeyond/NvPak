@@ -60,6 +60,13 @@ else
 			"mfussenegger/nvim-dap",
 			"jayp0521/mason-nvim-dap.nvim",
 		})
+
+		-- Fuzzy Finder
+
+		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Dependency for better performance
+		use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- Fuzzy Finder
+
+		
 		use("j-hui/fidget.nvim")
 
 		-- Autocompletion

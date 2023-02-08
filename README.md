@@ -17,13 +17,13 @@ In order to make the best use of this config, you must meet the following prereq
 - `NVIM v0.7` or later versions
 - `unzip`
 - `curl`
-- `node.js` and `npm` or `pnpm` or 'yarn'
+- `node.js` and `npm` or `pnpm` or `yarn`'
 - `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)
 - for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 - `git`
 - `bash` or `dash` and for windows `PowerShell v5.1` or later
 - Just for windows `Scoop.sh`
-- [Nerd fonts](https://github.com/ryanoasis/nerd-fonts) install `Nerd Fonts` from repo
+- install [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 
 ### Screenshots
 
@@ -38,7 +38,7 @@ Show
 ![autocompelet](https://user-images.githubusercontent.com/27810360/215936237-96bc8604-1597-4aa9-bbfb-4709cae73016.png)
 
 ![NeoVide](https://user-images.githubusercontent.com/27810360/181910971-43f34b7f-116a-4981-a9d6-37db0c1526f1.png)
-  
+
 ![Fuzzy Finder](https://user-images.githubusercontent.com/48873115/217238383-51c83389-ef78-414c-bdda-2896033ce389.png)
 
 ![CmdLine](https://user-images.githubusercontent.com/27810360/181955593-80e4480b-e158-4be7-abe0-0509072d1118.png)

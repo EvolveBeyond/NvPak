@@ -1,24 +1,20 @@
 -- import telescope plugin safely
-local telescope_setup, telescope = pcall(require, "telescope")
+local telescope = require("telescope")
 -- import telescope actions safely
-local actions_setup, actions = pcall(require, "telescope.actions")
+local actions = require("telescope.actions")
 
-if telescope_setup and actions_setup then
-    -- configure telescope
-    telescope.setup({
-        -- configure custom mappings
-        defaults = {
-            mappings = {
-                i = {
-                    ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-                    ["<C-j>"] = actions.move_selection_next, -- move to next result
-                    ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
-                },
-            },
-        },
-    })
+-- configure telescope
+telescope.setup({
+	-- configure custom mappings
+	defaults = {
+		mappings = {
+			i = {
+				["<C-k>"] = actions.move_selection_previous, -- move to prev result
+				["<C-j>"] = actions.move_selection_next, -- move to next result
+				["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
+			},
+		},
+	},
+})
 
-    telescope.load_extension("fzf")
-else
-    return
-end
+telescope.load_extension("fzf")

@@ -151,6 +151,16 @@ else
 			},
 		})
 
+		-- Dashboard
+		use({
+			"glepnir/dashboard-nvim",
+			event = "VimEnter",
+			config = function()
+				require("packages.dashboard")
+			end,
+			requires = { "nvim-tree/nvim-web-devicons" },
+		})
+
 		-- Themes and more customize Plugins
 		use({
 			"norcalli/nvim-colorizer.lua",

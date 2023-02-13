@@ -87,8 +87,12 @@ else
 		use("onsails/lspkind.nvim")
 
 		-- bracket autocompletion
-		use("vim-scripts/auto-pairs-gentle")
-
+		use({
+			"m4xshen/autoclose.nvim",
+			config = function()
+				require("packages.autoclose")
+			end,
+		})
 		-- Neovim Terminal
 		use({
 			"s1n7ax/nvim-terminal",

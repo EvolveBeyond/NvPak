@@ -11,6 +11,7 @@ require("staline").setup({
 		v = "#FFA200",
 	},
 	defaults = {
+		expand_null_ls = true,
 		true_colors = true,
 		line_column = " [%l/%L] :%c  ",
 		branch_symbol = " ",

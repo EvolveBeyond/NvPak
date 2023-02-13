@@ -46,7 +46,7 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	end
 
 	-- Lua long Lsp Config
-	nvim_lsp.sumneko_lua.setup({
+	nvim_lsp.lua_ls.setup({
 		settings = {
 			Lua = {
 				diagnostics = {

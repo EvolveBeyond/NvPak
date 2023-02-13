@@ -31,7 +31,7 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	-- auto install LSP List
 	mason_lspconfig.setup({
 		ensure_installed = {
-			"sumneko_lua", -- lua language server
+			"lua_ls", -- lua language server
 			"rust_analyzer", -- rust language server
 			"pylsp", -- python language server
 			"pyre", -- python language server

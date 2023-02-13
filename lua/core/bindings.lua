@@ -6,9 +6,9 @@ local silent = { silent = true }
 -- Leader bind
 set.mapleader = " "
 -- Fire Explorer
-local ok, nvimtree = pcall(require, "nvim-tree.config")
+local nvimtree_status, nvimtree = pcall(require, "nvim-tree.config")
 
-if ok then
+if nvimtree_status then
 	bind("n", "<leader>r", ":NvimTreeRefresh<CR>") -- nnoremap <leader>r :NvimTreeRefresh<CR>
 	bind("n", "<leader>n", ":NvimTreeFindFile<CR>") -- nnoremap <leader>n :NvimTreeFindFile<CR>
 	bind("n", "<C-n>", ":NvimTreeToggle<CR>") -- nnoremap <C-n> :NvimTreeToggle<CR>
@@ -26,8 +26,8 @@ if ok then
 end
 
 -- Debugin System
-local ok1, lines = pcall(require, "lsp_lines")
-if ok1 then
+local lines_status, lines = pcall(require, "lsp_lines")
+if lines_status then
 	bind("", "<Leader>l", lines.toggle, { desc = "Toggle lsp_lines" })
 end
 
@@ -43,8 +43,8 @@ bind("n", "<C-s>", ":w<CR>")
 bind("i", "C-s", ":w<CR>")
 
 -- Nvim Terminal
-local ok2, nvim_terminal = pcall(require, "nvim-terminal")
-if ok2 then
+local nvim_terminal_status, nvim_terminal = pcall(require, "nvim-terminal")
+if nvim_terminal_status then
 	terminal = nvim_terminal.DefaultTerminal
 
 	bind("n", "<leader>t", ":lua terminal:toggle()<cr>", silent)
@@ -57,8 +57,8 @@ if ok2 then
 end
 
 -- cmp autocompelet
-local ok3, cmp = pcall(require, "cmp")
-if ok3 then
+local autocompelet_status, cmp = pcall(require, "cmp")
+if autocompelet_status then
 	cmp.setup({
 
 		mapping = {

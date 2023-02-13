@@ -14,7 +14,7 @@ require("autoclose").setup({
 		["`"] = { escape = true, close = true, pair = "``" },
 	},
 	options = {
-		disabled_filetypes = { "text" },
-		disable_when_touch = false,
+		-- disabled_filetypes = { "text" },
+		disable_when_touch = true,
 	},
 })

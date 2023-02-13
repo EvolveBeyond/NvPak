@@ -32,10 +32,10 @@ set.expandtab = true
 -- set.foldexpr='nvim_treesitter#foldexpr()'
 
 -- chack run Atom OneDark Theme
-local status_ok = pcall(require, "monokai")
+local monokai_status = pcall(require, "monokai")
 
 -- auto install Plugins and load theme
-if status_ok then
+if monokai_status then
 	require("colors.monokia")
 else
 	return

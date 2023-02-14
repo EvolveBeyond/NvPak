@@ -69,15 +69,15 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 		settings = {
 			pylsp = {
 				plugins = {
-					pycodestyle = { enabled = true },
+					pylsp_mypy = { enabled = true },
 					pylsp_black = { enabled = true },
 					pylsp_isort = { enabled = true },
 
 					-- disabled standard plugins
 					autopep8 = { enabled = false }, -- covered by black
 					yapf = { enabled = false }, -- covered by black
+					pycodestyle = { enabled = false },
 					pydocstyle = { enabled = false },
-					pylsp_mypy = { enabled = false },
 				},
 			},
 		},

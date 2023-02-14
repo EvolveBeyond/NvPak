@@ -22,14 +22,15 @@ if found_null_ls and found_mason_null_ls and found_lsp then
 	local b = null_ls.builtins
 	local packages = {
 		b.diagnostics.markdownlint,
+		b.diagnostics.mypy,
 		b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 		b.formatting.black,
+		b.formatting.isort,
 		b.formatting.prettier,
 		b.formatting.shfmt,
 		b.formatting.sql_formatter,
 		b.formatting.stylua,
 		b.completion.spell,
-		b.formatting.xmlformat,
 	}
 
 	-- Null-ls Config

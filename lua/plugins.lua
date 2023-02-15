@@ -129,6 +129,25 @@ else
 			end,
 		})
 		-- Debugging System
+		use("mfussenegger/nvim-dap")
+		use({
+			"jay-babu/mason-nvim-dap.nvim",
+			config = function()
+				require("packages.dap")
+			end,
+		})
+		use({
+			"folke/neodev.nvim",
+			config = function()
+				require("packages.neodev")
+			end,
+		})
+		use({
+			"rcarriga/nvim-dap-ui",
+			requires = { "mfussenegger/nvim-dap" },
+		})
+
+		-- Async lib
 		use("nvim-lua/plenary.nvim")
 
 		-- vim diagnostics system

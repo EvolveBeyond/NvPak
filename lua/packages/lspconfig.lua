@@ -49,6 +49,9 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	nvim_lsp.lua_ls.setup({
 		settings = {
 			Lua = {
+				completion = {
+					callSnippet = "Replace",
+				},
 				diagnostics = {
 					globals = { "vim" },
 				},

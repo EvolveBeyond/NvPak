@@ -45,8 +45,12 @@ else
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
+		})
+
+		use({
+			"folke/zen-mode.nvim",
 			config = function()
-				require("packages.treesitter")
+				require("packages.zen_mode")
 			end,
 		})
 
@@ -173,7 +177,7 @@ else
 		use("cocopon/iceberg.vim") -- color theme
 		use("navarasu/onedark.nvim") -- color theme
 		use("shaunsingh/nord.nvim") -- color theme
-		use("NvChad/base46") -- color theme
+		use("jayden-chan/base46.nvim") -- color theme
 		use({ "catppuccin/nvim", as = "catppuccin" }) -- color theme
 		use("tanvirtin/monokai.nvim") -- color theme
 

@@ -3,6 +3,7 @@ local found_mason_lspconfig, mason_lspconfig = pcall(require, "mason-lspconfig")
 local found_nvim_lsp, nvim_lsp = pcall(require, "lspconfig")
 local found_mason_dap, mason_dap = pcall(require, "mason-nvim-dap")
 local found_lsp_file, lsp_file = pcall(require, "lsp-file-operations")
+local found_dartls = pcall(nvim_lsp.dartls)
 
 if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
@@ -107,27 +108,26 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	})
 
 	-- dart lsp config
-	-- nvim_lsp.dart.setup {}
-	-- Or if you have Dartls installed
-	-- nvim_lsp.dartls.setup{
-	--       cmd = {"dart", "language-server", "--protocol=lsp"},
-	--       filetypes = {"dart"},
-	--       init_options = {
-	--                       closingLabels = true,
-	--                       flutterOutline = true,
-	--                       onlyAnalyzeProjectsWithOpenFiles = true,
-	--                       outline = true,
-	--                       suggestFromUnimportedLibraries = true
-	--                     },
-	--       root_dir = nvim_lsp.util.root_pattern("pubspec.yaml"),
-	--       settings = {
-	--               dart = {
-	--                       completeFunctionCalls = true,
-	--                       showTodos = true
-	--                      }
-	--                  }
-	--               }
-	--
+	if found_dartls then
+		nvim_lsp.dartls.setup({
+			cmd = { "dart", "language-server", "--protocol=lsp" },
+			filetypes = { "dart" },
+			init_options = {
+				closingLabels = true,
+				flutterOutline = true,
+				onlyAnalyzeProjectsWithOpenFiles = true,
+				outline = true,
+				suggestFromUnimportedLibraries = true,
+			},
+			root_dir = nvim_lsp.util.root_pattern("pubspec.yaml"),
+			settings = {
+				dart = {
+					completeFunctionCalls = true,
+					showTodos = true,
+				},
+			},
+		})
+	end
 end
 
 -- vim.lsp.set_log_level("debug")

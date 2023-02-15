@@ -120,7 +120,14 @@ else
 				require("packages.rust-tools")
 			end,
 		})
-
+		-- dart and flutter code tools
+		use({
+			"akinsho/flutter-tools.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("flutter-tools").setup({})
+			end,
+		})
 		-- Debugging System
 		use("nvim-lua/plenary.nvim")
 

@@ -47,6 +47,13 @@ else
 			run = ":TSUpdate",
 		})
 
+		use({
+			"folke/zen-mode.nvim",
+			config = function()
+				require("packages.zen_mode")
+			end,
+		})
+
 		-- LSP Support
 		use({
 			"williamboman/mason.nvim",

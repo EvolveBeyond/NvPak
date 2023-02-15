@@ -4,17 +4,8 @@ local vimscript = vim.cmd
 -- local utf8 = require("utf8")
 -- let g:do_filetype_lua = 1
 
--- Color themes
--- set.termguicolors = true
--- set.syntax = "Enable"
-
-vimscript([[
-highlight NvimTreeFolderIcon guibg=NONE
-]])
 --Disable wrapping line.
 vimscript([[set nowrap]])
--- Disable transparent Background
--- set.background = "dark"
 -- Show current line number
 set.number = true
 -- Show relative line numbers
@@ -30,16 +21,6 @@ set.expandtab = true
 -- Folding
 -- set.foldmethod='expr'
 -- set.foldexpr='nvim_treesitter#foldexpr()'
-
--- chack run Atom OneDark Theme
-local monokai_status = pcall(require, "monokai")
-
--- auto install Plugins and load theme
-if monokai_status then
-	require("colors.monokia")
-else
-	return
-end
 
 -- enable mouse support and clipboard(xsel or wl-clipboard(for wayland))
 set.clipboard = "unnamedplus"

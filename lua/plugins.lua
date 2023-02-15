@@ -45,9 +45,6 @@ else
 		use({
 			"nvim-treesitter/nvim-treesitter",
 			run = ":TSUpdate",
-			config = function()
-				require("packages.treesitter")
-			end,
 		})
 
 		-- LSP Support
@@ -173,7 +170,7 @@ else
 		use("cocopon/iceberg.vim") -- color theme
 		use("navarasu/onedark.nvim") -- color theme
 		use("shaunsingh/nord.nvim") -- color theme
-		use("NvChad/base46") -- color theme
+		use("jayden-chan/base46.nvim") -- color theme
 		use({ "catppuccin/nvim", as = "catppuccin" }) -- color theme
 		use("tanvirtin/monokai.nvim") -- color theme
 

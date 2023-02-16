@@ -25,7 +25,7 @@ if found_null_ls and found_mason_null_ls and found_lsp then
 		b.diagnostics.mypy,
 		b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 		b.formatting.black,
-		b..formatting.dart_format,
+		b.formatting.dart_format,
 		b.formatting.isort,
 		b.formatting.prettier,
 		b.formatting.shfmt,

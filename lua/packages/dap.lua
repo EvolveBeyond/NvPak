@@ -1,5 +1,5 @@
-local mason_dap = require("mason-nvim-dap")
 local dap, dapui = require("dap"), require("dapui")
+local mason_dap = require("mason-nvim-dap")
 local DEFAULT_SETTINGS = {
 	-- A list of adapters to install if they're not already installed.
 	-- This setting has no relation with the `automatic_installation` setting.

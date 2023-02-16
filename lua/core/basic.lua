@@ -17,6 +17,7 @@ set.tabstop = 4
 set.shiftwidth = 0
 set.softtabstop = 0
 set.expandtab = true
+set.signcolumn = "yes"
 
 -- Folding
 -- set.foldmethod='expr'

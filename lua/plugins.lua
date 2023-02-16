@@ -117,6 +117,7 @@ else
 			config = function()
 				require("packages.rust-tools")
 			end,
+			ft = { "rust" },
 		})
 		-- dart and flutter code tools
 		use({
@@ -158,6 +159,7 @@ else
 		-- File Explorer
 		use({
 			"kyazdani42/nvim-tree.lua",
+			requires = { "nvim-tree/nvim-web-devicons" },
 			config = function()
 				require("packages.tree")
 			end,
@@ -196,7 +198,9 @@ else
 				require("packages.colorizer")
 			end,
 		})
-		use("kyazdani42/nvim-web-devicons")
+		use({
+			"kyazdani42/nvim-web-devicons",
+		})
 		use({ "dracula/vim", as = "dracula" }) -- Color theme
 		use("cocopon/iceberg.vim") -- color theme
 		use("navarasu/onedark.nvim") -- color theme
@@ -204,7 +208,12 @@ else
 		use("jayden-chan/base46.nvim") -- color theme
 		use({ "catppuccin/nvim", as = "catppuccin" }) -- color theme
 		use("tanvirtin/monokai.nvim") -- color theme
-
+		use({
+			"lukas-reineke/indent-blankline.nvim",
+			config = function()
+				require("packages.indent")
+			end,
+		})
 		-- StaLine Neovim StatusLine
 		use({
 			"tamton-aquib/staline.nvim",

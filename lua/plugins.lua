@@ -61,8 +61,6 @@ else
 			"neovim/nvim-lspconfig",
 			"jose-elias-alvarez/null-ls.nvim",
 			"jay-babu/mason-null-ls.nvim",
-			"mfussenegger/nvim-dap",
-			"jayp0521/mason-nvim-dap.nvim",
 		})
 		use("j-hui/fidget.nvim")
 
@@ -129,6 +127,25 @@ else
 			end,
 		})
 		-- Debugging System
+		use("mfussenegger/nvim-dap")
+		use({
+			"folke/neodev.nvim",
+			config = function()
+				require("packages.neodev")
+			end,
+		})
+		use({
+			"rcarriga/nvim-dap-ui",
+			requires = { "mfussenegger/nvim-dap" },
+		})
+		use({
+			"jay-babu/mason-nvim-dap.nvim",
+			config = function()
+				require("packages.dap")
+			end,
+		})
+
+		-- Async lib
 		use("nvim-lua/plenary.nvim")
 
 		-- vim diagnostics system

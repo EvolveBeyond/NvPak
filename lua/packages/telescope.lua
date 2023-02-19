@@ -20,3 +20,10 @@ telescope.setup({
 telescope.load_extension("fzf")
 telescope.load_extension("dap")
 telescope.load_extension("flutter")
+
+-- telescope dap configure
+telescope.extensions.dap.commands({})
+telescope.extensions.dap.configurations({})
+telescope.extensions.dap.list_breakpoints({})
+telescope.extensions.dap.variables({})
+telescope.extensions.dap.frames({})

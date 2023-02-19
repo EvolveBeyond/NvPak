@@ -168,6 +168,7 @@ else
 		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Dependency for better performance
 		use({
 			"nvim-telescope/telescope.nvim",
+			"nvim-telescope/telescope-dap.nvim",
 			branch = "0.1.x",
 			config = function()
 				require("packages.telescope")

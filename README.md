@@ -20,6 +20,7 @@ In order to make the best use of this config, you must meet the following prereq
 - `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)
 - for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 - `git`
+- If you are a Python developer, `pynvim` 
 - `bash` or `dash` and for windows `PowerShell v5.1` or later
 - Just for windows `Scoop.sh`
 - install [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)

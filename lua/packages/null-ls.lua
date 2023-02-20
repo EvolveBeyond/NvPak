@@ -21,7 +21,6 @@ if found_null_ls and found_mason_null_ls and found_lsp then
 	-- null-ls server Configure
 	local b = null_ls.builtins
 	local packages = {
-		b.diagnostics.markdownlint,
 		b.diagnostics.mypy,
 		b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 		b.formatting.black,

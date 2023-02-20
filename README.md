@@ -7,7 +7,6 @@
 NvPak is a mandatory requirement to end generating complex configs for neovim.\
 PaK in Farsi means pure(clear), something that is available in its simplest form in its purest form.\
 but don't get me wrong, this is not a Neovim distribution, this config is designed for you to fork it.\
-for example : [NvPak For Python](https://github.com/ARS101/NvPak)\
 However, it may be enough for you without the need to change.
 
 ## Requirements

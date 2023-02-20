@@ -34,7 +34,7 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 			"lua_ls", -- lua language server
 			"rust_analyzer", -- rust language server
 			"pylsp", -- python language server
-			"pyre", -- python language server
+			"jedi-language-server", -- python language server
 		},
 	})
 
@@ -69,6 +69,9 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 
 	-- pyls normal python lsp
 	nvim_lsp.pylsp.setup({
+		cmd = { "pylsp" },
+		filetypes = { "python" },
+		root_dir = nvim_lsp.util.root_pattern(".git", "venv", ".env", "main.py"),
 		settings = {
 			pylsp = {
 				plugins = {
@@ -84,12 +87,15 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 				},
 			},
 		},
+		single_file_support = true,
 	})
 
-	-- python static lsp
-	nvim_lsp.pyre.setup({
-		cmd = { "pyre", "persistent" },
+	-- jedi python language server
+	nvim_lsp.jedi_language_server.setup({
+		cmd = { "jedi-language-server" },
 		filetypes = { "python" },
+		root_dir = nvim_lsp.util.root_pattern(".git", "venv", ".env", "main.py"),
+		single_file_support = true,
 	})
 
 	-- rust_analyzer Config

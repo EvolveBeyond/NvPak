@@ -34,7 +34,7 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 			"lua_ls", -- lua language server
 			"rust_analyzer", -- rust language server
 			"pylsp", -- python language server
-			"jedi-language-server", -- python language server
+			"jedi_language_server", -- python language server
 		},
 	})
 

@@ -156,14 +156,6 @@ else
 				require("lsp_lines").setup()
 			end,
 		})
-		-- File Explorer
-		use({
-			"kyazdani42/nvim-tree.lua",
-			requires = { "nvim-tree/nvim-web-devicons" },
-			config = function()
-				require("packages.tree")
-			end,
-		})
 		-- Fuzzy Finder
 		use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Dependency for better performance
 		use({
@@ -180,26 +172,39 @@ else
 				{ "kyazdani42/nvim-tree.lua" },
 			},
 		})
+		-- File Explorer
+		use({
+			"kyazdani42/nvim-tree.lua",
+			requires = { "nvim-tree/nvim-web-devicons" },
+			config = function()
+				require("packages.tree")
+			end,
+		})
 
 		-- Dashboard
 		use({
 			"glepnir/dashboard-nvim",
+			requires = { "nvim-tree/nvim-web-devicons", opt = true },
 			event = "VimEnter",
 			config = function()
 				require("packages.dashboard")
 			end,
-			requires = { "nvim-tree/nvim-web-devicons" },
 		})
 
+		-- StaLine Neovim StatusLine
+		use({
+			"tamton-aquib/staline.nvim",
+			requires = { "nvim-tree/nvim-web-devicons", opt = true },
+			config = function()
+				require("packages.staline")
+			end,
+		})
 		-- Themes and more customize Plugins
 		use({
 			"norcalli/nvim-colorizer.lua",
 			config = function()
 				require("packages.colorizer")
 			end,
-		})
-		use({
-			"kyazdani42/nvim-web-devicons",
 		})
 		use({ "dracula/vim", as = "dracula" }) -- Color theme
 		use("cocopon/iceberg.vim") -- color theme
@@ -214,14 +219,6 @@ else
 				require("packages.indent")
 			end,
 		})
-		-- StaLine Neovim StatusLine
-		use({
-			"tamton-aquib/staline.nvim",
-			config = function()
-				require("packages.staline")
-			end,
-		})
-
 		-- Automatically set up your configuration after cloning packer.nvim
 		-- Put this at the end after all plugins
 		if packer_bootstrap then

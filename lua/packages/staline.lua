@@ -11,6 +11,7 @@ require("staline").setup({
 		v = "#FFA200",
 	},
 	defaults = {
+		null_ls_symbol = "[Null-ls]",
 		expand_null_ls = true,
 		true_colors = true,
 		line_column = " [%l/%L] :%c  ",
@@ -19,12 +20,14 @@ require("staline").setup({
 })
 
 require("stabline").setup({
-	style = "bubble",
-	bg = "#ff0040",
-	defaults = {
-		true_colors = true,
-	},
-	sections = {
-		mid = { { "RandomHighlight", "-file_name" } },
-	},
+	style = "bar",
+	stab_left = "|",
+	bg = "#242b38",
+	fg = "#ffffff",
+	inactive_bg = "#1e2127",
+	inactive_fg = "#ffffff",
+	font_active = "bold",
+	exclude_fts = { "NvimTree", "dashboard", "lir" },
+	stab_start = "",
+	stab_end = "",
 })

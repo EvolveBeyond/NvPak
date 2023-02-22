@@ -23,7 +23,7 @@ However, it may be enough for you without the need to change.
 
 In order to make the best use of this config, you must meet the following prerequisites.
 
-- `NVIM v0.7` or later versions
+- `NVIM v0.8.0` or later versions
 - `unzip`
 - `curl`
 - `node.js` and `npm` or `pnpm` or `yarn`

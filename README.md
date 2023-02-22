@@ -2,7 +2,17 @@
   <img width="256" height="256" src="https://user-images.githubusercontent.com/27810360/190279839-f6685b5f-4c56-41b3-b1b5-a8768cc52fb6.gif">
 </p>
 
-# NvPak
+<div align="center">
+
+[![APACHEv3 license](https://img.shields.io/badge/License-APACHEv2-red.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/blob/main/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/graphs/commit-activity)
+[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.8.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![Maintainer](https://img.shields.io/badge/maintainer-theMaintainer-blue?style=flat-square)](https://github.com/Pakrohk)
+[![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
+
+</div>
+
+# <center> NvPak </center>
 
 NvPak is a mandatory requirement to end generating complex configs for neovim.\
 PaK in Farsi means pure(clear), something that is available in its simplest form in its purest form.\
@@ -20,7 +30,7 @@ In order to make the best use of this config, you must meet the following prereq
 - `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)
 - for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 - `git`
-- If you are a Python developer, `pynvim` 
+- If you are a Python developer, `pynvim`
 - `bash` or `dash` and for windows `PowerShell v5.1` or later
 - Just for windows `Scoop.sh`
 - install [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)

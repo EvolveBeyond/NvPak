@@ -119,5 +119,5 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 		root_dir = nvim_lsp.util.find_git_ancestor,
 		single_file_support = true,
 	})
-
+end
 -- vim.lsp.set_log_level("debug")

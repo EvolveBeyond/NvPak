@@ -10,9 +10,9 @@
 [![Maintainer](https://img.shields.io/badge/maintainer-theMaintainer-blue?style=flat-square)](https://github.com/Pakrohk)
 [![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
 
-</div>
+# NvPak
 
-# <center> NvPak </center>
+</div>
 
 NvPak is a mandatory requirement to end generating complex configs for neovim.\
 PaK in Farsi means pure(clear), something that is available in its simplest form in its purest form.\

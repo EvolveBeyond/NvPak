@@ -175,7 +175,7 @@ else
 		-- File Explorer
 		use({
 			"kyazdani42/nvim-tree.lua",
-			requires = { "nvim-tree/nvim-web-devicons" },
+			requires = { "nvim-tree/nvim-web-devicons", opt = true },
 			config = function()
 				require("packages.tree")
 			end,

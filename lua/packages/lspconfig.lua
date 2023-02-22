@@ -39,9 +39,9 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 		},
 	})
 	-- auto server setup
-	require("mason-lspconfig").setup_handlers({
+	mason_lspconfig.setup_handlers({
 		function(server_name)
-			require("lspconfig")[server_name].setup({})
+			nvim_lsp[server_name].setup({})
 		end,
 	})
 

@@ -12,12 +12,12 @@
 
 # NvPak
 
-</div>
-
 NvPak is a mandatory requirement to end generating complex configs for neovim.\
 PaK in Farsi means pure(clear), something that is available in its simplest form in its purest form.\
 but don't get me wrong, this is not a Neovim distribution, this config is designed for you to fork it.\
 However, it may be enough for you without the need to change.
+
+</div>
 
 ## Requirements
 

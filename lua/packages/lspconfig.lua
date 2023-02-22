@@ -38,6 +38,12 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 			"jedi_language_server", -- python language server
 		},
 	})
+	-- auto server setup
+	require("mason-lspconfig").setup_handlers({
+		function(server_name)
+			require("lspconfig")[server_name].setup({})
+		end,
+	})
 
 	-- auto install debugers
 	if found_mason_dap then

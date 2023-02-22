@@ -32,6 +32,7 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 	mason_lspconfig.setup({
 		ensure_installed = {
 			"lua_ls", -- lua language server
+			"bashls",
 			"rust_analyzer", -- rust language server
 			"pylsp", -- python language server
 			"jedi_language_server", -- python language server
@@ -103,6 +104,14 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 		cmd = { "rust_analyzer" },
 		filetypes = { "rust" },
 		root_dir = nvim_lsp.util.root_pattern("Cargo.toml", "rust-project.json"),
+	})
+	-- bash and shell script lsp
+	nvim_lsp.bashls.setup({
+		cmd = { "bash-language-server", "start" },
+		cmd_env = { GLOB_PATTERN = "*@(.sh|.inc|.bash|.command)" },
+		filetypes = { "sh", "zsh", "bash", "dash" },
+		root_dir = nvim_lsp.util.find_git_ancestor,
+		single_file_support = true,
 	})
 
 	nvim_lsp.bashls.setup({

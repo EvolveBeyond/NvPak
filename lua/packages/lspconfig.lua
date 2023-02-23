@@ -1,7 +1,6 @@
 local found_mason, mason = pcall(require, "mason")
 local found_mason_lspconfig, mason_lspconfig = pcall(require, "mason-lspconfig")
 local found_nvim_lsp, nvim_lsp = pcall(require, "lspconfig")
-local found_mason_dap, mason_dap = pcall(require, "mason-nvim-dap")
 local found_lsp_file, lsp_file = pcall(require, "lsp-file-operations")
 
 if found_mason and found_mason_lspconfig and found_nvim_lsp then
@@ -44,14 +43,6 @@ if found_mason and found_mason_lspconfig and found_nvim_lsp then
 			nvim_lsp[server_name].setup({})
 		end,
 	})
-
-	-- auto install debugers
-	if found_mason_dap then
-		mason_dap.setup({
-			ensure_installed = { "lua", "rust", "python" },
-		})
-	end
-
 	-- Lua long Lsp Config
 	nvim_lsp.lua_ls.setup({
 		settings = {

@@ -86,31 +86,146 @@ local plugins = {
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		dependencies = {
-			"jose-elias-alvarez/null-ls.nvim",
-			config = function()
-				require("packages.null-ls")
-			end,
-		},
-		{
-			"j-hui/fidget.nvim",
-		},
-		{
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"rafamadriz/friendly-snippets",
-			"hrsh7th/cmp-nvim-lsp-document-symbol",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-			{ "tzachar/cmp-tabnine", cmd = "./install.sh" }, -- tabnine plugin
-			dependencies = "hrsh7th/nvim-cmp",
-			config = function()
-				require("packages.cmp")
-			end,
-		},
+		dependencies = { "jose-elias-alvarez/null-ls.nvim" },
+		config = function()
+			require("packages.null-ls")
+		end,
+	},
+	{
+		"j-hui/fidget.nvim", -- lsp status show
+	},
+	-- autocompeletion plugins
+	{
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-nvim-lua",
+		"onsails/lspkind.nvim",
+		"saadparwaiz1/cmp_luasnip",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-cmdline",
+		"rafamadriz/friendly-snippets",
+		"hrsh7th/cmp-nvim-lsp-document-symbol",
+		"hrsh7th/cmp-nvim-lsp-signature-help",
+		{ "tzachar/cmp-tabnine", cmd = "./install.sh" }, -- tabnine plugin
+		dependencies = "hrsh7th/nvim-cmp",
+		config = function()
+			require("packages.cmp")
+		end,
+	},
+	{
+		"L3MON4D3/LuaSnip",
+		config = function()
+			require("packages.snip")
+		end,
+	},
+	-- bracket autocompletion
+	{
+		"m4xshen/autoclose.nvim",
+		config = function()
+			require("packages.autoclose")
+		end,
+	},
+	-- Rust Code tools
+	{
+		"simrat39/rust-tools.nvim",
+		ft = "rust",
+		config = function()
+			require("packages.rust-tools")
+		end,
+	},
+	{
+		"akinsho/flutter-tools.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
+		config = true,
+	},
+	-- Debugging System
+	{
+		"rcarriga/nvim-dap-ui",
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = "mfussenegger/nvim-dap",
+		config = function()
+			require("packages.dap")
+		end,
+	},
+	{
+		"folke/neodev.nvim",
+		config = function()
+			require("packages.neodev")
+		end,
+	},
+	-- vim diagnostics system
+	{ url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = true },
+	-- Fuzzy Finder
+	{
+		{ "nvim-telescope/telescope-fzf-native.nvim", cmd = "make" },
+		{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
+		config = function()
+			require("packages.telescope")
+		end,
+	},
+	-- Tree File Explorer
+	{
+		"kyazdani42/nvim-tree.lua",
+		requires = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.tree")
+		end,
+	},
+	-- Neovim Terminal
+	{
+		"s1n7ax/nvim-terminal",
+		config = function()
+			require("packages.NTerm")
+		end,
+	},
+	-- Markdown Previews
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+		ft = "markdown",
+	},
+	-- Themes and more customize Plugins
+	-- Dashboard
+	{
+		"glepnir/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			require("packages.dashboard")
+		end,
+		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+	},
+	-- StaLine Neovim StatusLine
+	{
+		"tamton-aquib/staline.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.staline")
+		end,
+	},
+	-- This plugin adds indentation guides to all lines (including empty lines).
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("packages.indent")
+		end,
+	},
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("packages.colorizer")
+		end,
+	},
+	-- themes
+	{
+		{ "dracula/vim", name = "dracula" },
+		{ "catppuccin/nvim", name = "catppuccin" },
+		"cocopon/iceberg.vim",
+		"navarasu/onedark.nvim",
+		"shaunsingh/nord.nvim",
+		"jayden-chan/base46.nvim",
+		"tanvirtin/monokai.nvim",
 	},
 }
 

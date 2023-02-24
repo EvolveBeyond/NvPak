@@ -172,6 +172,12 @@ else
 				{ "kyazdani42/nvim-tree.lua" },
 			},
 		})
+		
+
+		-- web dev icons
+
+		use("nvim-tree/nvim-web-devicons")
+                         
 		-- File Explorer
 		use({
 			"kyazdani42/nvim-tree.lua",

@@ -70,7 +70,7 @@ local plugins = {
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
 		"nvim-treesitter/nvim-treesitter",
-		cmd = ":TSUpdate",
+		build = ":TSUpdate",
 		config = function()
 			require("packages.treesitter")
 		end,
@@ -95,6 +95,7 @@ local plugins = {
 		"j-hui/fidget.nvim", -- lsp status show
 	},
 	-- autocompeletion plugins
+	{ "tzachar/cmp-tabnine", build = "./install.sh", dependencies = "hrsh7th/nvim-cmp" }, -- tabnine plugin
 	{
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lua",
@@ -106,7 +107,6 @@ local plugins = {
 		"rafamadriz/friendly-snippets",
 		"hrsh7th/cmp-nvim-lsp-document-symbol",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
-		{ "tzachar/cmp-tabnine", cmd = "./install.sh" }, -- tabnine plugin
 		dependencies = "hrsh7th/nvim-cmp",
 		config = function()
 			require("packages.cmp")
@@ -143,6 +143,7 @@ local plugins = {
 		"rcarriga/nvim-dap-ui",
 		"jay-babu/mason-nvim-dap.nvim",
 		dependencies = "mfussenegger/nvim-dap",
+		lazy = true,
 		config = function()
 			require("packages.dap")
 		end,
@@ -154,10 +155,10 @@ local plugins = {
 		end,
 	},
 	-- vim diagnostics system
-	{ url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = true },
+	{ url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = true, event = "VeryLazy" },
 	-- Fuzzy Finder
 	{
-		{ "nvim-telescope/telescope-fzf-native.nvim", cmd = "make" },
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
 		config = function()
 			require("packages.telescope")
@@ -181,7 +182,7 @@ local plugins = {
 	-- Markdown Previews
 	{
 		"iamcco/markdown-preview.nvim",
-		cmd = function()
+		build = function()
 			vim.fn["mkdp#util#install"]()
 		end,
 		ft = "markdown",
@@ -194,7 +195,7 @@ local plugins = {
 		config = function()
 			require("packages.dashboard")
 		end,
-		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- StaLine Neovim StatusLine
 	{
@@ -211,6 +212,7 @@ local plugins = {
 			require("packages.indent")
 		end,
 	},
+	{ "folke/which-key.nvim", lazy = true },
 	{
 		"norcalli/nvim-colorizer.lua",
 		config = function()

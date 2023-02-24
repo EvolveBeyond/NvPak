@@ -113,13 +113,18 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
+        lazy = false,
 		config = function()
 			require("packages.lspconfig")
 		end,
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		dependencies = { "jose-elias-alvarez/null-ls.nvim" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+        lazy = false,
 		config = function()
 			require("packages.null-ls")
 		end,
@@ -128,7 +133,7 @@ local plugins = {
 		"j-hui/fidget.nvim", -- lsp status show
 	},
 	-- autocompeletion plugins
-	{ "tzachar/cmp-tabnine", build = "./install.sh", dependencies = "hrsh7th/nvim-cmp" }, -- tabnine plugin
+	{ "tzachar/cmp-tabnine", build = "./install.sh", dependencies = "hrsh7th/nvim-cmp", lazy = false, }, -- tabnine plugin
 	{
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lua",
@@ -144,6 +149,7 @@ local plugins = {
 		config = function()
 			require("packages.cmp")
 		end,
+        lazy = false,
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -248,6 +254,10 @@ local plugins = {
 	{ "folke/which-key.nvim", lazy = true },
 	{
 		"norcalli/nvim-colorizer.lua",
+        event = "VaryLazy",
+        init = function()
+		vim.opt.termguicolors = true
+	           end,
 		config = function()
 			require("packages.colorizer")
 		end,

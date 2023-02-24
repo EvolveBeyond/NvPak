@@ -5,4 +5,4 @@ plugin/
 plugged/
 autoload/
 lua/custom/
-
+lazy-lock.json

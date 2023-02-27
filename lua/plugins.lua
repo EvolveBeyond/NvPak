@@ -95,15 +95,10 @@ local opt = {
 }
 
 local plugins = {
-	-- Speed up loading Lua modules in Neovim to improve startup time.
-	{
-		"lewis6991/impatient.nvim",
-		lazy = false,
-	},
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
+		build = ":TSUpdate",
 		config = function()
 			require("packages.treesitter")
 		end,

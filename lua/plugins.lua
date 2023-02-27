@@ -51,7 +51,7 @@ local opt = {
 	},
 	checker = {
 		-- automatically check for plugin updates
-		enabled = false,
+		enabled = true,
 		concurrency = nil, -- @type number? set to 1 to check for updates very slowly
 		notify = true, -- get a notification when new updates are found
 		frequency = 3600, -- check for updates every hour
@@ -248,6 +248,7 @@ local plugins = {
 	-- StaLine Neovim StatusLine
 	{
 		"tamton-aquib/staline.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.staline")
@@ -262,9 +263,6 @@ local plugins = {
 	},
 	{
 		"norcalli/nvim-colorizer.lua",
-		init = function()
-			vim.opt.termguicolors = true
-		end,
 		config = function()
 			require("packages.colorizer")
 		end,

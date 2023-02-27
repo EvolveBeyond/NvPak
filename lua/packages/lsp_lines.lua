@@ -11,3 +11,5 @@ vim.diagnostic.config({
 })
 
 lsp_lines.setup()
+
+require("packages.bindings.lsp_lines") -- bindings

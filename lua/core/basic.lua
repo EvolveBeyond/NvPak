@@ -36,3 +36,4 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 
 set.laststatus = 3 -- Status Line Mode
 set.showtabline = 2 -- Tab Line Mode
+set.termguicolors = true

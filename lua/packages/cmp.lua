@@ -115,3 +115,6 @@ cmp.setup.cmdline(":", {
 		{ name = "cmdline" },
 	}),
 })
+
+-- bindings
+require("packages.bindings.cmp")

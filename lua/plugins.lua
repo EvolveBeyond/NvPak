@@ -52,7 +52,7 @@ local opt = {
 	checker = {
 		-- automatically check for plugin updates
 		enabled = true,
-		concurrency = nil, -- @type number? set to 1 to check for updates very slowly
+		concurrency = 4, -- @type number? set to 1 to check for updates very slowly
 		notify = true, -- get a notification when new updates are found
 		frequency = 3600, -- check for updates every hour
 	},
@@ -127,8 +127,14 @@ local plugins = {
 			require("packages.null-ls")
 		end,
 	},
+	-- lsp status show
 	{
-		"j-hui/fidget.nvim", -- lsp status show
+		"j-hui/fidget.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = "neovim/nvim-lspconfig",
+		config = function()
+			require("packages.figget")
+		end,
 	},
 	-- autocompeletion plugins
 	{

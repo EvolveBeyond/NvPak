@@ -8,11 +8,11 @@ set.mapleader = " "
 -- Fire Explorer
 local nvimtree_status, nvimtree = pcall(require, "nvim-tree.config")
 
-if nvimtree_status then
-	bind("n", "<leader>r", ":NvimTreeRefresh<CR>") -- nnoremap <leader>r :NvimTreeRefresh<CR>
-	bind("n", "<leader>n", ":NvimTreeFindFile<CR>") -- nnoremap <leader>n :NvimTreeFindFile<CR>
-	bind("n", "<C-n>", ":NvimTreeToggle<CR>") -- nnoremap <C-n> :NvimTreeToggle<CR>
+bind("n", "<leader>r", ":NvimTreeRefresh<CR>") -- nnoremap <leader>r :NvimTreeRefresh<CR>
+bind("n", "<leader>n", ":NvimTreeFindFile<CR>") -- nnoremap <leader>n :NvimTreeFindFile<CR>
+bind("n", "<C-n>", ":NvimTreeToggle<CR>") -- nnoremap <C-n> :NvimTreeToggle<CR>
 
+if nvimtree_status then
 	nvimtree.nvim_tree_callback({
 		veiw = {
 			mappings = {
@@ -26,11 +26,9 @@ if nvimtree_status then
 end
 
 -- Debugin System
-local lines_status, lines = pcall(require, "lsp_lines")
-if lines_status then
-	bind("", "<Leader>l", lines.toggle, { desc = "Toggle lsp_lines" })
+local lines_bind = function()
+	bind("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
 end
-
 -- Buffer manager
 bind("n", "<Tab>", ":bn<CR>") -- Buffer Switch
 bind("n", "<C-b>", ":bd<CR>") -- Buffer Close
@@ -60,7 +58,6 @@ end
 local autocompelet_status, cmp = pcall(require, "cmp")
 if autocompelet_status then
 	cmp.setup({
-
 		mapping = {
 			["<C-p>"] = cmp.mapping.select_prev_item(),
 			["<C-n>"] = cmp.mapping.select_next_item(),

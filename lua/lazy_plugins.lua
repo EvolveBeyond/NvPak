@@ -27,7 +27,7 @@ local opt = {
 		log = { "--since=3 days ago" }, -- show commits from the last 3 days
 		timeout = 120, -- kill processes that take more than 2 minutes
 		url_format = "https://github.com/%s.git",
-		-- lazy.nvim requires git >=2.19.0. If you really want to use lazy with an older version,
+		-- lazy.nvim dependencies git >=2.19.0. If you really want to use lazy with an older version,
 		-- then set the below to false. This is should work, but is NOT supported and will
 		-- increase downloads a lot.
 		filter = true,
@@ -103,7 +103,7 @@ local plugins = {
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
 		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
+		run = ":TSUpdate",
 		config = function()
 			require("packages.treesitter")
 		end,
@@ -111,16 +111,22 @@ local plugins = {
 	-- lsp plugins
 	{
 		"neovim/nvim-lspconfig",
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+		},
 		config = function()
 			require("packages.lspconfig")
 		end,
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		"williamboman/mason.nvim",
-		"jose-elias-alvarez/null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
 		config = function()
 			require("packages.null-ls")
 		end,
@@ -131,23 +137,27 @@ local plugins = {
 	-- autocompeletion plugins
 	{
 		"hrsh7th/nvim-cmp",
-		{ "tzachar/cmp-tabnine", build = "./install.sh" },
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-nvim-lua",
-		"onsails/lspkind.nvim",
-		"saadparwaiz1/cmp_luasnip",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
-		"rafamadriz/friendly-snippets",
-		"hrsh7th/cmp-nvim-lsp-document-symbol",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
+		event = "InsertEnter",
+		dependencies = {
+			{ "tzachar/cmp-tabnine", build = "./install.sh" },
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
+			"onsails/lspkind.nvim",
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"rafamadriz/friendly-snippets",
+			"hrsh7th/cmp-nvim-lsp-document-symbol",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+		},
 		config = function()
 			require("packages.cmp")
 		end,
 	},
 	{
 		"L3MON4D3/LuaSnip",
+		event = "InsertEnter",
 		config = function()
 			require("packages.snip")
 		end,
@@ -174,10 +184,11 @@ local plugins = {
 	},
 	-- Debugging System
 	{
-		"rcarriga/nvim-dap-ui",
 		"jay-babu/mason-nvim-dap.nvim",
-		dependencies = "mfussenegger/nvim-dap",
-		lazy = true,
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"mfussenegger/nvim-dap",
+		},
 		config = function()
 			require("packages.dap")
 		end,
@@ -201,7 +212,8 @@ local plugins = {
 	-- Tree File Explorer
 	{
 		"kyazdani42/nvim-tree.lua",
-		requires = "nvim-tree/nvim-web-devicons",
+		event = "BufEnter",
+		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.tree")
 		end,
@@ -246,10 +258,8 @@ local plugins = {
 			require("packages.indent")
 		end,
 	},
-	{ "folke/which-key.nvim", lazy = true },
 	{
 		"norcalli/nvim-colorizer.lua",
-		event = "VaryLazy",
 		init = function()
 			vim.opt.termguicolors = true
 		end,

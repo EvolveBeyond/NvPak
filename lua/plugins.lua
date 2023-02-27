@@ -195,7 +195,13 @@ local plugins = {
 		end,
 	},
 	-- vim diagnostics system
-	{ url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim", config = true, event = "VeryLazy" },
+	{
+		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			require("packages.lsp_lines")
+		end,
+		event = "VeryLazy",
+	},
 	-- Fuzzy Finder
 	{
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },

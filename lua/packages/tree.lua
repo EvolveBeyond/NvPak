@@ -29,6 +29,7 @@ local options = {
 		side = "left",
 		width = 25,
 		hide_root_folder = true,
+		require("packages.bindings.tree").view, -- bindings
 	},
 	git = {
 		enable = true,

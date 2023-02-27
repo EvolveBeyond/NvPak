@@ -1,6 +1,6 @@
-local found_null_ls, null_ls = pcall(require, "null-ls")
-local found_lsp, nvim_lsp = pcall(require, "lspconfig")
-local found_mason_null_ls, mason_null_ls = pcall(require, "mason-null-ls")
+local  null_ls =require( "null-ls")
+local  nvim_lsp =require( "lspconfig")
+local  mason_null_ls =require( "mason-null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local on_attach = function(client, bufnr)
@@ -15,9 +15,6 @@ local on_attach = function(client, bufnr)
 		})
 	end
 end
-
--- null ls config
-if found_null_ls and found_mason_null_ls and found_lsp then
 	-- null-ls server Configure
 	local b = null_ls.builtins
 	local packages = {
@@ -53,6 +50,5 @@ if found_null_ls and found_mason_null_ls and found_lsp then
 	nvim_lsp.format_on_save = {
 		pattern = { "*.lua", "*.py", "*.go" },
 	}
-else
-	return
-end
+
+vim.lsp.buf.format {async = true}

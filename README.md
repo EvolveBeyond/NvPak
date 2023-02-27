@@ -81,7 +81,7 @@ Proceed as follows.
 Run
 
 ```lua
-:PackerSync
+:Lazy sync
 ```
 
 Also, if tabnine doesn't show you any offers, just log in to your account.

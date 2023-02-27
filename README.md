@@ -26,7 +26,6 @@ In order to make the best use of this config, you must meet the following prereq
 - `NVIM v0.8.0` or later versions
 - `unzip`
 - `curl`
-- `node.js` and `npm` or `pnpm` or `yarn`
 - `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)
 - for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
 - `git`

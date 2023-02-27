@@ -3,7 +3,7 @@ local mason_dap = require("mason-nvim-dap")
 local DEFAULT_SETTINGS = {
 	-- A list of adapters to install if they're not already installed.
 	-- This setting has no relation with the `automatic_installation` setting.
-	ensure_installed = { "python", "delve" },
+	ensure_installed = { "delve", "lua", "rust", "python" },
 	-- NOTE: this is left here for future porting in case needed
 	-- Whether adapters that are set up (via dap) should be automatically installed if they're not already installed.
 	-- This setting has no relation with the `ensure_installed` setting.

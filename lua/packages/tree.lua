@@ -1,5 +1,6 @@
 local set = vim.g
 local nvim_tree = require("nvim-tree")
+require("packages.bindings.tree")
 
 local function open_nvim_tree(data)
 	-- buffer is a directory

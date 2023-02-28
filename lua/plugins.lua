@@ -198,10 +198,18 @@ local plugins = {
 	-- vim diagnostics system
 	{
 		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		event = { "BufRead" },
 		config = function()
 			require("packages.lsp_lines")
 		end,
-		event = "VeryLazy",
+	},
+	{
+		"folke/trouble.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.trouble")
+		end,
 	},
 	-- Fuzzy Finder
 	{

@@ -220,7 +220,7 @@ local plugins = {
 	-- Tree File Explorer
 	{
 		"kyazdani42/nvim-tree.lua",
-		event = "BufEnter",
+		event = "VimEnter",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.tree")
@@ -254,7 +254,7 @@ local plugins = {
 	-- StaLine Neovim StatusLine
 	{
 		"tamton-aquib/staline.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufReadPre", "BufNew" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.staline")

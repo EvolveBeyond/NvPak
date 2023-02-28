@@ -99,4 +99,4 @@ set.nvim_tree_icons = options.glyphs
 set.nvim_tree_side = options.view.side
 -- nvim_tree startup config
 nvim_tree.setup(options)
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+vim.api.nvim_create_autocmd({ "BufRead" }, { callback = open_nvim_tree })

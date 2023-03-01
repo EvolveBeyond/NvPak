@@ -1,6 +1,6 @@
 local set = vim.g
 local nvim_tree = require("nvim-tree")
-require("packages.bindings.tree")
+local tree_binds = require("packages.bindings.tree")
 
 local function open_nvim_tree(data)
 	-- buffer is a directory
@@ -30,7 +30,7 @@ local options = {
 		side = "left",
 		width = 25,
 		hide_root_folder = true,
-		require("packages.bindings.tree").view, -- bindings
+		tree_binds.view, -- bindings
 	},
 	git = {
 		enable = true,

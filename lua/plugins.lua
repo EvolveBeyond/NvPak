@@ -205,7 +205,7 @@ local plugins = {
 	},
 	{
 		"folke/trouble.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufRead" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.trouble")
@@ -215,6 +215,7 @@ local plugins = {
 	{
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("packages.telescope")
 		end,

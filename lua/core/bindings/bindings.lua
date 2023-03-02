@@ -1,7 +1,6 @@
 local bind = vim.keymap.set
 local set = vim.g
 local opts = { noremap = true, silent = true }
-local silent = { silent = true }
 
 -- Leader bind
 set.mapleader = " "

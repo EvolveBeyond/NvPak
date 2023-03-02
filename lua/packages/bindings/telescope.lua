@@ -1,5 +1,10 @@
 local bind = vim.keymap.set
 
+-- import trouble actions for telescope
+local trouble = require("trouble.providers.telescope")
+-- import telescope actions safely
+local actions = require("telescope.actions")
+
 -- telescopes
 bind("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
 bind("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
@@ -11,3 +16,16 @@ bind("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commit
 bind("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
 bind("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
 bind("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
+
+local mappings = {
+	mappings = {
+		n = { ["<c-t>"] = trouble.open_with_trouble },
+		i = {
+			["<c-t>"] = trouble.open_with_trouble,
+			["<C-k>"] = actions.move_selection_previous, -- move to prev result
+			["<C-j>"] = actions.move_selection_next, -- move to next result
+			["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
+		},
+	},
+}
+return mappings

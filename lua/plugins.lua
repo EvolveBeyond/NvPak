@@ -204,15 +204,24 @@ local plugins = {
 	-- vim diagnostics system
 	{
 		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		event = { "BufRead" },
 		config = function()
 			require("packages.lsp_lines")
 		end,
-		event = "VeryLazy",
+	},
+	{
+		"folke/trouble.nvim",
+		event = { "BufRead" },
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.trouble")
+		end,
 	},
 	-- Fuzzy Finder
 	{
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 		{ "nvim-telescope/telescope.nvim", branch = "0.1.x" },
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("packages.telescope")
 		end,

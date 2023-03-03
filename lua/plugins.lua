@@ -116,7 +116,7 @@ local plugins = {
 	-- lsp plugins
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufRead" },
+		event = { "BufReadPre", "BufNew" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -277,7 +277,7 @@ local plugins = {
 	-- StaLine Neovim StatusLine
 	{
 		"tamton-aquib/staline.nvim",
-		event = { "BufReadPre", "BufNew" },
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.staline")

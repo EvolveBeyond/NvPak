@@ -73,7 +73,7 @@ nvim_lsp.pylsp.setup({
 				-- disabled standard plugins
 				autopep8 = { enabled = false }, -- covered by black
 				yapf = { enabled = false }, -- covered by black
-				pycodestyle = { enabled = false },
+				pycodestyle = { enabled = true, maxLineLength = 88 },
 				pydocstyle = { enabled = false },
 			},
 		},

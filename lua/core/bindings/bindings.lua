@@ -3,7 +3,7 @@ local set = vim.g
 local opts = { noremap = true, silent = true }
 
 -- Leader bind
-set.mapleader = ","
+set.mapleader = " "
 
 -- Buffer manager
 bind("n", "<Tab>", ":bn<CR>") -- Buffer Switch

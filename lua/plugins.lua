@@ -150,7 +150,7 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			-- { "tzachar/cmp-tabnine", build = "./install.sh" },
+			{ "tzachar/cmp-tabnine", build = "./install.sh" },
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"onsails/lspkind.nvim",
@@ -174,25 +174,25 @@ local plugins = {
 		end,
 	},
 	-- bracket autocompletion
-	-- {
-	--	"m4xshen/autoclose.nvim",
-	--	config = function()
-	--		require("packages.autoclose")
-	--	end,
-	-- },
+	{
+		"m4xshen/autoclose.nvim",
+		config = function()
+			require("packages.autoclose")
+		end,
+	},
 	-- Rust Code tools
-	-- {
-	--	"simrat39/rust-tools.nvim",
-	--	ft = "rust",
-	--	config = function()
-	--		require("packages.rust-tools")
-	--	end,
-	-- },
-	-- {
-	--	"akinsho/flutter-tools.nvim",
-	--	dependencies = "nvim-lua/plenary.nvim",
-	--	config = true,
-	-- },
+	{
+		"simrat39/rust-tools.nvim",
+		ft = "rust",
+		config = function()
+			require("packages.rust-tools")
+		end,
+	},
+	{
+		"akinsho/flutter-tools.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
+		config = true,
+	},
 	-- Debugging System
 	{
 		"jay-babu/mason-nvim-dap.nvim",

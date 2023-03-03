@@ -3,10 +3,10 @@ local treesitte = require("nvim-treesitter.configs")
 treesitte.setup({
 	ensure_installed = {
 		"python",
-		-- "bash",
-		-- "dart",
-		-- "rust",
-		-- "lua",
+		"bash",
+		"dart",
+		"rust",
+		"lua",
 	},
 	-- Install languages synchronously (only applied to `ensure_installed`)
 	sync_install = true,

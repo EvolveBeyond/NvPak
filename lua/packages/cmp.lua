@@ -1,28 +1,28 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
--- local tabnine_compare = require("cmp_tabnine.compare")
--- local tabnine_config = require("cmp_tabnine.config")
+local tabnine_compare = require("cmp_tabnine.compare")
+local tabnine_config = require("cmp_tabnine.config")
 local compare = require("cmp.config.compare")
 
--- tabnine_config:setup({
---	max_lines = 1000, -- How many lines of buffer context to pass to TabNine
---	max_num_results = 45, -- How many results to return
---	sort = true, -- Sort results by returned priority
---	run_on_every_keystroke = true, -- Generate new completion items on every keystroke. For more info, check out (https://github.com/tzachar/cmp-tabnine//issues/18)
---	snippet_placeholder = "..", -- Indicates where the cursor will be placed in case a completion item is a snippet. Any string is accepted.
---	ignored_file_types = {
---		-- default is not to ignore
---		-- uncomment to ignore in lua:
---		-- lua = true
---	},
---	show_prediction_strength = false,
--- })
+tabnine_config:setup({
+	max_lines = 1000, -- How many lines of buffer context to pass to TabNine
+	max_num_results = 45, -- How many results to return
+	sort = true, -- Sort results by returned priority
+	run_on_every_keystroke = true, -- Generate new completion items on every keystroke. For more info, check out (https://github.com/tzachar/cmp-tabnine//issues/18)
+	snippet_placeholder = "..", -- Indicates where the cursor will be placed in case a completion item is a snippet. Any string is accepted.
+	ignored_file_types = {
+		-- default is not to ignore
+		-- uncomment to ignore in lua:
+		-- lua = true
+	},
+	show_prediction_strength = false,
+})
 
 local source_mapping = {
 	buffer = "[Txnt]",
 	nvim_lsp = "[LSP]",
-	-- cmp_tabnine = "[TN]",
+	cmp_tabnine = "[TN]",
 	path = "[Path]",
 	luasnip = "[Snp]",
 	nvim_lua = "[Lua]",
@@ -59,7 +59,7 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "nvim_lsp_signature_help" }, -- nvim-cmp source for displaying function signatures with the current parameter
-		-- { name = "cmp_tabnine" },
+		{ name = "cmp_tabnine" },
 	},
 	formatting = {
 		fields = {
@@ -77,12 +77,12 @@ cmp.setup({
 				vim_item.kind = lspkind.presets.default[vim_item.kind]
 				local menu = source_mapping[entry.source.name]
 
-				-- if entry.source.name == "cmp_tabnine" then
-				--	if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-				--		menu = entry.completion_item.data.detail .. " " .. menu
-				--	end
-				--	vim_item.kind = ""
-				-- end
+				if entry.source.name == "cmp_tabnine" then
+					if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+						menu = entry.completion_item.data.detail .. " " .. menu
+					end
+					vim_item.kind = ""
+				end
 
 				vim_item.menu = menu
 

@@ -9,7 +9,7 @@ vimscript([[set nowrap]])
 -- Show current line number
 set.number = true
 -- Show relative line numbers
-set.relativenumber = true
+-- set.relativenumber = true
 set.splitbelow = true
 set.splitright = true
 -- Tab set to two spaces

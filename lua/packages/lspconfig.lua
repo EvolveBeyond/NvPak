@@ -23,9 +23,9 @@ mason.setup({
 -- auto install LSP List
 mason_lspconfig.setup({
 	ensure_installed = {
-		"lua_ls", -- lua language server
-		"bashls",
-		"rust_analyzer", -- rust language server
+		-- "lua_ls", -- lua language server
+		-- "bashls",
+		-- "rust_analyzer", -- rust language server
 		"pylsp", -- python language server
 		"jedi_language_server", -- python language server
 	},
@@ -37,26 +37,26 @@ mason_lspconfig.setup_handlers({
 	end,
 })
 -- Lua long Lsp Config
-nvim_lsp.lua_ls.setup({
-	settings = {
-		Lua = {
-			completion = {
-				callSnippet = "Replace",
-			},
-			diagnostics = {
-				globals = { "vim" },
-			},
-		},
-	},
-})
+-- nvim_lsp.lua_ls.setup({
+--	settings = {
+--		Lua = {
+--			completion = {
+--				callSnippet = "Replace",
+--			},
+--			diagnostics = {
+--				globals = { "vim" },
+--			},
+--		},
+--	},
+-- })
 
-nvim_lsp.html.setup({
-	capabilities = capabilities,
-})
+-- nvim_lsp.html.setup({
+--	capabilities = capabilities,
+-- })
 
-nvim_lsp.cssls.setup({
-	capabilities = capabilities,
-})
+-- nvim_lsp.cssls.setup({
+--	capabilities = capabilities,
+-- })
 
 -- pyls normal python lsp
 nvim_lsp.pylsp.setup({
@@ -73,7 +73,7 @@ nvim_lsp.pylsp.setup({
 				-- disabled standard plugins
 				autopep8 = { enabled = false }, -- covered by black
 				yapf = { enabled = false }, -- covered by black
-				pycodestyle = { enabled = false },
+				pycodestyle = { enabled = true, maxLineLength = 88 },
 				pydocstyle = { enabled = false },
 			},
 		},
@@ -90,17 +90,17 @@ nvim_lsp.jedi_language_server.setup({
 })
 
 -- rust_analyzer Config
-nvim_lsp.rust_analyzer.setup({
-	cmd = { "rust_analyzer" },
-	filetypes = { "rust" },
-	root_dir = nvim_lsp.util.root_pattern("Cargo.toml", "rust-project.json"),
-})
+-- nvim_lsp.rust_analyzer.setup({
+--	cmd = { "rust_analyzer" },
+--	filetypes = { "rust" },
+--	root_dir = nvim_lsp.util.root_pattern("Cargo.toml", "rust-project.json"),
+-- })
 -- bash and shell script lsp
-nvim_lsp.bashls.setup({
-	cmd = { "bash-language-server", "start" },
-	cmd_env = { GLOB_PATTERN = "*@(.sh|.inc|.bash|.command)" },
-	filetypes = { "sh", "zsh", "bash", "dash" },
-	root_dir = nvim_lsp.util.find_git_ancestor,
-	single_file_support = true,
-})
+-- nvim_lsp.bashls.setup({
+--	cmd = { "bash-language-server", "start" },
+--	cmd_env = { GLOB_PATTERN = "*@(.sh|.inc|.bash|.command)" },
+--	filetypes = { "sh", "zsh", "bash", "dash" },
+--	root_dir = nvim_lsp.util.find_git_ancestor,
+--	single_file_support = true,
+-- })
 -- vim.lsp.set_log_level("debug")

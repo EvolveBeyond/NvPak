@@ -127,7 +127,7 @@ local plugins = {
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufReadPre"},
 		dependencies = {
 			"williamboman/mason.nvim",
 			"jose-elias-alvarez/null-ls.nvim",

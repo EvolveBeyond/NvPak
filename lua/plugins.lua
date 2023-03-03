@@ -95,6 +95,15 @@ local opt = {
 }
 
 local plugins = {
+
+	-- notification plugin
+	{
+		"rcarriga/nvim-notify",
+		event = "BufEnter",
+		config = function()
+			require("packages.notify")
+		end,
+	},
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -128,14 +137,14 @@ local plugins = {
 		end,
 	},
 	-- lsp status show
-	{
-		"j-hui/fidget.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = "neovim/nvim-lspconfig",
-		config = function()
-			require("packages.figget")
-		end,
-	},
+	-- {
+	-- 	"j-hui/fidget.nvim",
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- 	dependencies = "neovim/nvim-lspconfig",
+	-- 	config = function()
+	-- 		require("packages.figget")
+	-- 	end,
+	-- },
 	-- autocompeletion plugins
 	{
 		"hrsh7th/nvim-cmp",

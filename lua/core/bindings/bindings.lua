@@ -53,3 +53,6 @@ bind("n", "<leader>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
 bind("n", "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
 bind("n", "<leader>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
 bind("n", "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
+
+-- auto format
+bind("n", "<C-f>", ":lua vim.lsp.buf.format({ async = true})<cr>", { silent = true })

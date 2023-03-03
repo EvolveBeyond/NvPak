@@ -1,5 +1,6 @@
 -- import telescope plugin safely
 local telescope = require("telescope")
+local theme = require("telescope.themes")
 -- Bindings
 local hotkeys = require("packages.bindings.telescope")
 
@@ -9,8 +10,17 @@ telescope.setup({
 	defaults = {
 		hotkeys.mappings,
 	},
+	extensions = {
+		["ui-select"] = {
+			theme.get_dropdown({
+				-- even more opts
+			}),
+		},
+	},
 })
 
 telescope.load_extension("fzf")
 telescope.load_extension("flutter")
+-- To get ui-select loaded and working with telescope, you need to call
+-- load_extension, somewhere after setup function:
 telescope.load_extension("ui-select")

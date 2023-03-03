@@ -107,7 +107,7 @@ local plugins = {
 	-- lsp plugins
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNewFile" },
+		event = { "BufRead" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -218,14 +218,15 @@ local plugins = {
 		end,
 	},
 	-- Fuzzy Finder
+
 	{
-		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-		{
-			"nvim-telescope/telescope.nvim",
-			branch = "0.1.x",
-			dependencies = "nvim-telescope/telescope-ui-select.nvim",
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			"nvim-telescope/telescope-ui-select.nvim",
 		},
-		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("packages.telescope")
 		end,

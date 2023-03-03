@@ -17,15 +17,15 @@ bind("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git commits 
 bind("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
 bind("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
 
-local mappings = {
+local binds = {
 	mappings = {
-		n = { ["<c-t>"] = trouble.open_with_trouble },
 		i = {
-			["<c-t>"] = trouble.open_with_trouble,
+			["<C-t>"] = trouble.open_with_trouble,
 			["<C-k>"] = actions.move_selection_previous, -- move to prev result
 			["<C-j>"] = actions.move_selection_next, -- move to next result
 			["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
 		},
+		n = { ["<C-t>"] = trouble.open_with_trouble },
 	},
 }
-return mappings
+return binds

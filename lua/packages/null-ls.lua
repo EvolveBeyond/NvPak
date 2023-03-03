@@ -19,14 +19,14 @@ end
 local b = null_ls.builtins
 local packages = {
 	b.diagnostics.mypy,
-	b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
+	-- b.diagnostics.shellcheck.with({ diagnostics_format = "#{m} [#{c}]" }),
 	b.formatting.black,
-	b.formatting.dart_format,
+	-- b.formatting.dart_format,
 	b.formatting.isort,
-	b.formatting.prettier,
-	b.formatting.shfmt,
-	b.formatting.sql_formatter,
-	b.formatting.stylua,
+	-- b.formatting.prettier,
+	-- b.formatting.shfmt,
+	-- b.formatting.sql_formatter,
+	-- b.formatting.stylua,
 	b.completion.spell,
 }
 
@@ -48,7 +48,7 @@ mason_null_ls.setup({
 })
 
 nvim_lsp.format_on_save = {
-	pattern = { "*.lua", "*.py", "*.go" },
+	pattern = { "*.py" },
 }
 
 require("packages.bindings.null-ls") -- bindings

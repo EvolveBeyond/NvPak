@@ -3,6 +3,7 @@ vim.notify = require("notify")
 
 vim.notify.setup({
 	background_colour = "#000000",
+    top_down = false,
 })
 -- show lsp prosses update.
 -- Utility functions shared between progress reports for LSP and DAP

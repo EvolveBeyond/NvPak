@@ -136,7 +136,11 @@ local plugins = {
 			require("packages.null-ls")
 		end,
 	},
+<<<<<<< HEAD
 	-- autocompeletion plugins
+=======
+		-- autocompeletion plugins
+>>>>>>> 97439b0 (remove figlet plugin)
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter", "CmdlineEnter" },

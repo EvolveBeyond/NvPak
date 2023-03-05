@@ -136,16 +136,7 @@ local plugins = {
 			require("packages.null-ls")
 		end,
 	},
-	-- lsp status show
-	-- {
-	-- 	"j-hui/fidget.nvim",
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- 	dependencies = "neovim/nvim-lspconfig",
-	-- 	config = function()
-	-- 		require("packages.figget")
-	-- 	end,
-	-- },
-	-- autocompeletion plugins
+		-- autocompeletion plugins
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",

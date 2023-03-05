@@ -252,11 +252,23 @@ local plugins = {
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
+<<<<<<< HEAD
     -- Status Line, winbar, Tabline plugin
 	{ "windwp/windline.nvim",
     config=function()
             require("packages.windline")
         end,},
+=======
+	-- StaLine Neovim StatusLine
+	{
+		"tamton-aquib/staline.nvim",
+		event = "BufRead",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.staline")
+		end,
+	},
+>>>>>>> ce4a6e6 (add : Best Load Event for staline)
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
 		"lukas-reineke/indent-blankline.nvim",

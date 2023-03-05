@@ -127,7 +127,7 @@ local plugins = {
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre"},
+		event = { "BufReadPre" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
@@ -274,13 +274,12 @@ local plugins = {
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
-	-- StaLine Neovim StatusLine
+	-- heirline.nvim StatusLine and Bar
 	{
-		"tamton-aquib/staline.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = "nvim-tree/nvim-web-devicons",
+		"rebelot/heirline.nvim",
+		event = "UiEnter",
 		config = function()
-			require("packages.staline")
+            require("packages.heirline")
 		end,
 	},
 	-- This plugin adds indentation guides to all lines (including empty lines).

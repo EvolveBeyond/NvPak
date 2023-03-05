@@ -249,6 +249,15 @@ local plugins = {
 			require("packages.tree")
 		end,
 	},
+	-- nvim git plugins
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("packages.gitsigns")
+		end,
+	},
+	-- neovim command plugin
+	{ "gennaro-tedesco/nvim-commaround" },
 	-- Neovim Terminal
 	{
 		"s1n7ax/nvim-terminal",
@@ -277,9 +286,10 @@ local plugins = {
 	-- heirline.nvim StatusLine and Bar
 	{
 		"rebelot/heirline.nvim",
-		event = "UiEnter",
+		event = "BufRead",
+		dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
 		config = function()
-            require("packages.heirline")
+			require("packages.heirline")
 		end,
 	},
 	-- This plugin adds indentation guides to all lines (including empty lines).

@@ -10,7 +10,7 @@ bind("n", "<Tab>", ":bn<CR>") -- Buffer Switch
 bind("n", "<C-b>", ":bd<CR>") -- Buffer Close
 
 -- Auto comment
-bind("v", "<C-/>", ":s/^/#<CR>")
+bind("v", "<C-/>", "<Plug>ToggleCommaround<CR>")
 
 -- Save mode
 bind("n", "<C-s>", ":w<CR>")

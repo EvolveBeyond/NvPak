@@ -127,7 +127,7 @@ local plugins = {
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre"},
+		event = { "BufReadPre" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
@@ -277,7 +277,7 @@ local plugins = {
 	-- StaLine Neovim StatusLine
 	{
 		"tamton-aquib/staline.nvim",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "BufRead",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.staline")

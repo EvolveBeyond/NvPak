@@ -268,7 +268,7 @@ local plugins = {
 	-- StaLine Neovim StatusLine
 	{
 		"tamton-aquib/staline.nvim",
-		event = "BufRead",
+		event = "BufReadpre",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.staline")

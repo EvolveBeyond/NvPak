@@ -136,17 +136,16 @@ local plugins = {
 			require("packages.null-ls")
 		end,
 	},
-		-- autocompeletion plugins
+	-- autocompeletion plugins
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			{ "tzachar/cmp-tabnine", build = "./install.sh" },
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"onsails/lspkind.nvim",
 			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-buffer",
+			"f3fora/cmp-spell",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"rafamadriz/friendly-snippets",

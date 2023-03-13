@@ -4,6 +4,7 @@ local luasnip = require("luasnip")
 local tabnine_compare = require("cmp_tabnine.compare")
 local tabnine_config = require("cmp_tabnine.config")
 local compare = require("cmp.config.compare")
+local cmp_mapping = require("packages.bindings.cmp_mappings")
 
 tabnine_config:setup({
 	max_lines = 1000, -- How many lines of buffer context to pass to TabNine
@@ -30,18 +31,21 @@ local source_mapping = {
 }
 
 cmp.setup({
+	-- completion = {
+	-- 	autocomplete = true,
+	-- },
 	sorting = {
 		priority_weight = 2,
 		comparators = {
-			tabnine_compare,
-			compare.offset,
-			compare.exact,
-			compare.score,
-			compare.recently_used,
-			compare.kind,
-			compare.sort_text,
-			compare.length,
-			compare.order,
+			compare.offset, -- prioritizes items closer to the cursor
+			compare.score, -- prioritizes item similarity score
+			compare.exact, -- prioritizes items starting with exactly the same prefix
+			compare.sort_text, -- prioritizes prefix matches within completion items
+			compare.kind, -- prioritizes items with the same kind
+			compare.length, -- prioritizes shorter completion items
+			compare.order, -- prioritizes items in the same received order
+			compare.recently_used, -- prioritizes recently used items
+			tabnine_compare, -- prioritizes TabNine suggestions
 		},
 	},
 	snippet = {
@@ -61,6 +65,7 @@ cmp.setup({
 		{ name = "nvim_lsp_signature_help" }, -- nvim-cmp source for displaying function signatures with the current parameter
 		{ name = "cmp_tabnine" },
 	},
+    mapping = cmp_mapping,
 	formatting = {
 		fields = {
 			cmp.ItemField.Abbr,
@@ -70,7 +75,6 @@ cmp.setup({
 		format = lspkind.cmp_format({
 			mode = "symbol_text", -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
 			maxwidth = 40, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
 			-- The function below will be called before any actual modifications from lspkind
 			-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
 			before = function(entry, vim_item)
@@ -89,14 +93,12 @@ cmp.setup({
 				return vim_item
 			end,
 		}),
-
 		experimental = {
 			native_menu = false,
 			ghost_text = true,
 		},
 	},
 })
-
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline("/", {
 	mapping = cmp.mapping.preset.cmdline(),
@@ -116,5 +118,3 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
--- bindings
-require("packages.bindings.cmp")

@@ -17,15 +17,14 @@ local function setup_sorting()
 		sorting = {
 			priority_weight = 2,
 			comparators = {
-				compare.offset,
-				compare.recently_used,
-				compare.exact,
-				compare.kind,
-				compare.length,
-				compare.order,
-				compare.sort_text,
-                compare.score,
-
+				compare.offset, -- prioritizes items closer to the cursor
+				compare.recently_used, -- prioritizes recently used items
+				compare.exact, -- prioritizes items starting with exactly the same prefix
+				compare.kind, -- prioritizes items with the same kind
+				compare.length, -- prioritizes shorter completion items
+				compare.order, -- prioritizes items in the same received order
+				compare.sort_text, -- prioritizes prefix matches within completion items
+				compare.score, -- prioritizes item similarity score
 			},
 			debug = {
 				priority = true,

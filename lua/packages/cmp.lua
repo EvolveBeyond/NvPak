@@ -55,12 +55,11 @@ end
 local function setup_sources()
 	cmp.setup({
 		sources = {
-			{ name = "nvim_lsp", priority = 2 },
-			{ name = "luasnip", priority = 1 },
-			{ name = "path", priority = 0 },
+			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
+			{ name = "path" },
 			{
 				name = "nvim_lsp_signature_help",
-				priority = 0,
 			},
 			{
 				name = "spell",
@@ -70,7 +69,18 @@ local function setup_sources()
 						return true
 					end,
 				},
-				priority = 0,
+			},
+			{
+				name = "buffer",
+				option = {
+					get_bufnrs = function()
+						local bufs = {}
+						for _, win in ipairs(vim.api.nvim_list_wins()) do
+							bufs[vim.api.nvim_win_get_buf(win)] = true
+						end
+						return vim.tbl_keys(bufs)
+					end,
+				},
 			},
 		},
 	})
@@ -128,11 +138,11 @@ end
 
 local function setup()
 	setup_sorting()
-	setup_snippet()
 	setup_window()
 	setup_sources()
 	setup_mapping()
 	setup_formatting()
+	setup_snippet()
 	setup_cmdline()
 end
 

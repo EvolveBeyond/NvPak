@@ -22,7 +22,7 @@ mason.setup({
 })
 -- auto install LSP List
 mason_lspconfig.setup({
-	auto_install = true, -- automatically installs missing language servers
+	auto_install = true,
 	ensure_installed = {
 		"lua_ls", -- lua language server
 		"bashls",
@@ -33,7 +33,9 @@ mason_lspconfig.setup({
 -- auto server setup
 mason_lspconfig.setup_handlers({
 	function(server_name)
-		nvim_lsp[server_name].setup({})
+		nvim_lsp[server_name].setup({
+			capabilities = capabilities,
+		})
 	end,
 })
 -- Lua long Lsp Config
@@ -125,4 +127,6 @@ nvim_lsp.bashls.setup({
 		},
 	},
 })
--- vim.lsp.set_log_level("debug")
+
+-- Set logging level for LSP messages
+vim.lsp.set_log_level("debug")

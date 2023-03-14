@@ -1,39 +1,32 @@
+-- Importing dap and dapui modules using destructuring assignment
 local dap, dapui = require("dap"), require("dapui")
 local mason_dap = require("mason-nvim-dap")
+
+-- Configuration settings for the debugging environment
 local DEFAULT_SETTINGS = {
-	-- A list of adapters to install if they're not already installed.
-	-- This setting has no relation with the `automatic_installation` setting.
+	-- List of adapters to ensure are installed
 	ensure_installed = { "lua", "rust", "python" },
-	-- NOTE: this is left here for future porting in case needed
-	-- Whether adapters that are set up (via dap) should be automatically installed if they're not already installed.
-	-- This setting has no relation with the `ensure_installed` setting.
-	-- Can either be:
-	--   - false: Daps are not automatically installed.
-	--   - true: All adapters set up via dap are automatically installed.
-	--   - { exclude: string[] }: All adapters set up via mason-nvim-dap, except the ones provided in the list, are automatically installed.
-	--       Example: automatic_installation = { exclude = { "python", "delve" } }
+	-- Whether to automatically install adapters that are set up via dap
 	automatic_installation = true,
-	-- Whether adapters that are installed in mason should be automatically set up in dap.
-	-- Removes the need to set up dap manually.
-	-- See mappings.adapters and mappings.configurations for settings.
-	-- Must invoke when set to true: `require 'mason-nvim-dap'.setup_handlers()`
-	-- Can either be:
-	-- 	- false: Dap is not automatically configured.
-	-- 	- true: Dap is automatically configured.
-	-- 	- {adapters: {ADAPTER: {}, }, configurations: {ADAPTER: {}, }}. Allows overriding default configuration.
+	-- Whether to automatically set up adapters that are installed in mason
 	automatic_setup = true,
 }
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-	dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-	dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-	dapui.close()
+-- Handler function to manage the dapui interface
+local function dapui_config(event)
+	-- If the event is event_initialized, open the dapui interface
+	if event.name == "event_initialized" then
+		dapui.open()
+		-- Otherwise, close the dapui interface
+	else
+		dapui.close()
+	end
 end
 
-mason_dap.setup({
-	DEFAULT_SETTINGS,
-})
+-- Set up listeners for dap events
+dap.listeners.after[dap.listeners.after.event_initialized] = dapui_config
+dap.listeners.before[dap.listeners.before.event_terminated] = dapui_config
+dap.listeners.before[dap.listeners.before.event_exited] = dapui_config
+
+-- Set up the debugging environment
+mason_dap.setup(DEFAULT_SETTINGS)

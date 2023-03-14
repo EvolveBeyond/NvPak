@@ -4,12 +4,14 @@ local luasnip = require("luasnip")
 local compare = require("cmp.config.compare")
 local cmp_mapping = require("packages.bindings.cmp_mappings")
 
+
 local source_mapping = {
 	spell = "[SPL]",
 	nvim_lsp = "[LSP]",
 	path = "[Path]",
 	luasnip = "[Snp]",
 	nvim_lua = "[Lua]",
+    buffer = "[Buf]"
 }
 
 local function setup_sorting()

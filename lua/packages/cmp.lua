@@ -4,14 +4,12 @@ local luasnip = require("luasnip")
 local compare = require("cmp.config.compare")
 local cmp_mapping = require("packages.bindings.cmp_mappings")
 
-
 local source_mapping = {
-	spell = "[SPL]",
+	spell = "[Spell]",
 	nvim_lsp = "[LSP]",
 	path = "[Path]",
-	luasnip = "[Snp]",
-	nvim_lua = "[Lua]",
-    buffer = "[Buf]"
+	luasnip = "[Snip]",
+	buffer = "[Buf]",
 }
 
 local function setup_sorting()
@@ -19,13 +17,13 @@ local function setup_sorting()
 		sorting = {
 			priority_weight = 2,
 			comparators = {
-				compare.offset, -- prioritizes items closer to the cursor
-				compare.recently_used, -- prioritizes recently used items
-				compare.exact, -- prioritizes items starting with exactly the same prefix
 				compare.kind, -- prioritizes items with the same kind
-				compare.length, -- prioritizes shorter completion items
+				compare.recently_used, -- prioritizes recently used items
+				compare.offset, -- prioritizes items closer to the cursor
 				compare.order, -- prioritizes items in the same received order
 				compare.sort_text, -- prioritizes prefix matches within completion items
+				compare.length, -- prioritizes shorter completion items
+				compare.exact, -- prioritizes items starting with exactly the same prefix
 				compare.score, -- prioritizes item similarity score
 			},
 			debug = {

@@ -4,12 +4,11 @@ local nvim_lsp = require("lspconfig")
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+	properties = { "documentation", "detail", "additionalTextEdits" },
+}
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
--- The following example advertise capabilities to `clangd`.
-nvim_lsp.clangd.setup({
-	capabilities = capabilities,
-})
 
 mason.setup({
 	ui = {
@@ -54,6 +53,7 @@ nvim_lsp.lua_ls.setup({
 			},
 		},
 	},
+    capabilities=capabilities,
 })
 
 nvim_lsp.html.setup({
@@ -61,6 +61,11 @@ nvim_lsp.html.setup({
 })
 
 nvim_lsp.cssls.setup({
+	capabilities = capabilities,
+})
+
+-- The following example advertise capabilities to `clangd`.
+nvim_lsp.clangd.setup({
 	capabilities = capabilities,
 })
 
@@ -83,6 +88,7 @@ nvim_lsp.pylsp.setup({
 			},
 		},
 	},
+	capabilities = capabilities,
 	single_file_support = true,
 })
 -- rust lsp config
@@ -105,6 +111,7 @@ nvim_lsp.rust_analyzer.setup({
 			},
 		},
 	},
+	capabilities = capabilities,
 })
 
 -- bash and shell script lsp
@@ -126,6 +133,7 @@ nvim_lsp.bashls.setup({
 			},
 		},
 	},
+	capabilities = capabilities,
 })
 
 -- Set logging level for LSP messages

@@ -150,7 +150,6 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
-			{ "tzachar/cmp-tabnine", build = "./install.sh" },
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"onsails/lspkind.nvim",
@@ -179,19 +178,6 @@ local plugins = {
 		config = function()
 			require("packages.autoclose")
 		end,
-	},
-	-- Rust Code tools
-	{
-		"simrat39/rust-tools.nvim",
-		ft = "rust",
-		config = function()
-			require("packages.rust-tools")
-		end,
-	},
-	{
-		"akinsho/flutter-tools.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		config = true,
 	},
 	-- Debugging System
 	{
@@ -249,13 +235,6 @@ local plugins = {
 			require("packages.tree")
 		end,
 	},
-	-- nvim git plugins
-	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("packages.gitsigns")
-		end,
-	},
 	-- neovim command plugin
 	{ "gennaro-tedesco/nvim-commaround" },
 	-- Neovim Terminal
@@ -282,15 +261,6 @@ local plugins = {
 			require("packages.dashboard")
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
-	},
-	-- heirline.nvim StatusLine and Bar
-	{
-		"rebelot/heirline.nvim",
-		event = "BufRead",
-		dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
-		config = function()
-			require("packages.heirline")
-		end,
 	},
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{

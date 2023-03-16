@@ -8,6 +8,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
 	properties = { "documentation", "detail", "additionalTextEdits" },
 }
+
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 mason.setup({
@@ -53,7 +54,7 @@ nvim_lsp.lua_ls.setup({
 			},
 		},
 	},
-    capabilities=capabilities,
+	capabilities = capabilities,
 })
 
 nvim_lsp.html.setup({

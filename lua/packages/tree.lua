@@ -2,102 +2,79 @@ local set = vim.g
 local nvim_tree = require("nvim-tree")
 local tree_binds = require("packages.bindings.tree")
 
-local function open_nvim_tree(data)
-	-- buffer is a directory
-	local directory = vim.fn.isdirectory(data.file) == 1
+-- Define helper functions
+local function is_directory(file)
+	return vim.fn.isdirectory(file) == 1
+end
 
-	if not directory then
-		return
+local function cd_to_directory(file)
+	if is_directory(file) then
+		vim.cmd.cd(file)
 	end
+end
 
-	-- change to the directory
-	vim.cmd.cd(data.file)
-
-	-- open the tree
+local function open_tree()
 	require("nvim-tree.api").tree.open()
 end
 
+local function set_icons()
+	set.nvim_tree_icons = {
+		default = "",
+		symlink = "",
+		folder = {
+			default = "",
+			empty = "",
+			empty_open = "",
+			open = "",
+			symlink = "",
+			symlink_open = "",
+			arrow_open = "",
+			arrow_closed = "",
+		},
+		git = {
+			unstaged = "✗",
+			staged = "✓",
+			unmerged = "",
+			renamed = "➜",
+			untracked = "★",
+			deleted = "",
+			ignored = "◌",
+		},
+	}
+end
+
+-- Set global variables for nvim-tree
+set.nvim_tree_git_hl = 1
+set.nvim_tree_show_icons = { git = 0, folders = 1, files = 1 }
+
+-- Set options for nvim-tree
 local options = {
-	filters = {
-		dotfiles = true,
-	},
+	filters = { dotfiles = true },
 	hijack_cursor = true,
-	update_focused_file = {
-		enable = true,
-	},
+	update_focused_file = { enable = true },
 	view = {
 		adaptive_size = true,
 		side = "left",
 		width = 25,
 		hide_root_folder = true,
-		tree_binds.view, -- bindings
+		mappings = tree_binds.view,
 	},
-	git = {
-		enable = true,
-		ignore = false,
-	},
-	filesystem_watchers = {
-		enable = true,
-	},
-	actions = {
-		open_file = {
-			resize_window = true,
-		},
-	},
+	git = { enable = true, ignore = false },
+	filesystem_watchers = { enable = true },
+	actions = { open_file = { resize_window = true } },
 	renderer = {
 		highlight_git = true,
 		highlight_opened_files = "none",
-
-		indent_markers = {
-			enable = false,
-		},
-
-		icons = {
-			show = {
-				file = true,
-				folder = true,
-				folder_arrow = true,
-				git = true,
-			},
-
-			glyphs = {
-				default = "",
-				symlink = "",
-				folder = {
-					default = "",
-					empty = "",
-					empty_open = "",
-					open = "",
-					symlink = "",
-					symlink_open = "",
-					arrow_open = "",
-					arrow_closed = "",
-				},
-				git = {
-					unstaged = "✗",
-					staged = "✓",
-					unmerged = "",
-					renamed = "➜",
-					untracked = "★",
-					deleted = "",
-					ignored = "◌",
-				},
-			},
-		},
+		indent_markers = { enable = false },
+		icons = { show = { file = true, folder = true, folder_arrow = true, git = true } },
 	},
 }
 
--- git config
-set.nvim_tree_git_hl = 1
-set.nvimt_ree_show_icons = {
-	git = 0,
-	folders = 1,
-	files = 1,
-}
--- customize icons
-set.nvim_tree_icons = options.glyphs
--- check for any override
-set.nvim_tree_side = options.view.side
--- nvim_tree startup config
+-- Set the icons and nvim_tree startup options
+set_icons()
 nvim_tree.setup(options)
-vim.api.nvim_create_autocmd({ "BufRead" }, { callback = open_nvim_tree })
+
+-- Create autocmd to open nvim-tree if a directory is opened in a buffer
+vim.cmd(
+	[[autocmd BufWinEnter * if getftype(expand('%')) == 'directory' && !&buflisted | exe 'NvimTreeFindFile' expand('%') | wincmd p | ene | endif]]
+)

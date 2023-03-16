@@ -5,11 +5,12 @@ local compare = require("cmp.config.compare")
 local cmp_mapping = require("packages.bindings.cmp_mappings")
 
 local source_mapping = {
-	spell = "[Spell]",
+	spell = "[SPL]",
+	dictionary = "[DCT]",
 	nvim_lsp = "[LSP]",
-	path = "[Path]",
-	luasnip = "[Snip]",
-	buffer = "[Buf]",
+	path = "[FIL]",
+	luasnip = "[SNP]",
+	buffer = "[BUF]",
 }
 
 local function setup_sorting()
@@ -55,14 +56,31 @@ end
 local function setup_sources()
 	cmp.setup({
 		sources = {
-			{ name = "nvim_lsp" },
-			{ name = "luasnip" },
-			{ name = "path" },
+			{
+				name = "nvim_lsp",
+				priority = 40,
+				max_item_count = 11,
+			},
+			{
+				name = "luasnip",
+				priority = 50,
+				max_item_count = 6,
+				option = {
+					show_autosnippets = true,
+				},
+			},
+			{
+				name = "path",
+				priority = 30,
+				max_item_count = 5,
+			},
 			{
 				name = "nvim_lsp_signature_help",
+				priority = 10,
 			},
 			{
 				name = "spell",
+				priority = 20,
 				option = {
 					keep_all_entries = false,
 					enable_in_context = function()
@@ -72,6 +90,7 @@ local function setup_sources()
 			},
 			{
 				name = "buffer",
+				priority = 30,
 				option = {
 					get_bufnrs = function()
 						local bufs = {}
@@ -81,6 +100,7 @@ local function setup_sources()
 						return vim.tbl_keys(bufs)
 					end,
 				},
+				max_item_count = 10,
 			},
 		},
 	})
@@ -106,9 +126,7 @@ local function setup_formatting()
 				before = function(entry, vim_item)
 					vim_item.kind = lspkind.presets.default[vim_item.kind]
 					local menu = source_mapping[entry.source.name]
-
 					vim_item.menu = menu
-
 					return vim_item
 				end,
 			}),

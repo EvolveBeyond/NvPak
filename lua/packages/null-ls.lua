@@ -31,7 +31,6 @@ local packages = {
 	b.formatting.shfmt,
 	b.formatting.sql_formatter,
 	b.formatting.stylua,
-	b.completion.spell,
 }
 
 -- Null-ls Config

@@ -136,11 +136,7 @@ local plugins = {
 			require("packages.null-ls")
 		end,
 	},
-<<<<<<< HEAD
 	-- autocompeletion plugins
-=======
-		-- autocompeletion plugins
->>>>>>> 97439b0 (remove figlet plugin)
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -153,7 +149,6 @@ local plugins = {
 				build = "make install_jsregexp",
 			},
 			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-buffer",
 			"f3fora/cmp-spell",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
@@ -256,23 +251,13 @@ local plugins = {
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
-<<<<<<< HEAD
+
     -- Status Line, winbar, Tabline plugin
 	{ "windwp/windline.nvim",
     config=function()
             require("packages.windline")
         end,},
-=======
-	-- StaLine Neovim StatusLine
-	{
-		"tamton-aquib/staline.nvim",
-		event = "BufRead",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("packages.staline")
-		end,
-	},
->>>>>>> ce4a6e6 (add : Best Load Event for staline)
+
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
 		"lukas-reineke/indent-blankline.nvim",

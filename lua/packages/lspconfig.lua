@@ -139,3 +139,4 @@ nvim_lsp.bashls.setup({
 
 -- Set logging level for LSP messages
 vim.lsp.set_log_level("debug")
+

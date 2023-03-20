@@ -5,17 +5,16 @@ local theme = require("telescope.themes")
 local hotkeys = require("packages.bindings.telescope")
 
 -- configure telescope
+local mappings = hotkeys.mappings
 telescope.setup({
 	-- configure custom mappings
 	defaults = {
-		hotkeys.mappings,
+		mappings,
 	},
 	extensions = {
-		["ui-select"] = {
-			theme.get_dropdown({
-				-- even more opts
-			}),
-		},
+		["ui-select"] = theme.get_dropdown({
+			-- even more opts
+		}),
 	},
 })
 

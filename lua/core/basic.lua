@@ -39,3 +39,4 @@ set.showtabline = 2 -- Tab Line Mode
 set.termguicolors = true
 -- Nvim AutoFormating lazy require
 vim.lsp.buf.format({ async = true })
+

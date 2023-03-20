@@ -8,5 +8,5 @@ local window = Window:new({
 	height = 15,
 })
 
-terminal = Terminal:new(window)
+local terminal = Terminal:new(window)
 require("packages.bindings.NTerm") -- bindings

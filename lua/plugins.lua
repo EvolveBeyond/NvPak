@@ -127,7 +127,7 @@ local plugins = {
 	},
 	{
 		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre" },
+		event = { "BufReadPre", "BufNew" },
 		dependencies = {
 			"williamboman/mason.nvim",
 			"jose-elias-alvarez/null-ls.nvim",
@@ -136,25 +136,21 @@ local plugins = {
 			require("packages.null-ls")
 		end,
 	},
-	-- lsp status show
-	-- {
-	-- 	"j-hui/fidget.nvim",
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- 	dependencies = "neovim/nvim-lspconfig",
-	-- 	config = function()
-	-- 		require("packages.figget")
-	-- 	end,
-	-- },
 	-- autocompeletion plugins
 	{
 		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"onsails/lspkind.nvim",
+			{
+				"L3MON4D3/LuaSnip",
+				build = "make install_jsregexp",
+			},
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-buffer",
+			"f3fora/cmp-spell",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"rafamadriz/friendly-snippets",
@@ -163,12 +159,6 @@ local plugins = {
 		},
 		config = function()
 			require("packages.cmp")
-		end,
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		event = "InsertEnter",
-		config = function()
 			require("packages.snip")
 		end,
 	},

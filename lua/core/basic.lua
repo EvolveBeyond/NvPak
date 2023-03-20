@@ -1,8 +1,8 @@
 local set = vim.opt
 local vimscript = vim.cmd
 
--- local utf8 = require("utf8")
--- let g:do_filetype_lua = 1
+set.encoding = "UTF-8"
+set.fileencoding = "UTF-8"
 
 --Disable wrapping line.
 vimscript([[set nowrap]])
@@ -39,4 +39,3 @@ set.showtabline = 2 -- Tab Line Mode
 set.termguicolors = true
 -- Nvim AutoFormating lazy require
 vim.lsp.buf.format({ async = true })
-

@@ -252,6 +252,11 @@ local plugins = {
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
+    -- Status Line, winbar, Tabline plugin
+	{ "windwp/windline.nvim",
+    config=function()
+            require("packages.windline")
+        end,},
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
 		"lukas-reineke/indent-blankline.nvim",

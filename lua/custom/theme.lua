@@ -2,11 +2,11 @@ local set = vim.opt
 local vimscript = vim.cmd
 
 -- chack found themes
-local themes_status = pcall(require, "catppuccin")
+local themes_status = pcall(require, "dracula")
 
 -- auto load theme
 if themes_status then
-	require("colors.catppuccin")
+	require("colors.dracula")
 end
 
 set.termguicolors = true

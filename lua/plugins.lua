@@ -263,13 +263,13 @@ local plugins = {
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
-	-- StaLine Neovim StatusLine
+	-- lua Statusline
 	{
-		"tamton-aquib/staline.nvim",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("packages.staline")
+		"nvim-lualine/lualine.nvim",
+		config = function ()
+		require("packages.lualine")
 		end,
+		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
@@ -286,7 +286,7 @@ local plugins = {
 	},
 	-- themes
 	{
-		{ "dracula/vim", name = "dracula" },
+		'Mofiqul/dracula.nvim',
 		{ "catppuccin/nvim", name = "catppuccin" },
 		"cocopon/iceberg.vim",
 		"navarasu/onedark.nvim",

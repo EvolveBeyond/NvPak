@@ -99,15 +99,22 @@ local plugins = {
 	-- notification plugin
 	{
 		"rcarriga/nvim-notify",
-		event = "BufEnter",
 		config = function()
 			require("packages.notify")
+		end,
+	},
+
+	{
+		"mrded/nvim-lsp-notify",
+		dependencies = { "rcarriga/nvim-notify" },
+		config = function()
+			require("packages.lsp_notify")
 		end,
 	},
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufRead",
+		event = "BufReadPre",
 		build = ":TSUpdate",
 		config = function()
 			require("packages.treesitter")
@@ -165,22 +172,10 @@ local plugins = {
 	-- bracket autocompletion
 	{
 		"m4xshen/autoclose.nvim",
+		event = { "BufReadPre" },
 		config = function()
 			require("packages.autoclose")
 		end,
-	},
-	-- Rust Code tools
-	{
-		"simrat39/rust-tools.nvim",
-		ft = "rust",
-		config = function()
-			require("packages.rust-tools")
-		end,
-	},
-	{
-		"akinsho/flutter-tools.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		config = true,
 	},
 	-- Debugging System
 	{
@@ -192,6 +187,7 @@ local plugins = {
 		config = function()
 			require("packages.dap")
 		end,
+		ft = { "python", "rust", "lua" },
 	},
 	{
 		"folke/neodev.nvim",
@@ -220,6 +216,7 @@ local plugins = {
 	{
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
+		event = { "VimEnter", "BufRead" },
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -232,7 +229,7 @@ local plugins = {
 	-- Tree File Explorer
 	{
 		"kyazdani42/nvim-tree.lua",
-		event = "VimEnter",
+		event = { "VimEnter", "BufEnter" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
 			require("packages.tree")
@@ -241,6 +238,7 @@ local plugins = {
 	-- Neovim Terminal
 	{
 		"s1n7ax/nvim-terminal",
+		event = { "BufRead" },
 		config = function()
 			require("packages.NTerm")
 		end,
@@ -266,27 +264,30 @@ local plugins = {
 	-- lua Statusline
 	{
 		"nvim-lualine/lualine.nvim",
-		config = function ()
-		require("packages.lualine")
+		event = { "BufReadPre" },
+		config = function()
+			require("packages.lualine")
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		event = { "BufRead" },
 		config = function()
 			require("packages.indent")
 		end,
 	},
 	{
 		"norcalli/nvim-colorizer.lua",
+		event = { "BufReadPre" },
 		config = function()
 			require("packages.colorizer")
 		end,
 	},
 	-- themes
 	{
-		'Mofiqul/dracula.nvim',
+		"Mofiqul/dracula.nvim",
 		{ "catppuccin/nvim", name = "catppuccin" },
 		"cocopon/iceberg.vim",
 		"navarasu/onedark.nvim",

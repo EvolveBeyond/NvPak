@@ -58,12 +58,12 @@ local function setup_sources()
 		sources = {
 			{
 				name = "nvim_lsp",
-				priority = 40,
+				priority = 50,
 				max_item_count = 11,
 			},
 			{
 				name = "luasnip",
-				priority = 50,
+				priority = 40,
 				max_item_count = 6,
 				option = {
 					show_autosnippets = true,

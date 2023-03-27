@@ -58,5 +58,4 @@ bind("n", "<leader>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
 bind("n", "<C-f>", ":lua vim.lsp.buf.format({ async = true})<cr>", { silent = true })
 -- deselect on search
 bind("n", "<leader>/", "<Cmd>noh<cr>", { silent = true})
-bind("i", "<leader>/", "<Cmd>noh<cr>", { silent = true})
 

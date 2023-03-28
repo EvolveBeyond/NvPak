@@ -2,21 +2,6 @@ local set = vim.g
 local nvim_tree = require("nvim-tree")
 local tree_binds = require("packages.bindings.tree")
 
--- Define helper functions
-local function is_directory(file)
-	return vim.fn.isdirectory(file) == 1
-end
-
-local function cd_to_directory(file)
-	if is_directory(file) then
-		vim.cmd.cd(file)
-	end
-end
-
-local function open_tree()
-	require("nvim-tree.api").tree.open()
-end
-
 local function set_icons()
 	set.nvim_tree_icons = {
 		default = "",
@@ -73,8 +58,3 @@ local options = {
 -- Set the icons and nvim_tree startup options
 set_icons()
 nvim_tree.setup(options)
-
--- Create autocmd to open nvim-tree if a directory is opened in a buffer
-vim.cmd(
-	[[autocmd BufWinEnter * if getftype(expand('%')) == 'directory' && !&buflisted | exe 'NvimTreeFindFile' expand('%') | wincmd p | ene | endif]]
-)

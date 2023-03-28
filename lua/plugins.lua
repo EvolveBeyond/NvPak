@@ -261,6 +261,14 @@ local plugins = {
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
+	-- barabr TabLine
+		{
+			"romgrk/barbar.nvim",
+			dependencies = "nvim-tree/nvim-web-devicons",
+			config = function()
+				require("packages.barbar")
+			end,
+		},
 	-- lua Statusline
 	{
 		"nvim-lualine/lualine.nvim",

@@ -1,5 +1,6 @@
 local lualine = require("lualine")
 local lsp_status = require("packages.ui.lualine.lsp_status")
+local file_status = require("packages.ui.lualine.file_status")
 
 -- Config
 local config = {
@@ -47,7 +48,10 @@ local function ins_right(component)
 end
 
 -- Insert the filename component into the left section
-ins_left({ "filename", path = 1 })
+ins_left({ "filename", cond = file_status.buffer_not_empty })
+
+-- Place the distance generation component in the left part.
+ins_left({ "%=" })
 
 -- Insert the LSP status component into the left section
 ins_left({ lsp_status.get })

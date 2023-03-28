@@ -266,7 +266,7 @@ local plugins = {
 		"nvim-lualine/lualine.nvim",
 		event = { "BufReadPre" },
 		config = function()
-			require("packages.lualine")
+			require("packages.ui.lualine.main")
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},

@@ -82,15 +82,6 @@ Run
 ```lua
 :Lazy sync
 ```
-
-Also, if tabnine doesn't show you any offers, just log in to your account.
-
-Run
-
-```lua
-:CmpTabnineHub
-```
-
 inside nvim to install the packages.\
 Then restart nvim and enjoy.
 

@@ -25,8 +25,6 @@ mason_lspconfig.setup({
 	auto_install = true,
 	ensure_installed = {
 		"lua_ls", -- lua language server
-		"bashls",
-		"rust_analyzer", -- rust language server
 		"pylsp", -- python language server
 	},
 })
@@ -65,11 +63,6 @@ nvim_lsp.cssls.setup({
 	capabilities = capabilities,
 })
 
--- The following example advertise capabilities to `clangd`.
-nvim_lsp.clangd.setup({
-	capabilities = capabilities,
-})
-
 -- pyls normal python lsp
 nvim_lsp.pylsp.setup({
 	cmd = { "pylsp" },
@@ -91,50 +84,6 @@ nvim_lsp.pylsp.setup({
 	},
 	capabilities = capabilities,
 	single_file_support = true,
-})
--- rust lsp config
-nvim_lsp.rust_analyzer.setup({
-	cmd = { "rust_analyzer" },
-	filetypes = { "rust" },
-	root_dir = nvim_lsp.util.root_pattern("Cargo.toml", "rust-project.json"),
-	settings = {
-		["rust-analyzer"] = {
-			completion = {
-				addCallArgumentSnippets = true, -- add snippets for function call arguments
-				enableSnippetCompletions = true, -- enable snippet completions
-			},
-			assist = {
-				importGranularity = "Crate", -- suggest imports at the crate level
-				importPrefix = "by_self", -- prefer "use self::" over "use ::"
-			},
-			cargo = {
-				loadOutDirsFromCheck = true, -- improve performance by reusing build artifacts
-			},
-		},
-	},
-	capabilities = capabilities,
-})
-
--- bash and shell script lsp
-nvim_lsp.bashls.setup({
-	cmd = { "bash-language-server", "start" },
-	cmd_env = { GLOB_PATTERN = "*@(.sh|.inc|.bash|.command)" },
-	filetypes = { "sh", "bash", "dash" },
-	root_dir = nvim_lsp.util.find_git_ancestor,
-	settings = {
-		bashls = {
-			filetypes = { "sh", "bash", "dash" },
-			lint = {
-				severity = "error", -- treat all lint warnings as errors
-				enable = true,
-				ignorePatterns = {}, -- ignore specific issues if desired
-			},
-			debug = {
-				enableStdin = true, -- improve debugging with better stdin support
-			},
-		},
-	},
-	capabilities = capabilities,
 })
 
 -- Set logging level for LSP messages

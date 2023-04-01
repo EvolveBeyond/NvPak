@@ -9,7 +9,6 @@ if themes_status then
 	require("colors.dracula")
 end
 
-set.termguicolors = true
 set.syntax = "Enable"
 
 vimscript([[

@@ -4,6 +4,7 @@ local vimscript = vim.cmd
 set.encoding = "UTF-8"
 set.fileencoding = "UTF-8"
 
+set.termguicolors = true
 set.laststatus = 3 -- Status Line Mode
 set.showtabline = 2 -- Tab Line Mode with all tabs shown
 --Disable wrapping line.

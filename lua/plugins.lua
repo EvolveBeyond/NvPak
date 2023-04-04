@@ -235,6 +235,13 @@ local plugins = {
 			require("packages.tree")
 		end,
 	},
+	-- Neovim Project Manager
+	{
+		"ahmedkhalf/project.nvim",
+		config = function()
+			require("packages.project")
+		end,
+	},
 	-- Neovim Terminal
 	{
 		"s1n7ax/nvim-terminal",
@@ -262,13 +269,13 @@ local plugins = {
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- barabr TabLine
-		{
-			"romgrk/barbar.nvim",
-			dependencies = "nvim-tree/nvim-web-devicons",
-			config = function()
-				require("packages.barbar")
-			end,
-		},
+	{
+		"romgrk/barbar.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.barbar")
+		end,
+	},
 	-- lua Statusline
 	{
 		"nvim-lualine/lualine.nvim",
@@ -302,6 +309,7 @@ local plugins = {
 		"shaunsingh/nord.nvim",
 		"jayden-chan/base46.nvim",
 		"tanvirtin/monokai.nvim",
+		{ "rose-pine/neovim", name = "rose-pine" },
 	},
 }
 

@@ -23,7 +23,8 @@ However, it may be enough for you without the need to change.
 
 In order to make the best use of this config, you must meet the following prerequisites.
 
-- `NVIM v0.8.0` or later versions
+- `neovim v0.8.0` or later versions
+- `neovide v0.10.3` or later Version
 - `unzip`
 - `curl`
 - `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)

@@ -11,11 +11,9 @@
 [![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
 
 # NvPak
+Maybe you have tried to configure Neovim multiple times over the past few years. Neovim has undergone many changes, and every time, you had to follow new defaults to reach the minimum configuration and start writing your configuration for Neovim. The goal of the nvpak project is to provide these defaults.
 
-NvPak is a mandatory requirement to end generating complex configs for neovim.\
-PaK in Farsi means pure(clear), something that is available in its simplest form in its purest form.\
-but don't get me wrong, this is not a Neovim distribution, this config is designed for you to fork it.\
-However, it may be enough for you without the need to change.
+Now you can configure only what you need by forking nvpak without any add-ons. Please note that nvpak is not a Neovim configuration and not in competition with other configurations such as NvChad or LazyVim. If you need a complete Neovim setup without any configuration, then this GitHub repository is not for you.
 
 </div>
 

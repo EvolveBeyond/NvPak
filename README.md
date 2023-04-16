@@ -88,10 +88,10 @@ inside nvim to install the packages.\
 Then restart nvim and enjoy.
 
 ### Do you intend to help the progress of the project?
+If you want to contribute to our project, you can help us by solving bugs and adding features.
 
-Great projects are not created by just one person.\
-So please, if you use this project, try to help its development.\
-Even if you don't have enough knowledge, you can help me troubleshoot it,
-just go to the issues tab.\
-Also, if you plan to help me in developing features and solving bugs,
-just go to Projects tab.
+To get started, please follow these steps:
+
+  1. Visit the [Projects](https://github.com/Pakrohk-DotFiles/NvPak/projects?query=is%3Aopen) section to select a bug or feature to work on.
+  1. Create a fork of NvPak repository.
+  1. Submit a pull request and wait for nvpak team's review and approval.

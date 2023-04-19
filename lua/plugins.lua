@@ -107,9 +107,9 @@ local plugins = {
 	{
 		"mrded/nvim-lsp-notify",
 		dependencies = { "rcarriga/nvim-notify" },
-		config = function()
-			require("packages.lsp_notify")
-		end,
+		config = true, -- function()
+		-- require("packages.lsp_notify")
+		-- end,
 	},
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
@@ -235,6 +235,13 @@ local plugins = {
 			require("packages.tree")
 		end,
 	},
+	-- Neovim Project Manager
+	{
+		"ahmedkhalf/project.nvim",
+		config = function()
+			require("packages.project")
+		end,
+	},
 	-- Neovim Terminal
 	{
 		"s1n7ax/nvim-terminal",
@@ -260,6 +267,14 @@ local plugins = {
 			require("packages.dashboard")
 		end,
 		dependencies = "nvim-tree/nvim-web-devicons",
+	},
+	-- barabr TabLine
+	{
+		"romgrk/barbar.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("packages.barbar")
+		end,
 	},
 	-- lua Statusline
 	{
@@ -294,6 +309,7 @@ local plugins = {
 		"shaunsingh/nord.nvim",
 		"jayden-chan/base46.nvim",
 		"tanvirtin/monokai.nvim",
+		{ "rose-pine/neovim", name = "rose-pine" },
 	},
 }
 

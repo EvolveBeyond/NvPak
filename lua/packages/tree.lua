@@ -41,7 +41,6 @@ local options = {
 		adaptive_size = true,
 		side = "left",
 		width = 25,
-		hide_root_folder = true,
 		mappings = tree_binds.view,
 	},
 	git = { enable = true, ignore = false },
@@ -49,6 +48,7 @@ local options = {
 	actions = { open_file = { resize_window = true } },
 	renderer = {
 		highlight_git = true,
+		root_folder_label = false,
 		highlight_opened_files = "none",
 		indent_markers = { enable = false },
 		icons = { show = { file = true, folder = true, folder_arrow = true, git = true } },

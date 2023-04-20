@@ -96,21 +96,9 @@ local opt = {
 
 local plugins = {
 	-- notification plugin
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("packages.notify")
-		end,
-	},
+    require("packages.nvim-notify"),
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
-	{
-		"nvim-treesitter/nvim-treesitter",
-		event = "BufReadPre",
-		build = ":TSUpdate",
-		config = function()
-			require("packages.treesitter")
-		end,
-	},
+    require("packages.autocomplete.nvim-treesitter"),
 	-- lsp plugins
 	{
 		"neovim/nvim-lspconfig",

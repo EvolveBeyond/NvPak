@@ -16,10 +16,10 @@ local source_mapping = {
 local function setup_sorting()
 	cmp.setup({
 		sorting = {
-			priority_weight = 2,
+			priority_weight = 1.0,
 			comparators = {
-				compare.kind, -- prioritizes items with the same kind
 				compare.recently_used, -- prioritizes recently used items
+				compare.kind, -- prioritizes items with the same kind
 				compare.offset, -- prioritizes items closer to the cursor
 				compare.order, -- prioritizes items in the same received order
 				compare.sort_text, -- prioritizes prefix matches within completion items
@@ -58,39 +58,17 @@ local function setup_sources()
 		sources = {
 			{
 				name = "nvim_lsp",
-				priority = 50,
+				keyword_length = 1,
 				max_item_count = 11,
 			},
 			{
 				name = "luasnip",
-				priority = 40,
-				max_item_count = 6,
-				option = {
-					show_autosnippets = true,
-				},
-			},
-			{
-				name = "path",
-				priority = 30,
-				max_item_count = 5,
-			},
-			{
-				name = "nvim_lsp_signature_help",
-				priority = 10,
-			},
-			{
-				name = "spell",
-				priority = 20,
-				option = {
-					keep_all_entries = false,
-					enable_in_context = function()
-						return true
-					end,
-				},
+				keyword_length = 2,
+				max_item_count = 2,
 			},
 			{
 				name = "buffer",
-				priority = 30,
+				keyword_length = 3,
 				option = {
 					get_bufnrs = function()
 						local bufs = {}
@@ -101,6 +79,24 @@ local function setup_sources()
 					end,
 				},
 				max_item_count = 10,
+			},
+			{
+				name = "path",
+				keyword_length = 3,
+				max_item_count = 5,
+			},
+			{
+				name = "spell",
+				keyword_length = 3,
+				option = {
+					keep_all_entries = false,
+					enable_in_context = function()
+						return true
+					end,
+				},
+			},
+			{
+				name = "nvim_lsp_signature_help",
 			},
 		},
 	})
@@ -155,12 +151,12 @@ local function setup_cmdline()
 end
 
 local function setup()
-	setup_sorting()
-	setup_window()
 	setup_sources()
+	setup_sorting()
+	setup_snippet()
 	setup_mapping()
 	setup_formatting()
-	setup_snippet()
+	setup_window()
 	setup_cmdline()
 end
 

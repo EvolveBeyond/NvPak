@@ -1,5 +1,5 @@
 -- Set kaybinds
-require("packages.bindings.barbar")
+require("packages.barbar.bind")
 -- Set barbar's options
 local barbar = require("bufferline")
 

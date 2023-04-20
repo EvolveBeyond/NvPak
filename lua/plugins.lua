@@ -95,21 +95,12 @@ local opt = {
 }
 
 local plugins = {
-
 	-- notification plugin
 	{
 		"rcarriga/nvim-notify",
 		config = function()
 			require("packages.notify")
 		end,
-	},
-
-	{
-		"mrded/nvim-lsp-notify",
-		dependencies = { "rcarriga/nvim-notify" },
-		config = true, -- function()
-		-- require("packages.lsp_notify")
-		-- end,
 	},
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
 	{
@@ -269,22 +260,9 @@ local plugins = {
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- barabr TabLine
-	{
-		"romgrk/barbar.nvim",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("packages.barbar")
-		end,
-	},
+    require("packages.barbar"),
 	-- lua Statusline
-	{
-		"nvim-lualine/lualine.nvim",
-		event = { "BufReadPre" },
-		config = function()
-			require("packages.lualine")
-		end,
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
+	require("packages.lualine"),
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
 		"lukas-reineke/indent-blankline.nvim",

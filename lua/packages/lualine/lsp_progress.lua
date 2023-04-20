@@ -1,5 +1,4 @@
 local lsp_progress = require("lsp-progress")
-local lsp_status = require("packages.ui.lualine.lsp_status")
 
 lsp_progress.setup({
 	-- Spinning icons.

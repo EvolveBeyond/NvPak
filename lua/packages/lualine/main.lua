@@ -1,7 +1,7 @@
 local lualine = require("lualine")
-local lsp_status = require("packages.ui.lualine.lsp_status")
-local lsp_progress = require("packages.ui.lualine.lsp_progress")
-local file_status = require("packages.ui.lualine.file_status")
+local lsp_status = require("packages.lualine.lsp_status")
+local lsp_progress = require("packages.lualine.lsp_progress")
+local file_status = require("packages.lualine.file_status")
 
 local colors = {
 	-- Use vim.fn.synIDattr to get colors from the current Neovim color scheme

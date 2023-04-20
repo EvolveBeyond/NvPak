@@ -260,25 +260,9 @@ local plugins = {
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- barabr TabLine
-	{
-		"romgrk/barbar.nvim",
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("packages.ui.barbar")
-		end,
-	},
+    require("packages.barbar"),
 	-- lua Statusline
-	{
-		"nvim-lualine/lualine.nvim",
-		event = { "VimEnter" },
-		config = function()
-			require("packages.ui.lualine.main")
-		end,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-			"linrongbin16/lsp-progress.nvim",
-		},
-	},
+	require("packages.lualine"),
 	-- This plugin adds indentation guides to all lines (including empty lines).
 	{
 		"lukas-reineke/indent-blankline.nvim",

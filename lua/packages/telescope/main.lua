@@ -2,7 +2,7 @@
 local telescope = require("telescope")
 local theme = require("telescope.themes")
 -- Bindings
-local hotkeys = require("packages.bindings.telescope")
+local hotkeys = require("packages.telescope.bind")
 
 -- configure telescope
 local mappings = hotkeys.mappings

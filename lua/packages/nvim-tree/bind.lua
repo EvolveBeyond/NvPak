@@ -1,4 +1,5 @@
 local bind = vim.keymap.set
+local nvim_tree = require("nvim-tree")
 
 bind("n", "<leader>r", ":NvimTreeRefresh<CR>") -- nnoremap <leader>r :NvimTreeRefresh<CR>
 bind("n", "<leader>n", ":NvimTreeFindFile<CR>") -- nnoremap <leader>n :NvimTreeFindFile<CR>

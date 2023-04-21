@@ -9,4 +9,4 @@ local window = Window:new({
 })
 
 local terminal = Terminal:new(window)
-require("packages.bindings.NTerm") -- bindings
+require("packages.nvim-terminal.bind") -- bindings

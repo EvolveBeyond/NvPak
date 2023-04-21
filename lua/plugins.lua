@@ -96,21 +96,9 @@ local opt = {
 
 local plugins = {
 	-- notification plugin
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("packages.notify")
-		end,
-	},
+    require("packages.nvim-notify"),
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
-	{
-		"nvim-treesitter/nvim-treesitter",
-		event = "BufReadPre",
-		build = ":TSUpdate",
-		config = function()
-			require("packages.treesitter")
-		end,
-	},
+    require("packages.autocomplete.nvim-treesitter"),
 	-- lsp plugins
 	{
 		"neovim/nvim-lspconfig",
@@ -187,45 +175,12 @@ local plugins = {
 		end,
 	},
 	-- vim diagnostics system
-	{
-		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		event = { "BufRead" },
-		config = function()
-			require("packages.lsp_lines")
-		end,
-	},
-	{
-		"folke/trouble.nvim",
-		event = { "BufRead" },
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("packages.trouble")
-		end,
-	},
+	require("packages.lsp_lines"),
+	require("packages.trouble"),
 	-- Fuzzy Finder
-
-	{
-		"nvim-telescope/telescope.nvim",
-		branch = "0.1.x",
-		event = { "VimEnter", "BufRead" },
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
-		config = function()
-			require("packages.telescope")
-		end,
-	},
+	require("packages.telescope"),
 	-- Tree File Explorer
-	{
-		"kyazdani42/nvim-tree.lua",
-		event = { "VimEnter", "BufEnter" },
-		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("packages.tree")
-		end,
-	},
+	require("packages.nvim-tree"),
 	-- Neovim Project Manager
 	{
 		"ahmedkhalf/project.nvim",
@@ -234,13 +189,7 @@ local plugins = {
 		end,
 	},
 	-- Neovim Terminal
-	{
-		"s1n7ax/nvim-terminal",
-		event = { "BufRead" },
-		config = function()
-			require("packages.NTerm")
-		end,
-	},
+	require("packages.nvim-terminal"),
 	-- Markdown Previews
 	{
 		"iamcco/markdown-preview.nvim",
@@ -260,7 +209,7 @@ local plugins = {
 		dependencies = "nvim-tree/nvim-web-devicons",
 	},
 	-- barabr TabLine
-    require("packages.barbar"),
+	require("packages.barbar"),
 	-- lua Statusline
 	require("packages.lualine"),
 	-- This plugin adds indentation guides to all lines (including empty lines).

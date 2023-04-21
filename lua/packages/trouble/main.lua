@@ -1,5 +1,5 @@
 local trouble = require("trouble")
-local hotkeys = require("packages.bindings.trouble")
+local hotkeys = require("packages.trouble.bind")
 
 trouble.setup({
 	position = "bottom", -- position of the list can be: bottom, top, left, right

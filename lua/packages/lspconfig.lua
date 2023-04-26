@@ -50,6 +50,7 @@ nvim_lsp.lua_ls.setup({
 				severity_sort = true, -- sort errors/warnings by severity
 				signs = true, -- add signs in the gutter for errors/warnings
 			},
+            workspace = { checkThirdParty = false },
 		},
 	},
 	capabilities = capabilities,

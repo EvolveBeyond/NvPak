@@ -96,16 +96,22 @@ local opt = {
 
 local plugins = {
 	-- notification plugin
-    require("packages.nvim-notify"),
+	require("packages.nvim-notify"),
 	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
-    require("packages.autocomplete.nvim-treesitter"),
+	require("packages.autocomplete.nvim-treesitter"),
 	-- lsp plugins
 	{
-		"neovim/nvim-lspconfig",
+		"williamboman/mason-lspconfig.nvim",
 		event = { "BufReadPre", "BufNew" },
 		dependencies = {
+			{
+				"folke/neodev.nvim",
+				config = function()
+					require("packages.neodev")
+				end,
+			},
 			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			"neovim/nvim-lspconfig",
 		},
 		config = function()
 			require("packages.lspconfig")
@@ -167,12 +173,6 @@ local plugins = {
 			require("packages.dap")
 		end,
 		ft = { "python", "rust", "lua" },
-	},
-	{
-		"folke/neodev.nvim",
-		config = function()
-			require("packages.neodev")
-		end,
 	},
 	-- vim diagnostics system
 	require("packages.lsp_lines"),

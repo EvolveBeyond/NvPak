@@ -7,9 +7,8 @@ require("neodev").setup({
 	},
 	setup_jsonls = true,
 	lspconfig = true,
-
 	-- These options are not enabled, but can be enabled in some cases. Add comments to explain them.
-	-- plugins = true,
+	plugins = true,
 	-- override = function(root_dir, options) end,
 	-- pathStrict = true,
 })

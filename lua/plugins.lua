@@ -96,33 +96,14 @@ local opt = {
 
 local plugins = {
 	-- notification plugin
-    require("packages.nvim-notify"),
-	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
-    require("packages.autocomplete.nvim-treesitter"),
-	-- lsp plugins
-	{
-		"neovim/nvim-lspconfig",
-		event = { "BufReadPre", "BufNew" },
-		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		},
-		config = function()
-			require("packages.lspconfig")
-		end,
-	},
-	{
-		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNew" },
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-		},
-		config = function()
-			require("packages.null-ls")
-		end,
-	},
+	require("packages.nvim-notify"),
 	-- autocompeletion plugins
+	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
+	require("packages.autocomplete.nvim-treesitter"),
+	-- lsp plugins
+	require("packages.autocomplete.lspconfig"),
+	require("packages.autocomplete.null-ls"), -- autoformat and install other lsp tools
+	-- complate menu plugins
 	{
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter", "CmdlineEnter" },
@@ -167,12 +148,6 @@ local plugins = {
 			require("packages.dap")
 		end,
 		ft = { "python", "rust", "lua" },
-	},
-	{
-		"folke/neodev.nvim",
-		config = function()
-			require("packages.neodev")
-		end,
 	},
 	-- vim diagnostics system
 	require("packages.lsp_lines"),
@@ -227,17 +202,8 @@ local plugins = {
 			require("packages.colorizer")
 		end,
 	},
-	-- themes
-	{
-		"Mofiqul/dracula.nvim",
-		{ "catppuccin/nvim", name = "catppuccin" },
-		"cocopon/iceberg.vim",
-		"navarasu/onedark.nvim",
-		"shaunsingh/nord.nvim",
-		"jayden-chan/base46.nvim",
-		"tanvirtin/monokai.nvim",
-		{ "rose-pine/neovim", name = "rose-pine" },
-	},
+	-- colorschemes and syntax highlighting
+    require("packages.colors")
 }
 
 require("lazy").setup(plugins, opt)

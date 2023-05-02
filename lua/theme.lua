@@ -6,7 +6,7 @@ local themes_status = pcall(require, "rose-pine")
 
 -- auto load theme
 if themes_status then
-	require("colors.rose-pine")
+	require("packages.colors.rose-pine")
 end
 
 set.syntax = "Enable"

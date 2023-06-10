@@ -10,18 +10,19 @@
 [![Maintainer](https://img.shields.io/badge/maintainer-theMaintainer-blue?style=flat-square)](https://github.com/Pakrohk)
 [![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
 
-# What is the purpose of the NvPak project?
+# What is the purpose of the NvPak project? ✨
+
 Maybe you have tried to configure Neovim multiple times over the past few years. Neovim has undergone many changes, and every time, you had to follow new defaults to reach the minimum configuration and start writing your configuration for Neovim. The goal of the nvpak project is to provide these defaults.
 
 Now you can configure only what you need by forking nvpak without any add-ons. Please note that nvpak is not a Neovim configuration and not in competition with other configurations such as NvChad or LazyVim. If you need a complete Neovim setup without any configuration, then this GitHub repository is not for you.
 
-# Why is the name of the project NvPak?
-"nv" stands for Neovim and "Pak" is derived from the Persian word "پاک" meaning "clean," which represents brightness and simplicity, contrary to complexity and disorder. 
+# Why is the name of the project NvPak? 🌟
 
+"nv" stands for Neovim and "Pak" is derived from the Persian word "پاک" meaning "clean," which represents brightness and simplicity, contrary to complexity and disorder. 
 
 </div>
 
-## Requirements
+## Requirements 📋
 
 In order to make the best use of this config, you must meet the following prerequisites.
 
@@ -29,20 +30,25 @@ In order to make the best use of this config, you must meet the following prereq
 - `unzip`
 - `curl`
 - `ripgrep` or `fd` for [Fuzzy Finder Telescope](https://github.com/BurntSushi/ripgrep)
-- for clipboard `xclip` or `xsel` for xorg and `wl-clipboard` for wayland
+- For clipboard support:
+  - `xclip` or `xsel` for Xorg
+  - `wl-clipboard` for Wayland
 - `git`
 - If you are a Python developer, `pynvim`
-- `bash` or `dash` and for windows `PowerShell v5.1` or later
-- Just for windows `Scoop.sh`
-- install [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
+- `bash` or `dash` for Unix-based systems
+- `PowerShell v5.1` or later for Windows
+- Only for Windows: `Scoop.sh`
+- Install [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) for better icon support.
 
-### Screenshots
+### Screenshots 📷
 
 <details>
 <summary>
 Show
 </summary>
 <br>
+
+
 
 ![full](https://user-images.githubusercontent.com/27810360/215935940-81f0b59b-9382-4915-a395-f6903f07c1a8.png)
 
@@ -58,15 +64,15 @@ Show
 
 </details>
 
-### Installation
+### Installation 💻
 
-Unix :
+Unix 🐧:
 
 ```bash
 git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim
 ```
 
-Windows :
+Windows 🪟:
 
 ```powershell
 scoop bucket add extras
@@ -74,24 +80,24 @@ scoop install lazygit
 (git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
 ```
 
-### Usage
+### Usage 🚀
 
-If the software plugins are not installed automatically after the first run!
-Proceed as follows.
+If the software plugins are not installed automatically after the first run, proceed as follows:
 
-Run
+1. Run the following command inside nvim:
 
-```lua
-:Lazy sync
-```
-inside nvim to install the packages.\
-Then restart nvim and enjoy.
+   ```lua
+   :Lazy sync
+   ```
 
-### Do you intend to help the progress of the project?
-If you want to contribute to our project, you can help us by solving bugs and adding features.
+2. Restart nvim and enjoy!
+
+### Contributing 🤝
+
+Do you intend to help the progress of the project? If you want to contribute, you can help us by solving bugs and adding features.
 
 To get started, please follow these steps:
 
-  1. Visit the [Projects](https://github.com/Pakrohk-DotFiles/NvPak/projects?query=is%3Aopen) section to select a bug or feature to work on.
-  1. Create a fork of NvPak repository.
-  1. Submit a pull request and wait for nvpak team's review and approval.
+1. Visit the [Projects](https://github.com/Pakrohk-DotFiles/NvPak/projects?query=is%3Aopen) section to select a bug or feature to work on.
+2. Create a fork of the NvPak repository.
+3. Submit a pull request and wait for the NvPak team's review and approval.

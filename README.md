@@ -80,8 +80,11 @@ scoop install lazygit
 ### Notes:
 
 You need to have git installed first.
-On Unix, nvim command-line executable should be installed. If it is not installed, you can install it using your system's package manager.
-On Windows, you need to have scoop installed first. Then, install lazygit by running scoop install lazygit. Afterwards, run the remaining commands sequentially.
+On Unix, nvim command-line executable should be installed. 
+If it is not installed, you can install it using your system's **package manager**.
+On Windows, you need to have scoop installed first. 
+Then, install lazygit by running scoop install lazygit.
+Afterwards, run the remaining commands sequentially.
 
 The --depth 1 option of the git clone command fetches only the latest changes from the repository and does not retrieve the entire history. This reduces the download time.
 The \ character in Windows is used to continue a command on a new line.
@@ -105,15 +108,23 @@ Enjoy!
 # Contributing 🤝
 
 
+If you're interested in contributing to the project, we welcome your help in fixing bugs and adding new features.\
+ Here's how you can get started:
+ 
+Check the Projects section to see if there are any open issues or features that you'd like to work on. \
+If you have an idea for a new feature or improvement, feel free to suggest it and discuss it with the [NvPak](https://github.com/Pakrohk-DotFiles/NvPak) team.
 
-If you're interested in contributing to the project, we welcome your help in fixing bugs and adding new features. Here's how you can get started:
-
-Check the Projects section to see if there are any open issues or features that you'd like to work on. If you have an idea for a new feature or improvement, feel free to suggest it and discuss it with the [NvPak](https://github.com/Pakrohk-DotFiles/NvPak) team.
-Fork the NvPak repository to your own GitHub account.
+Fork the NvPak repository to your own GitHub account.\
 Make your changes and commit them to your forked repository. Please make sure to follow the project's coding standards and best practices, and write clear and concise commit messages.
-Submit a pull request from your forked repository to the main NvPak repository. Your changes will be reviewed by the NvPak team, who may provide feedback and request changes if necessary.
-Once your changes are approved, they will be merged into the main NvPak repository and will be available to all users.
 
-By contributing to NvPak, you'll be helping to improve the project for all users, and you'll have the opportunity to learn and collaborate with other developers. Thank you for considering contributing to NvPak!
+Submit a pull request from your forked repository to the main NvPak repository.\
+ Your changes will be reviewed by the NvPak team, who may provide feedback and request changes if necessary.\
+Once your changes are approved, they will be merged into the main NvPak repository and will be available to all users.\
+
+By contributing to NvPak, you'll be helping to improve the project for all users, and you'll have the opportunity to learn and collaborate with other developers.
+
+ Thank you for considering contributing to NvPak!
+
+
 
 

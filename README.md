@@ -80,13 +80,14 @@ scoop install lazygit
 ### Notes:
 
 You need to have git installed first.
-On Unix, nvim command-line executable should be installed. 
-If it is not installed, you can install it using your system's **package manager**.
-On Windows, you need to have scoop installed first. 
-Then, install lazygit by running scoop install lazygit.
+On Unix,nvim command-line executable should be installed. \
+If it is not installed, you can install it using your system's **package manager**.\
+On Windows, you need to have scoop installed first. \
+Then, install lazygit by running scoop install lazygit.\
 Afterwards, run the remaining commands sequentially.
 
-The --depth 1 option of the git clone command fetches only the latest changes from the repository and does not retrieve the entire history. This reduces the download time.
+The --depth 1 option of the git clone command fetches only the latest changes from the repository and does not retrieve the entire history.\
+This reduces the download time.\
 The \ character in Windows is used to continue a command on a new line.
 
 

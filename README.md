@@ -64,40 +64,68 @@ Show
 
 </details>
 
-### Installation 💻
-
-Unix 🐧:
-
+# Installation 💻
+## Unix 🐧
+bash
 ```bash
 git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim
 ```
-
-Windows 🪟:
-
+## Windows 🪟
+powershell
 ```powershell
-scoop bucket add extras
+bucket add extras
 scoop install lazygit
-(git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git  ~\AppData\Local\nvim\) -and (nvim)
+(git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~\AppData\Local\nvim\) -and (nvim)
+```
+### Notes:
+
+You need to have git installed first.
+On Unix,nvim command-line executable should be installed. \
+If it is not installed, you can install it using your system's **package manager**.\
+On Windows, you need to have scoop installed first. \
+Then, install lazygit by running scoop install lazygit.\
+Afterwards, run the remaining commands sequentially.
+
+The --depth 1 option of the git clone command fetches only the latest changes from the repository and does not retrieve the entire history.\
+This reduces the download time.\
+The \ character in Windows is used to continue a command on a new line.
+
+
+# Usage: 🚀
+
+If the software plugins are not installed automatically after the first run, follow these steps:
+
+Run the following command inside nvim:
+
+```
+:Lazy sync
 ```
 
-### Usage 🚀
+Restart nvim.
 
-If the software plugins are not installed automatically after the first run, proceed as follows:
+Enjoy!
 
-1. Run the following command inside nvim:
 
-   ```lua
-   :Lazy sync
-   ```
+# Contributing 🤝
 
-2. Restart nvim and enjoy!
 
-### Contributing 🤝
+If you're interested in contributing to the project, we welcome your help in fixing bugs and adding new features.\
+ Here's how you can get started:
+ 
+Check the [Projects](https://github.com/EvolveBeyond/NvPak/projects) section to see if there are any open issues or features that you'd like to work on. \
+If you have an idea for a new feature or improvement, feel free to suggest it and discuss it with the [NvPak](https://github.com/EvolveBeyond/NvPak) team.
 
-Do you intend to help the progress of the project? If you want to contribute, you can help us by solving bugs and adding features.
+Fork the NvPak repository to your own GitHub account.\
+Make your changes and commit them to your forked repository. Please make sure to follow the project's coding standards and best practices, and write clear and concise commit messages.
 
-To get started, please follow these steps:
+Submit a pull request from your forked repository to the main NvPak repository.\
+ Your changes will be reviewed by the NvPak team, who may provide feedback and request changes if necessary.\
+Once your changes are approved, they will be merged into the main NvPak repository and will be available to all users.
 
-1. Visit the [Projects](https://github.com/Pakrohk-DotFiles/NvPak/projects?query=is%3Aopen) section to select a bug or feature to work on.
-2. Create a fork of the NvPak repository.
-3. Submit a pull request and wait for the NvPak team's review and approval.
+By contributing to NvPak, you'll be helping to improve the project for all users, and you'll have the opportunity to learn and collaborate with other developers.
+
+ Thank you for considering contributing to NvPak!
+
+
+
+

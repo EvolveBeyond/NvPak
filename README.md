@@ -120,7 +120,7 @@ Make your changes and commit them to your forked repository. Please make sure to
 
 Submit a pull request from your forked repository to the main NvPak repository.\
  Your changes will be reviewed by the NvPak team, who may provide feedback and request changes if necessary.\
-Once your changes are approved, they will be merged into the main NvPak repository and will be available to all users.\
+Once your changes are approved, they will be merged into the main NvPak repository and will be available to all users.
 
 By contributing to NvPak, you'll be helping to improve the project for all users, and you'll have the opportunity to learn and collaborate with other developers.
 

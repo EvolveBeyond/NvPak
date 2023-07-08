@@ -112,8 +112,8 @@ Enjoy!
 If you're interested in contributing to the project, we welcome your help in fixing bugs and adding new features.\
  Here's how you can get started:
  
-Check the Projects section to see if there are any open issues or features that you'd like to work on. \
-If you have an idea for a new feature or improvement, feel free to suggest it and discuss it with the [NvPak](https://github.com/Pakrohk-DotFiles/NvPak) team.
+Check the [Projects](https://github.com/EvolveBeyond/NvPak) section to see if there are any open issues or features that you'd like to work on. \
+If you have an idea for a new feature or improvement, feel free to suggest it and discuss it with the [NvPak](https://github.com/EvolveBeyond/NvPak) team.
 
 Fork the NvPak repository to your own GitHub account.\
 Make your changes and commit them to your forked repository. Please make sure to follow the project's coding standards and best practices, and write clear and concise commit messages.

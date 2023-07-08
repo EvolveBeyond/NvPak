@@ -3,6 +3,6 @@ return {
 		event = { "BufRead" },
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
-			require("packages.trouble.main")
+			require("packages.autocomplete.trouble.main")
 		end,
 	}

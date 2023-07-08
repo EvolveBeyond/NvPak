@@ -1,6 +1,6 @@
 return {
 	"rcarriga/nvim-notify",
 	config = function()
-		require("packages.nvim-notify.main")
+		require("packages.ui.nvim-notify.main")
 	end,
 }

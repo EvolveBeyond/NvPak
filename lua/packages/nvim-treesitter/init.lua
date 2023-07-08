@@ -3,6 +3,6 @@ return {
 	event = "BufReadPre",
 	build = ":TSUpdate",
 	config = function()
-		require("packages.autocomplete.nvim-treesitter.main")
+		require("packages.nvim-treesitter.main")
 	end,
 }

@@ -10,4 +10,4 @@ vim.diagnostic.config({
 	},
 })
 
-require("packages.lsp_lines.bind") -- bindings
+require("packages.autocomplete.lsp_lines.bind") -- bindings

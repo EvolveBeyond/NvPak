@@ -2,7 +2,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		event = { "VimEnter" },
 		config = function()
-			require("packages.lualine.main")
+			require("packages.ui.lualine.main")
 		end,
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",

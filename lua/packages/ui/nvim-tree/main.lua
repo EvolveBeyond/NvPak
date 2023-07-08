@@ -1,6 +1,6 @@
 local set = vim.g
 local nvim_tree = require("nvim-tree")
-local tree_binds = require("packages.nvim-tree.bind")
+local tree_binds = require("packages.ui.nvim-tree.bind")
 
 local function set_icons()
 	set.nvim_tree_icons = {

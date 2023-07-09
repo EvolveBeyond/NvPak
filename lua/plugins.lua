@@ -33,6 +33,8 @@ local plugins = {
 	require("packages.autocomplete.trouble"),
 	-- Fuzzy Finder
 	require("packages.telescope"),
+	-- Icons
+	require("packages.ui.devicons"),
 	-- Tree File Explorer
 	require("packages.ui.nvim-tree"),
 	-- Neovim Project Manager

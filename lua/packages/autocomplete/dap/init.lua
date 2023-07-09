@@ -5,7 +5,7 @@ return {
 		"mfussenegger/nvim-dap",
 	},
 	config = function()
-		require("packages.dap")
+		require("packages.autocomplete.dap.main")
 	end,
 	ft = { "python", "rust", "lua" },
 }

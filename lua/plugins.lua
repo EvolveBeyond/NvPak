@@ -25,17 +25,7 @@ local plugins = {
 	-- complate menu plugins
 	require("packages.autocomplete.cmp"),
 	-- Debugging System
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			"mfussenegger/nvim-dap",
-		},
-		config = function()
-			require("packages.dap")
-		end,
-		ft = { "python", "rust", "lua" },
-	},
+    require("packages.autocomplete.dap"),
 	-- vim diagnostics system
 	require("packages.autocomplete.lsp_lines"),
 	require("packages.autocomplete.trouble"),

@@ -24,8 +24,10 @@ local plugins = {
 	require("packages.autocomplete.null-ls"), -- autoformat and install other lsp tools
 	-- complate menu plugins
 	require("packages.autocomplete.cmp"),
+	-- bracket autocompletion
+	require("packages.autocomplete.cmp.autopairs"),
 	-- Debugging System
-    require("packages.autocomplete.dap"),
+	require("packages.autocomplete.dap"),
 	-- vim diagnostics system
 	require("packages.autocomplete.lsp_lines"),
 	require("packages.autocomplete.trouble"),
@@ -68,14 +70,6 @@ local plugins = {
 	require("packages.ui.HexColor"),
 	-- colorschemes and syntax highlighting
 	require("packages.colors"),
-	-- bracket autocompletion
-	{
-		"m4xshen/autoclose.nvim",
-		event = { "BufReadPre" },
-		config = function()
-			require("packages.autoclose")
-		end,
-	},
 }
 
 local opt = {

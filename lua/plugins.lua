@@ -11,6 +11,47 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local plugins = {
+	-- notification plugin
+	require("packages.ui.nvim-notify"),
+	-- autocompeletion plugins
+	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
+	require("packages.nvim-treesitter"),
+	-- This plugin adds indentation guides to all lines (including empty lines).
+	require("packages.nvim-treesitter.indent"),
+	-- lsp plugins
+	require("packages.autocomplete.lspconfig"),
+	require("packages.autocomplete.null-ls"), -- autoformat and install other lsp tools
+	-- complate menu plugins
+	require("packages.autocomplete.cmp"),
+	-- bracket autocompletion
+	require("packages.autocomplete.cmp.autopairs"),
+	-- Debugging System
+	require("packages.autocomplete.dap"),
+	-- vim diagnostics system
+	require("packages.autocomplete.lsp_lines"),
+	require("packages.autocomplete.trouble"),
+	-- Fuzzy Finder
+	require("packages.telescope"),
+	-- Icons
+	require("packages.ui.devicons"),
+	-- Tree File Explorer
+	require("packages.ui.nvim-tree"),
+	-- Neovim Terminal
+	require("packages.ui.nvim-terminal"),
+		-- Themes and more customize Plugins
+	-- Dashboard
+    require("packages.ui.dashboard"),
+	-- barabr TabLine
+	require("packages.ui.barbar"),
+	-- lua Statusline
+	require("packages.ui.lualine"),
+	-- show HexCode Colors
+	require("packages.ui.HexColor"),
+	-- colorschemes and syntax highlighting
+	require("packages.colors"),
+}
+
 local opt = {
 	defaults = {
 		lazy = false, -- should plugins be lazy-loaded?
@@ -92,118 +133,6 @@ local opt = {
 		-- only generate markdown helptags for plugins that dont have docs
 		skip_if_doc_exists = true,
 	},
-}
-
-local plugins = {
-	-- notification plugin
-	require("packages.nvim-notify"),
-	-- autocompeletion plugins
-	-- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
-	require("packages.autocomplete.nvim-treesitter"),
-	-- lsp plugins
-	require("packages.autocomplete.lspconfig"),
-	require("packages.autocomplete.null-ls"), -- autoformat and install other lsp tools
-	-- complate menu plugins
-	{
-		"hrsh7th/nvim-cmp",
-		event = { "InsertEnter", "CmdlineEnter" },
-		dependencies = {
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lua",
-			"onsails/lspkind.nvim",
-			{
-				"L3MON4D3/LuaSnip",
-				build = "make install_jsregexp",
-			},
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-buffer",
-			"f3fora/cmp-spell",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-cmdline",
-			"rafamadriz/friendly-snippets",
-			"hrsh7th/cmp-nvim-lsp-document-symbol",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
-		},
-		config = function()
-			require("packages.cmp")
-			require("packages.snip")
-		end,
-	},
-	-- bracket autocompletion
-	{
-		"m4xshen/autoclose.nvim",
-		event = { "BufReadPre" },
-		config = function()
-			require("packages.autoclose")
-		end,
-	},
-	-- Debugging System
-	{
-		"jay-babu/mason-nvim-dap.nvim",
-		dependencies = {
-			"rcarriga/nvim-dap-ui",
-			"mfussenegger/nvim-dap",
-		},
-		config = function()
-			require("packages.dap")
-		end,
-		ft = { "python", "rust", "lua" },
-	},
-	-- vim diagnostics system
-	require("packages.lsp_lines"),
-	require("packages.trouble"),
-	-- Fuzzy Finder
-	require("packages.telescope"),
-	-- Tree File Explorer
-	require("packages.nvim-tree"),
-	-- Neovim Project Manager
-	{
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("packages.project")
-		end,
-	},
-	-- Neovim Terminal
-	require("packages.nvim-terminal"),
-	-- Markdown Previews
-	{
-		"iamcco/markdown-preview.nvim",
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-		ft = "markdown",
-	},
-	-- Themes and more customize Plugins
-	-- Dashboard
-	{
-		"glepnir/dashboard-nvim",
-		event = "VimEnter",
-		config = function()
-			require("packages.dashboard")
-		end,
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
-	-- barabr TabLine
-	require("packages.barbar"),
-	-- lua Statusline
-	require("packages.lualine"),
-	-- This plugin adds indentation guides to all lines (including empty lines).
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufRead" },
-		config = function()
-			require("packages.indent")
-		end,
-	},
-	{
-		"norcalli/nvim-colorizer.lua",
-		event = { "BufReadPre" },
-		config = function()
-			require("packages.colorizer")
-		end,
-	},
-	-- colorschemes and syntax highlighting
-    require("packages.colors")
 }
 
 require("lazy").setup(plugins, opt)

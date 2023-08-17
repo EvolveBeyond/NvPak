@@ -3,21 +3,21 @@ local vimscript = vim.cmd
 
 set.encoding = "UTF-8"
 set.fileencoding = "UTF-8"
+set.guifont = "FantasqueSansMono Nerd Font Mono:h9"
 
 if vim.g.neovide then
-	vim.o.guifont = "FantasqueSansMono Nerd Font Mono:h9"
-	vim.g.neovide_padding_top = 0
-	vim.g.neovide_padding_bottom = 0
-	vim.g.neovide_padding_right = 0
-	vim.g.neovide_padding_left = 0
-	vim.g.neovide_floating_blur_amount_x = 2.0
-	vim.g.neovide_floating_blur_amount_y = 2.0
-	-- vim.g.neovide_transparency = 0.66
-	vim.g.neovide_refresh_rate = 60
-    vim.g.neovide_refresh_rate_idle = 5
-    vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_cursor_animate_in_insert_mode = true
-    vim.g.neovide_cursor_animate_command_line = true
+	set.neovide_padding_top = 0
+	set.neovide_padding_bottom = 0
+	set.neovide_padding_right = 0
+	set.neovide_padding_left = 0
+	set.neovide_floating_blur_amount_x = 2.0
+	set.neovide_floating_blur_amount_y = 2.0
+	-- set.neovide_transparency = 0.66
+	set.neovide_refresh_rate = 60
+	set.neovide_refresh_rate_idle = 5
+	set.neovide_cursor_antialiasing = true
+	set.neovide_cursor_animate_in_insert_mode = true
+	set.neovide_cursor_animate_command_line = true
 end
 
 set.termguicolors = true

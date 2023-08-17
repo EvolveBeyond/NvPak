@@ -37,33 +37,11 @@ local plugins = {
 	require("packages.ui.devicons"),
 	-- Tree File Explorer
 	require("packages.ui.nvim-tree"),
-	-- Neovim Project Manager
-	{
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("packages.project")
-		end,
-	},
 	-- Neovim Terminal
 	require("packages.ui.nvim-terminal"),
-	-- Markdown Previews
-	{
-		"iamcco/markdown-preview.nvim",
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
-		ft = "markdown",
-	},
-	-- Themes and more customize Plugins
+		-- Themes and more customize Plugins
 	-- Dashboard
-	{
-		"glepnir/dashboard-nvim",
-		event = "VimEnter",
-		config = function()
-			require("packages.dashboard")
-		end,
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
+    require("packages.ui.dashboard"),
 	-- barabr TabLine
 	require("packages.ui.barbar"),
 	-- lua Statusline

@@ -105,6 +105,12 @@ Restart nvim.
 
 Enjoy!
 
+# Team
+
+| ![pakrohk](https://github.com/Pakrohk.png?size=51)  | ![ARS101](https://github.com/ARS101.png?size=51)  | ![lorem10](https://github.com/lorem10.png?size=51)  | ![nooob-developer](https://github.com/nooob-developer.png?size=51) | ![mandarvaze](https://github.com/mandarvaze.png?size=51) | ![RealMrHex](https://github.com/RealMrHex.png?size=51) | ![0xj0hn](https://github.com/0xj0hn.png?size=51) |
+| -------------- | -------------- | ------------- | -------------- | ---------- | ---------- | ----------- |
+| [Pakrohk](https://github.com/Pakrohk) | [ARS101](https://github.com/ARS101) | [lorem10](https://github.com/lorem10) | [nooob-developer](https://github.com/nooob-developer) | [mandarvaze](https://github.com/mandarvaze) | [RealMrHex](https://github.com/RealMrHex) | [0xj0hn](https://github.com/0xj0hn)
+
 
 # Contributing 🤝
 
@@ -125,6 +131,9 @@ Once your changes are approved, they will be merged into the main NvPak reposito
 By contributing to NvPak, you'll be helping to improve the project for all users, and you'll have the opportunity to learn and collaborate with other developers.
 
  Thank you for considering contributing to NvPak!
+
+ 
+you can find the list of contributors on the [contributors page](https://github.com/nooob-developer/NvPak/graphs/contributors).
 
 
 

@@ -105,11 +105,8 @@ Restart nvim.
 
 Enjoy!
 
-# Team
 
-| ![pakrohk](https://github.com/Pakrohk.png?size=51)  | ![ARS101](https://github.com/ARS101.png?size=51)  | ![lorem10](https://github.com/lorem10.png?size=51)  | ![nooob-developer](https://github.com/nooob-developer.png?size=51) | ![mandarvaze](https://github.com/mandarvaze.png?size=51) | ![RealMrHex](https://github.com/RealMrHex.png?size=51) | ![0xj0hn](https://github.com/0xj0hn.png?size=51) |
-| -------------- | -------------- | ------------- | -------------- | ---------- | ---------- | ----------- |
-| [Pakrohk](https://github.com/Pakrohk) | [ARS101](https://github.com/ARS101) | [lorem10](https://github.com/lorem10) | [nooob-developer](https://github.com/nooob-developer) | [mandarvaze](https://github.com/mandarvaze) | [RealMrHex](https://github.com/RealMrHex) | [0xj0hn](https://github.com/0xj0hn)
+
 
 
 # Contributing 🤝
@@ -136,5 +133,13 @@ By contributing to NvPak, you'll be helping to improve the project for all users
 you can find the list of contributors on the [contributors page](https://github.com/nooob-developer/NvPak/graphs/contributors).
 
 
+## Team
 
+| ![pakrohk](https://github.com/Pakrohk.png?size=71) | ![ARS101](https://github.com/ARS101.png?size=71) | ![lorem10](https://github.com/lorem10.png?size=71) | ![nooob-developer](https://github.com/nooob-developer.png?size=71) |
+| :------------------------------------------------: | :----------------------------------------------: | ------------------------------------- | -------------- |
+| [Pakrohk](https://github.com/Pakrohk) | [ARS101](https://github.com/ARS101) | [lorem10](https://github.com/lorem10) | [nooob-developer](https://github.com/nooob-developer) |
+
+| [H-cyber](https://github.com/H-cyber.png?size=74) | ![mandarvaze](https://github.com/mandarvaze.png?size=74) | ![RealMrHex](https://github.com/RealMrHex.png?size=74) | ![0xj0hn](https://github.com/0xj0hn.png?size=74) |
+| --------------------------------------- | ------------------------------------------------------ | --------------------- | ----------------------- |
+| [H-cyber](https://github.com/H-cyber) | [mandarvaze](https://github.com/mandarvaze) | [RealMrHex](https://github.com/RealMrHex) | [0xj0hn](https://github.com/0xj0hn) |
 

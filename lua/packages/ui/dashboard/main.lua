@@ -12,7 +12,7 @@ require("dashboard").setup({
 		},
 		-- shortcuts in the top page
 		shortcut = {
-			{ desc = " Update", action = "PackerSync", key = "u" },
+			{ desc = " Update", action = "Lazy sync", key = "u" },
 			{
 				desc = " Files",
 				action = "Telescope find_files",

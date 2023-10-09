@@ -1,4 +1,4 @@
-local set = vim.opt
+local set = vim.o
 local vimscript = vim.cmd
 
 set.encoding = "UTF-8"

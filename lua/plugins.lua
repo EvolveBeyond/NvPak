@@ -28,7 +28,6 @@ local plugins = {
     -- Debugging System
     require("packages.autocomplete.dap"),
     -- vim diagnostics system
-    require("packages.autocomplete.lsp_lines"),
     require("packages.autocomplete.trouble"),
     -- Fuzzy Finder
     require("packages.telescope"),

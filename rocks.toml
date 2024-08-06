@@ -1,0 +1,81 @@
+# This is your rocks.nvim plugins declaration file.
+# Here is a small yet pretty detailed example on how to use it:
+
+# This includes things like `toml` or other lua packages.
+[rocks]
+
+# List of Neovim plugins to install alongside their versions.
+# If the plugin name contains a dot then you must add quotes to the key name!
+[plugins]
+"rocks.nvim" = "2.36.0" # rocks.nvim can also manage itself :D
+neorg = "9.1.1"
+nvim-notify = "3.13.5"
+"rocks-treesitter.nvim" = "1.0.3"
+"rocks-git.nvim" = "2.0.1"
+"rocks-config.nvim" = "2.2.0"
+tree-sitter-toml = "0.0.2"
+"nvim-tree.lua" = "1.5.0"
+nvim-web-devicons = "0.100"
+"staline.nvim" = "scm"
+nvim-cmp = "scm"
+cmp-nvim-lsp = "scm"
+cmp-nvim-lua = { git = "hrsh7th/cmp-nvim-lua" }
+cmp-spell = { git = "f3fora/cmp-spell" }
+cmp-nvim-lsp-document-symbol = { git = "hrsh7th/cmp-nvim-lsp-document-symbol" }
+cmp-nvim-lsp-signature-help = { git = "hrsh7th/cmp-nvim-lsp-signature-help" }
+"lspkind.nvim" = "scm"
+cmp-buffer = "scm"
+cmp-path = "scm"
+cmp-cmdline = "scm"
+luasnip = "2.3.0"
+nvim-autopairs = "scm"
+cmp_luasnip = "scm"
+friendly-snippets = "scm"
+nvim-lspconfig = "0.1.8"
+"mason.nvim" = "1.10.0"
+"mason-lspconfig.nvim" = "1.30.0"
+"neodev.nvim" = "3.0.0"
+dashboard-nvim = "scm"
+tree-sitter-python = "0.0.2"
+"rocks-edit.nvim" = "scm"
+
+[treesitter]
+# auto_highlight = "all"
+# NOTE: These are parsers, not filetypes.
+auto_highlight = [
+  "haskell",
+  "dhall",
+  "rust",
+  "toml",
+  "python",
+  "lua"
+]
+
+auto_install = "prompt" # true | false
+
+[treesitter.parser_map]
+# You can add custom filetype to parser mappings.
+# Determine the filetype with ':lua =vim.bo[0].filetype'.
+# NOTE: You don't actually have to add these examples.
+# They are added by default.
+PKGBUILD = "bash"
+cls = "latex"
+sty = "latex"
+
+[config]
+plugins_dir = "plugins/"
+auto_setup = false
+
+[plugins.nvim-tree]
+config = "plugins.ui.nvim-tree"
+[plugins.staline]
+config = "plugins.ui.staline"
+[plugins.dashboard]
+config = "plugins.ui.dashboard"
+
+
+[plugins.cmp]
+config = "plugins.autocomplete.cmp"
+[plugins.lspconfig]
+config = "plugins.autocomplete.lspconfig"
+

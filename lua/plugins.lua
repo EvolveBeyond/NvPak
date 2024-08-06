@@ -16,9 +16,9 @@ local plugins = {
     require("packages.ui.nvim-notify"),
     -- autocompeletion plugins
     -- The goal of nvim-treesitter is both to provide a simple and easy way to use the interface for tree-sitter in Neovim and to provide some basic functionality such as highlighting based on it
-    require("packages.nvim-treesitter"),
+    require("packages.autocomplete.nvim-treesitter"),
     -- This plugin adds indentation guides to all lines (including empty lines).
-    require("packages.nvim-treesitter.indent"),
+    require("packages.autocomplete.nvim-treesitter.indent"),
     -- lsp plugins
     require("packages.autocomplete.lspconfig"),
     -- complate menu plugins
@@ -30,7 +30,7 @@ local plugins = {
     -- vim diagnostics system
     require("packages.autocomplete.trouble"),
     -- Fuzzy Finder
-    require("packages.telescope"),
+    require("packages.ui.telescope"),
     -- Icons
     require("packages.ui.devicons"),
     -- Tree File Explorer

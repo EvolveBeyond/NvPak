@@ -38,7 +38,26 @@ tree-sitter-python = "0.0.2"
 catppuccin = "0.1.0" # Theme/ColorSchrome
 "onedarkpro.nvim" = "0.8.0" # Theme/ColorSchrome
 "monokai.nvim" = "scm" # Theme/ColorSchrome
-
+"telescope.nvim" = "scm"
+"plenary.nvim" = "scm" 
+"telescope-fzy-native.nvim" = { git = "nvim-telescope/telescope-fzy-native.nvim" }
+"trouble.nvim" = "3.6.0"
+"telescope-ui-select.nvim" = "scm"
+[plugin.cmp-nvim-lua]
+git = "hrsh7th/cmp-nvim-lua"
+[plugin.cmp-spell]
+git = "f3fora/cmp-spell"
+[plugin.cmp-nvim-lsp-document-symbol]
+git = "hrsh7th/cmp-nvim-lsp-document-symbol"
+[plugin.cmp-nvim-lsp-signature-help]
+git = "hrsh7th/cmp-nvim-lsp-signature-help"
+[plugin.iceberg] # Theme/ColorSchrome
+git = "cocopon/iceberg.vim"
+[plugin.nord] # Theme/ColorSchrome
+git = "shaunsingh/nord.nvim"
+[plugin.rose-pine] # Theme/ColorSchrome
+git = "rose-pine/neovim"
+name = "rose-pine"
 
 
 [treesitter]
@@ -68,31 +87,50 @@ sty = "latex"
 plugins_dir = "plugins/"
 auto_setup = false
 
+# User Interface Plugins Settings
+[plugin.nvim-notify]
+config = "plugins.ui.nvim-notify.config"
 [plugins.nvim-tree]
-config = "plugins.ui.nvim-tree"
+config = "plugins.ui.nvim-tree.config"
 [plugins.staline]
-config = "plugins.ui.staline"
+config = "plugins.ui.staline.config"
 [plugins.dashboard]
-config = "plugins.ui.dashboard"
+config = "plugins.ui.dashboard.config"
+[plugins.telescope]
+config = "plugins.ui.telescope.config"
+[bundles.telescope]
+items = [
+  "telescope.nvim",
+  "plenary.nvim",
+  "telescope-fzy-native.nvim",
+  "telescope-ui-select.nvim"
+]
 
 
-[plugins.cmp]
-config = "plugins.autocomplete.cmp"
+# LSP & autocomplete System Plugins Settings
 [plugins.lspconfig]
 config = "plugins.autocomplete.lspconfig"
-
-[plugin.cmp-nvim-lua]
-git = "hrsh7th/cmp-nvim-lua"
-[plugin.cmp-spell]
-git = "f3fora/cmp-spell"
-[plugin.cmp-nvim-lsp-document-symbol]
-git = "hrsh7th/cmp-nvim-lsp-document-symbol"
-[plugin.cmp-nvim-lsp-signature-help]
-git = "hrsh7th/cmp-nvim-lsp-signature-help"
-[plugin.iceberg] # Theme/ColorSchrome
-git = "cocopon/iceberg.vim"
-[plugin.nord] # Theme/ColorSchrome
-git = "shaunsingh/nord.nvim"
-[plugin.rose-pine] # Theme/ColorSchrome
-git = "rose-pine/neovim"
-name = "rose-pine"
+[bundles.lsp]
+items = [
+  "nvim-lspconfig",
+  "mason.nvim",
+  "mason-lspconfig.nvim",
+  "neodev.nvim"
+]
+[plugins.cmp]
+config = "plugins.autocomplete.cmp"
+[bundles.cmp]
+items = [
+  "nvim-cmp",
+  "cmp-nvim-lsp",
+  "lspkind.nvim",
+  "cmp-buffer",
+  "cmp-path",
+  "cmp-cmdline",
+  "luasnip",
+  "nvim-autopairs",
+  "cmp_luasnip",
+  "friendly-snippets"
+]
+[Plugins.trouble]
+config = "plugins.autocomplete.trouble.config"

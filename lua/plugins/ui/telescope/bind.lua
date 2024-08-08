@@ -1,8 +1,7 @@
 local bind = vim.keymap.set
 
 -- import trouble actions for telescope
-local trouble = require("trouble.providers.telescope")
--- import telescope actions safely
+local open_with_trouble = require("trouble.sources.telescope").open() -- import telescope actions safely
 local actions = require("telescope.actions")
 
 -- telescopes
@@ -20,12 +19,12 @@ bind("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes
 local binds = {
 	mappings = {
 		i = {
-			["<C-t>"] = trouble.open_with_trouble,
+			["<C-t>"] = open_with_trouble,
 			["<C-k>"] = actions.move_selection_previous, -- move to prev result
 			["<C-j>"] = actions.move_selection_next, -- move to next result
 			["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
 		},
-		n = { ["<C-t>"] = trouble.open_with_trouble },
+		n = { ["<C-t>"] = open_with_trouble },
 	},
 }
 return binds

@@ -1,7 +1,7 @@
 local bind = vim.keymap.set
 
 -- import trouble actions for telescope
-local open_with_trouble = require("trouble.sources.telescope").open() -- import telescope actions safely
+local open_with_trouble = require("trouble.sources.telescope").open -- import telescope actions safely
 local actions = require("telescope.actions")
 
 -- telescopes

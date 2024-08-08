@@ -2,11 +2,11 @@ local set = vim.o
 local vimscript = vim.cmd
 
 -- chack found themes
-local themes_status = pcall(require, "rose-pine")
+local themes_status = pcall(require, "onedarkpro")
 
 -- auto load theme
 if themes_status then
-	require("packages.colors.rose-pine")
+	require("plugins.ui.colors.onedarkpro")
 end
 
 set.syntax = "Enable"

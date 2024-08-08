@@ -8,21 +8,18 @@
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
 "rocks.nvim" = "2.36.0" # rocks.nvim can also manage itself :D
-neorg = "9.1.1"
-nvim-notify = "3.13.5"
+"rocks-edit.nvim" = "scm"
 "rocks-treesitter.nvim" = "1.0.3"
 "rocks-git.nvim" = "2.0.1"
 "rocks-config.nvim" = "2.2.0"
+neorg = "9.1.1"
+nvim-notify = "3.13.5"
 tree-sitter-toml = "0.0.2"
 "nvim-tree.lua" = "1.5.0"
 nvim-web-devicons = "0.100"
 "staline.nvim" = "scm"
 nvim-cmp = "scm"
 cmp-nvim-lsp = "scm"
-cmp-nvim-lua = { git = "hrsh7th/cmp-nvim-lua" }
-cmp-spell = { git = "f3fora/cmp-spell" }
-cmp-nvim-lsp-document-symbol = { git = "hrsh7th/cmp-nvim-lsp-document-symbol" }
-cmp-nvim-lsp-signature-help = { git = "hrsh7th/cmp-nvim-lsp-signature-help" }
 "lspkind.nvim" = "scm"
 cmp-buffer = "scm"
 cmp-path = "scm"
@@ -37,7 +34,12 @@ nvim-lspconfig = "0.1.8"
 "neodev.nvim" = "3.0.0"
 dashboard-nvim = "scm"
 tree-sitter-python = "0.0.2"
-"rocks-edit.nvim" = "scm"
+"dracula.nvim" = "scm" # Theme/ColorSchrome
+catppuccin = "0.1.0" # Theme/ColorSchrome
+"onedarkpro.nvim" = "0.8.0" # Theme/ColorSchrome
+"monokai.nvim" = "scm" # Theme/ColorSchrome
+
+
 
 [treesitter]
 # auto_highlight = "all"
@@ -79,3 +81,18 @@ config = "plugins.autocomplete.cmp"
 [plugins.lspconfig]
 config = "plugins.autocomplete.lspconfig"
 
+[plugin.cmp-nvim-lua]
+git = "hrsh7th/cmp-nvim-lua"
+[plugin.cmp-spell]
+git = "f3fora/cmp-spell"
+[plugin.cmp-nvim-lsp-document-symbol]
+git = "hrsh7th/cmp-nvim-lsp-document-symbol"
+[plugin.cmp-nvim-lsp-signature-help]
+git = "hrsh7th/cmp-nvim-lsp-signature-help"
+[plugin.iceberg] # Theme/ColorSchrome
+git = "cocopon/iceberg.vim"
+[plugin.nord] # Theme/ColorSchrome
+git = "shaunsingh/nord.nvim"
+[plugin.rose-pine] # Theme/ColorSchrome
+git = "rose-pine/neovim"
+name = "rose-pine"

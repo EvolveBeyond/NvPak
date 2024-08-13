@@ -112,15 +112,16 @@ config = "plugins.autocomplete.lspconfig"
 
 [bundles.cmp] # Create a bundle called `cmp`
 items = [
-    "neodev.nvim",
     "lspkind.nvim",
+    "nvim-cmp",
+    "cmp-nvim-lsp",
     "cmp-buffer",
-    "friendly-snippets",
-    "cmp_luasnip",
     "cmp-path",
     "cmp-cmdline",
-    "cmp-nvim-lsp",
-    "nvim-cmp",
+    "luasnip",
+    "cmp_luasnip",
+    "friendly-snippets",
+    "neodev.nvim",
  ]
  config = "plugins.autocomplete.cmp"
 

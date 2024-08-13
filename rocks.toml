@@ -7,31 +7,27 @@
 # List of Neovim plugins to install alongside their versions.
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.36.1"
+"rocks.nvim" = "2.37.0"
 "rocks-edit.nvim" = "scm"
 "rocks-treesitter.nvim" = "1.0.3"
 "rocks-git.nvim" = "2.0.1"
 "rocks-config.nvim" = "2.2.0"
-neorg = "9.1.1"
 nvim-notify = "3.13.5"
 tree-sitter-toml = "0.0.2"
-"nvim-tree.lua" = "1.5.0"
-nvim-web-devicons = "0.100"
-"staline.nvim" = "scm"
-nvim-cmp = "scm"
+"mason-lspconfig.nvim" = "scm"
+"neodev.nvim" = "3.0.0"
+neorg = "9.1.1"
 cmp-nvim-lsp = "scm"
 "lspkind.nvim" = "scm"
 cmp-buffer = "scm"
 cmp-path = "scm"
 cmp-cmdline = "scm"
-luasnip = "2.3.0"
 nvim-autopairs = "scm"
 cmp_luasnip = "scm"
 friendly-snippets = "scm"
-nvim-lspconfig = "0.1.8"
-"mason.nvim" = "1.10.0"
-"mason-lspconfig.nvim" = "1.30.0"
-"neodev.nvim" = "3.0.0"
+"nvim-tree.lua" = "1.6.0"
+nvim-web-devicons = "0.100"
+"staline.nvim" = "scm"
 dashboard-nvim = "scm"
 tree-sitter-python = "0.0.2"
 "dracula.nvim" = "scm"
@@ -41,6 +37,8 @@ catppuccin = "0.1.0"
 "trouble.nvim" = "3.6.0"
 "telescope-ui-select.nvim" = "scm"
 "telescope.nvim" = "scm"
+luasnip = "2.3.0"
+
 [plugin.cmp-nvim-lua]
 git = "hrsh7th/cmp-nvim-lua"
 [plugin.cmp-spell]
@@ -94,35 +92,34 @@ config = "plugins.ui.nvim-tree.config"
 config = "plugins.ui.staline.config"
 [plugins.dashboard]
 config = "plugins.ui.dashboard.config"
-[plugins.telescope]
-config = "plugins.ui.telescope.config"
+
+[bundles.telescope]
 items = [
   "telescope.nvim",
   "telescope-ui-select.nvim"
 ]
+config = "plugins.ui.telescope.config"
+
 
 # LSP & autocomplete System Plugins Settings
-[plugins.lspconfig]
+[plugins.mason-lspconfig]
 config = "plugins.autocomplete.lspconfig"
+
+
+[bundles.lsp] # Create a bundle called `lsp`
 items = [
-  "nvim-lspconfig",
-  "mason.nvim",
-  "mason-lspconfig.nvim",
-  "neodev.nvim"
-]
-[plugins.cmp]
-config = "plugins.autocomplete.cmp"
-items = [
-  "nvim-cmp",
-  "cmp-nvim-lsp",
-  "lspkind.nvim",
-  "cmp-buffer",
-  "cmp-path",
-  "cmp-cmdline",
-  "luasnip",
-  "nvim-autopairs",
-  "cmp_luasnip",
-  "friendly-snippets"
-]
+    "neodev.nvim",
+    "lspkind.nvim",
+    "cmp-buffer",
+    "nvim-autopairs",
+    "friendly-snippets",
+    "cmp_luasnip",
+    "cmp-path",
+    "cmp-cmdline",
+    "cmp-nvim-lsp"
+ ]
+ config = "plugins.autocomplete.cmp"
+
 [plugins.trouble]
 config = "plugins.autocomplete.trouble.config"
+

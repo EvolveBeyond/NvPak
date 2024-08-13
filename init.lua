@@ -1,2 +1,2 @@
 require("core") -- load basic configs
-require("lua.plugins.ui.theme") -- load theme/color configs
+require("plugins.ui.theme") -- load theme/color configs

@@ -17,6 +17,7 @@ tree-sitter-toml = "0.0.2"
 "mason-lspconfig.nvim" = "scm"
 "neodev.nvim" = "3.0.0"
 neorg = "9.1.1"
+nvim-cmp = "scm"
 cmp-nvim-lsp = "scm"
 "lspkind.nvim" = "scm"
 cmp-buffer = "scm"
@@ -119,6 +120,7 @@ items = [
     "cmp-path",
     "cmp-cmdline",
     "cmp-nvim-lsp",
+    "nvim-cmp",
  ]
  config = "plugins.autocomplete.cmp"
 

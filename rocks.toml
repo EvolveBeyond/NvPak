@@ -22,9 +22,10 @@ cmp-nvim-lsp = "scm"
 cmp-buffer = "scm"
 cmp-path = "scm"
 cmp-cmdline = "scm"
-nvim-autopairs = "scm"
 cmp_luasnip = "scm"
+luasnip = "2.3.0"
 friendly-snippets = "scm"
+"ultimate-autopair.nvim" = "scm"
 "nvim-tree.lua" = "1.6.0"
 nvim-web-devicons = "0.100"
 "staline.nvim" = "scm"
@@ -37,7 +38,6 @@ catppuccin = "0.1.0"
 "trouble.nvim" = "3.6.0"
 "telescope-ui-select.nvim" = "scm"
 "telescope.nvim" = "scm"
-luasnip = "2.3.0"
 
 [plugin.cmp-nvim-lua]
 git = "hrsh7th/cmp-nvim-lua"
@@ -100,23 +100,25 @@ items = [
 ]
 config = "plugins.ui.telescope.config"
 
+[plugins.ultimate-autopair]
+config = "plugins.autocomplete.autopair.config"
+
 
 # LSP & autocomplete System Plugins Settings
 [plugins.mason-lspconfig]
 config = "plugins.autocomplete.lspconfig"
 
 
-[bundles.lsp] # Create a bundle called `lsp`
+[bundles.cmp] # Create a bundle called `cmp`
 items = [
     "neodev.nvim",
     "lspkind.nvim",
     "cmp-buffer",
-    "nvim-autopairs",
     "friendly-snippets",
     "cmp_luasnip",
     "cmp-path",
     "cmp-cmdline",
-    "cmp-nvim-lsp"
+    "cmp-nvim-lsp",
  ]
  config = "plugins.autocomplete.cmp"
 

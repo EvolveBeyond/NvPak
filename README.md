@@ -134,6 +134,10 @@ you can find the list of contributors on the [contributors page](https://github.
 
 
 ## Team
+<a href="https://github.com/EvolveBeyond/nvpak/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=EvolveBeyond/nvpak" />
+</a>
+
 
 | ![pakrohk](https://github.com/Pakrohk.png?size=71) | ![ARS101](https://github.com/ARS101.png?size=71) | ![lorem10](https://github.com/lorem10.png?size=71) | ![nooob-developer](https://github.com/nooob-developer.png?size=71) |
 | :------------------------------------------------: | :----------------------------------------------: | ------------------------------------- | -------------- |
@@ -142,4 +146,5 @@ you can find the list of contributors on the [contributors page](https://github.
 | [H-cyber](https://github.com/H-cyber.png?size=74) | ![mandarvaze](https://github.com/mandarvaze.png?size=74) | ![RealMrHex](https://github.com/RealMrHex.png?size=74) | ![0xj0hn](https://github.com/0xj0hn.png?size=74) |
 | --------------------------------------- | ------------------------------------------------------ | --------------------- | ----------------------- |
 | [H-cyber](https://github.com/H-cyber) | [mandarvaze](https://github.com/mandarvaze) | [RealMrHex](https://github.com/RealMrHex) | [0xj0hn](https://github.com/0xj0hn) |
+
 

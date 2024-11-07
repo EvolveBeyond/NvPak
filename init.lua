@@ -1,3 +1,2 @@
-require("core") -- load basic config
-require("plugins") -- plugins
-require("theme") -- load user configs
+require("core") -- load basic configs
+require("plugins.ui.theme") -- load theme/color configs

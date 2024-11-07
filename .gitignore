@@ -1,8 +1,7 @@
 .netrwhist
 .vimlog
 
-plugin/
+lua/plugin/
 plugged/
 autoload/
 lua/custom/
-lazy-lock.json

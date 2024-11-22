@@ -1,7 +1,7 @@
--- Load snippets from VS Code
+-- Load VS Code snippets with lazy loading for specific filetypes
 require("luasnip.loaders.from_vscode").lazy_load({
-	include = nil, -- Load all languages
-	exclude = {},
+  include = { 'python', 'html', 'django' }, -- Only load for specific languages
+  exclude = { 'javascript', 'css' },        -- Exclude unnecessary languages
 })
 
 -- Define Django snippet for Python and HTML files
@@ -12,7 +12,7 @@ local snippets = {
 	htmldjango = { DJANGO, "html" }, -- for files with .html and .django extension
 }
 
--- Extend file types with snippets
+-- Extend filetypes with Django-specific snippets
 for filetype, snips in pairs(snippets) do
 	require("luasnip").filetype_extend(filetype, snips)
 end

@@ -5,41 +5,48 @@ require("catppuccin").setup({
 		dark = "mocha",
 	},
 	transparent_background = false,
-	show_end_of_buffer = true, -- show the '~' characters after the end of buffers
+  show_end_of_buffer = true,
 	term_colors = true,
 	dim_inactive = {
 		enabled = false,
 		shade = "dark",
 		percentage = 0.15,
 	},
-	no_italic = false, -- Force no italic
-	no_bold = false, -- Force no bold
+  no_italic = false,
+  no_bold = false,
 	styles = {
 		comments = { "italic" },
-		conditionals = { "italic" },
-		loops = {},
-		functions = {},
-		keywords = {},
-		strings = {},
-		variables = {},
-		numbers = {},
-		booleans = {},
-		properties = {},
-		types = {},
-		operators = {},
+    conditionals = { "bold", "italic" },
+    loops = { "bold" },
+    functions = { "bold", "italic" },
+    keywords = { "italic" },
+    strings = { "italic" },
 	},
 	color_overrides = {},
-	custom_highlights = {},
+  custom_highlights = {
+    Normal = { bg = "#1e1e2e" },
+    Comment = { fg = "#6c7086", style = { "italic" } },
+    Error = { fg = "#f38ba8", style = { "bold" } },
+  },
 	integrations = {
 		cmp = true,
 		gitsigns = true,
 		nvimtree = true,
 		telescope = true,
-		notify = false,
+    notify = true,
 		mini = false,
-		-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-	},
+  },
 })
 
--- setup must be called before loading
+-- Auto-detect background and switch flavors dynamically
+vim.api.nvim_create_autocmd("OptionSet", {
+  pattern = "background",
+  callback = function()
+    local flavour = vim.o.background == "dark" and "mocha" or "latte"
+    require("catppuccin").setup({ flavour = flavour })
+    vim.cmd.colorscheme("catppuccin")
+  end,
+})
+
+-- Load colorscheme
 vim.cmd.colorscheme("catppuccin")

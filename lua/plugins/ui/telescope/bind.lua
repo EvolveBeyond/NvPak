@@ -1,30 +1,45 @@
-local bind = vim.keymap.set
+local function safe_require(module, default)
+  local ok, result = pcall(require, module)
+  return ok and result or default
+end
 
--- import trouble actions for telescope
-local open_with_trouble = require("trouble.sources.telescope").open -- import telescope actions safely
-local actions = require("telescope.actions")
+-- Import plugins safely
+local open_with_trouble = safe_require("trouble.sources.telescope", {}).open
+local actions = safe_require("telescope.actions", {})
 
--- telescopes
-bind("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- find files within current working directory, respects .gitignore
-bind("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- find string in current working directory as you type
-bind("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- find string under cursor in current working directory
-bind("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- list open buffers in current neovim instance
-bind("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- list available help tags
--- telescope git commands
-bind("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- list all git commits (use <cr> to checkout) ["gc" for git commits]
-bind("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git commits for current file/buffer (use <cr> to checkout) ["gfc" for git file commits]
-bind("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
-bind("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
+-- Helper for mapping
+local function map(mode, keys, command, opts)
+  opts = opts or { silent = true, noremap = true }
+  vim.keymap.set(mode, keys, command, opts)
+end
 
+-- Telescope general mappings
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>") -- Find files
+map("n", "<leader>fs", "<cmd>Telescope live_grep<cr>") -- Live grep
+map("n", "<leader>fc", "<cmd>Telescope grep_string<cr>") -- Grep string
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>") -- List buffers
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>") -- Help tags
+
+-- Telescope git mappings
+map("n", "<leader>gc", "<cmd>Telescope git_commits<cr>") -- Git commits
+map("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- Git file commits
+map("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- Git branches
+map("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- Git status
+
+-- Custom Telescope bindings
 local binds = {
 	mappings = {
 		i = {
 			["<C-t>"] = open_with_trouble,
-			["<C-k>"] = actions.move_selection_previous, -- move to prev result
-			["<C-j>"] = actions.move_selection_next, -- move to next result
-			["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist, -- send selected to quickfixlist
+      ["<C-k>"] = actions.move_selection_previous, -- Move to previous result
+      ["<C-j>"] = actions.move_selection_next, -- Move to next result
+      ["<C-q>"] = function(prompt_bufnr)
+        actions.send_selected_to_qflist(prompt_bufnr)
+        actions.open_qflist(prompt_bufnr)
+      end,
 		},
 		n = { ["<C-t>"] = open_with_trouble },
 	},
 }
+
 return binds

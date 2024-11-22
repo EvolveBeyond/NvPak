@@ -1,3 +1,5 @@
+-- Setup for rocks.nvim and LuaRocks
+
 do
     -- Specifies where to install/use rocks.nvim
     local install_location = vim.fs.joinpath(vim.fn.stdpath("data"), "rocks")
@@ -27,25 +29,35 @@ do
     vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*"))
 end
 
--- If rocks.nvim is not installed then install it!
+-- If rocks.nvim is not installed, then install it!
 if not pcall(require, "rocks") then
     local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache"), "rocks.nvim")
 
+  -- Check if the installation directory exists; if not, clone the repository
     if not vim.uv.fs_stat(rocks_location) then
-        -- Pull down rocks.nvim
-        vim.fn.system({
+    -- Attempt to clone rocks.nvim repository
+    local result = vim.fn.system({
             "git",
             "clone",
             "--filter=blob:none",
             "https://github.com/nvim-neorocks/rocks.nvim",
             rocks_location,
         })
+
+    -- Handle cloning error if it occurs
+    if vim.v.shell_error ~= 0 then
+      error("Failed to clone rocks.nvim. Error: " .. result)
     end
+  end
 
-    -- If the clone was successful then source the bootstrapping script
-    assert(vim.v.shell_error == 0, "rocks.nvim installation failed. Try exiting and re-entering Neovim!")
+  -- Source the bootstrap.lua script to finish setup
+  local bootstrap_path = vim.fs.joinpath(rocks_location, "bootstrap.lua")
+  if vim.fn.filereadable(bootstrap_path) == 1 then
+    vim.cmd.source(bootstrap_path)
+  else
+    error("Failed to find bootstrap.lua after cloning rocks.nvim.")
+  end
 
-    vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
-
+  -- Clean up by deleting the temporary install directory after successful installation
     vim.fn.delete(rocks_location, "rf")
 end

@@ -1,31 +1,41 @@
 local treesitte = require("nvim-treesitter.configs")
 
+-- Default languages for installation
+local default_languages = { "python", "bash", "dart", "rust", "lua" }
+local user_languages = vim.g.user_extra_treesitter_languages or {}
+
 treesitte.setup({
-	ensure_installed = {
-		"python",
-		"bash",
-		"dart",
-		"rust",
-		"lua",
-	},
-	-- Install languages synchronously (only applied to `ensure_installed`)
-	sync_install = true,
-	-- List of parsers to ignore installing
-	-- ignore_install = { "haskell" },
+  ensure_installed = vim.tbl_extend("force", default_languages, user_languages),
+  sync_install = true, -- Install languages synchronously
+
 	highlight = {
-		-- `false` will disable the whole extension
-		enable = true,
-		-- list of language that will be disabled
-		-- disable = { "" },
-		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-		-- Using this option may slow down your editor, and you may see some duplicate highlights.
-		-- Instead of true it can also be a list of languages
-		additional_vim_regex_highlighting = true,
-	},
+    enable = true, -- Enable syntax highlighting
+    additional_vim_regex_highlighting = false, -- Avoid duplicate highlights
+  },
+
 	indent = {
-		-- dont enable this, messes up python indentation
+    enable = true, -- Enable indentation
+    disable = { "python" }, -- Disable for Python due to conflicts
+  },
+
+  incremental_selection = {
 		enable = true,
-		disable = {},
+    keymaps = {
+      init_selection = "gnn", -- Initialize selection
+      node_incremental = "grn", -- Increment to next node
+      node_decremental = "grm", -- Decrement to previous node
+      scope_incremental = "grc", -- Increment scope
+    },
+  },
+
+  rainbow = {
+    enable = true, -- Enable rainbow parentheses
+    extended_mode = true, -- Highlight non-bracket delimiters
+    max_file_lines = 1000, -- Disable for large files
+  },
+
+  context_commentstring = {
+    enable = true, -- Enable context-aware commenting
+    enable_autocmd = false, -- Use only with explicit configuration
 	},
 })

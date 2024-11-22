@@ -1,10 +1,12 @@
 local set = vim.o
 local vimscript = vim.cmd
 
+-- Basic settings for encoding and font
 set.encoding = "UTF-8"
 set.fileencoding = "UTF-8"
-set.guifont = "FantasqueSansMono Nerd Font Mono:h9"
+set.guifont = "JetBrainsMono Nerd Font Propo:h9"
 
+-- Neovide-specific settings (if using Neovide)
 if vim.g.neovide then
 	set.neovide_padding_top = 0
 	set.neovide_padding_bottom = 0
@@ -20,35 +22,53 @@ if vim.g.neovide then
 	set.neovide_cursor_animate_command_line = true
 end
 
-set.termguicolors = true
-set.laststatus = 3 -- Status Line Mode
-set.showtabline = 2 -- Tab Line Mode with all tabs shown
---Disable wrapping line.
-vimscript([[set nowrap]])
--- Show current line number
+-- General visual settings
+set.termguicolors = true  -- Enable true color support
+set.laststatus = 3        -- Always show status line
+set.showtabline = 2       -- Always show tab line
+vimscript([[set nowrap]]) -- Disable line wrapping
+
+-- Line number settings
 set.number = true
--- Show relative line numbers
 set.relativenumber = true
-set.splitbelow = true
-set.splitright = true
--- Tab set to two spaces
-set.tabstop = 4
-set.shiftwidth = 0
-set.softtabstop = 0
-set.expandtab = true
+
+-- Window splitting settings
+set.splitbelow = true     -- Horizontal splits open below
+set.splitright = true     -- Vertical splits open to the right
+
+-- Tab settings
+set.tabstop = 4           -- Set tab width to 4 spaces
+set.shiftwidth = 4        -- Indentation width is 4 spaces
+set.softtabstop = 4       -- Use spaces instead of tabs
+set.expandtab = true      -- Expand tabs into spaces
+
+-- Sign column always visible
 set.signcolumn = "yes"
 
--- Folding
+-- Folding (using Treesitter-based folding if enabled)
+-- Uncomment these lines if using Treesitter folding
 -- set.foldmethod='expr'
 -- set.foldexpr='nvim_treesitter#foldexpr()'
 
--- enable mouse support and clipboard(xsel or wl-clipboard(for wayland))
-set.clipboard = "unnamedplus"
-set.mouse = "a"
--- Restore cursor position
+-- Enable mouse and clipboard support
+set.clipboard = "unnamedplus"  -- Use system clipboard
+set.mouse = "a"                -- Enable mouse support for all modes
+
+-- Restore cursor position when reopening files
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 	pattern = { "*" },
 	callback = function()
 		vim.api.nvim_exec('silent! normal! g`"zv', false)
 	end,
 })
+
+-- Search settings
+set.ignorecase = true           -- Ignore case in search
+set.smartcase = true            -- Override ignorecase if search pattern contains uppercase
+
+-- Better performance by limiting undo history size
+set.undolevels = 1000           -- Set maximum undo levels to 1000
+set.undodir = vim.fn.stdpath("state") .. "/undo"  -- Set undo directory to use persistent storage
+
+-- Display line length marker
+set.colorcolumn = "80"          -- Show a vertical line at column 80 for long lines

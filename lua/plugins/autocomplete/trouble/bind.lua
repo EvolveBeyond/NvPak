@@ -16,10 +16,10 @@ end
 
 -- Define action keys for Trouble
 local function setup_trouble_keys()
-local action_keys = {
-		close = "q", -- close the list
+  local action_keys = {
+    close = "q", -- close the list
     cancel = "<esc>", -- cancel the preview
-		refresh = "r", -- manually refresh
+    refresh = "r", -- manually refresh
     jump = { "<cr>", "<tab>" }, -- jump or toggle fold
     open_split = { "<c-x>" }, -- open in new split
     open_vsplit = { "<c-v>" }, -- open in new vsplit
@@ -29,13 +29,13 @@ local action_keys = {
     toggle_preview = "P", -- toggle auto-preview
     hover = "K", -- show details popup
     preview = "p", -- preview diagnostic location
-		close_folds = { "zM", "zm" }, -- close all folds
-		open_folds = { "zR", "zr" }, -- open all folds
-		toggle_fold = { "zA", "za" }, -- toggle fold of current file
+    close_folds = { "zM", "zm" }, -- close all folds
+    open_folds = { "zR", "zr" }, -- open all folds
+    toggle_fold = { "zA", "za" }, -- toggle fold of current file
     previous = "k", -- go to previous item
     next = "j", -- go to next item
-}
-return action_keys
+  }
+  return action_keys
 end
 
 return setup_trouble_keys()

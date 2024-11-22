@@ -28,18 +28,18 @@ map("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- Git status
 
 -- Custom Telescope bindings
 local binds = {
-	mappings = {
-		i = {
-			["<C-t>"] = open_with_trouble,
+  mappings = {
+    i = {
+      ["<C-t>"] = open_with_trouble,
       ["<C-k>"] = actions.move_selection_previous, -- Move to previous result
       ["<C-j>"] = actions.move_selection_next, -- Move to next result
       ["<C-q>"] = function(prompt_bufnr)
         actions.send_selected_to_qflist(prompt_bufnr)
         actions.open_qflist(prompt_bufnr)
       end,
-		},
-		n = { ["<C-t>"] = open_with_trouble },
-	},
+    },
+    n = { ["<C-t>"] = open_with_trouble },
+  },
 }
 
 return binds

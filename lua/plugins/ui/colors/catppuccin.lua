@@ -1,40 +1,40 @@
 require("catppuccin").setup({
-	flavour = "mocha", -- latte, frappe, macchiato, mocha
-	background = { -- :h background
-		light = "latte",
-		dark = "mocha",
-	},
-	transparent_background = false,
+  flavour = "mocha", -- latte, frappe, macchiato, mocha
+  background = { -- :h background
+    light = "latte",
+    dark = "mocha",
+  },
+  transparent_background = false,
   show_end_of_buffer = true,
-	term_colors = true,
-	dim_inactive = {
-		enabled = false,
-		shade = "dark",
-		percentage = 0.15,
-	},
+  term_colors = true,
+  dim_inactive = {
+    enabled = false,
+    shade = "dark",
+    percentage = 0.15,
+  },
   no_italic = false,
   no_bold = false,
-	styles = {
-		comments = { "italic" },
+  styles = {
+    comments = { "italic" },
     conditionals = { "bold", "italic" },
     loops = { "bold" },
     functions = { "bold", "italic" },
     keywords = { "italic" },
     strings = { "italic" },
-	},
-	color_overrides = {},
+  },
+  color_overrides = {},
   custom_highlights = {
     Normal = { bg = "#1e1e2e" },
     Comment = { fg = "#6c7086", style = { "italic" } },
     Error = { fg = "#f38ba8", style = { "bold" } },
   },
-	integrations = {
-		cmp = true,
-		gitsigns = true,
-		nvimtree = true,
-		telescope = true,
+  integrations = {
+    cmp = true,
+    gitsigns = true,
+    nvimtree = true,
+    telescope = true,
     notify = true,
-		mini = false,
+    mini = false,
   },
 })
 

@@ -16,13 +16,13 @@ local cmdline = require("plugins.autocomplete.cmp.cmdline").setup_cmdline
 
 -- Main setup function
 local function setup()
-    sorting(cmp, compare)
-    snippet(cmp, luasnip)
-    window(cmp)
-    sources(cmp)
-    bindings(cmp)
-    formatting(cmp, lspkind)
-    cmdline(cmp)
+  sorting(cmp, compare)
+  snippet(cmp, luasnip)
+  window(cmp)
+  sources(cmp)
+  bindings(cmp)
+  formatting(cmp, lspkind)
+  cmdline(cmp)
 end
 
 

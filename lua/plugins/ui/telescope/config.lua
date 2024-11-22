@@ -18,11 +18,11 @@ local hotkeys = safe_require("plugins.ui.telescope.bind")
 local mappings = hotkeys and hotkeys.mappings or {}
 
 telescope.setup({
-    defaults = {
+  defaults = {
     mappings = mappings,
     -- Add more default options here if needed
-    },
-    extensions = {
+  },
+  extensions = {
     ["ui-select"] = theme and theme.get_dropdown({
       previewer = false, -- Disable preview window
       layout_config = {
@@ -32,13 +32,13 @@ telescope.setup({
       prompt_title = "Select Option",
     }),
     -- Uncomment for FZF integration
-        -- fzf = {
+    -- fzf = {
     --     fuzzy = true,                   -- Enable fuzzy matching
     --     override_generic_sorter = true, -- Override generic sorter
     --     override_file_sorter = true,    -- Override file sorter
     --     case_mode = "smart_case",       -- Smart case matching
-        -- },
-    },
+    -- },
+  },
 })
 
 -- Load extensions

@@ -23,12 +23,12 @@ trouble.setup({
   auto_preview = true, -- auto-preview diagnostic locations
   auto_fold = false, -- auto-fold file lists
   auto_jump = { "lsp_definitions" }, -- jump on single result
-	signs = {
-		error = "",
-		warning = "",
-		hint = "",
-		information = "",
-		other = "﫠",
-	},
+  signs = {
+    error = "",
+    warning = "",
+    hint = "",
+    information = "",
+    other = "﫠",
+  },
   use_diagnostic_signs = false, -- use LSP signs
 })

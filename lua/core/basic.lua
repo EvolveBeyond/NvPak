@@ -8,18 +8,18 @@ set.guifont = "JetBrainsMono Nerd Font Propo:h9"
 
 -- Neovide-specific settings (if using Neovide)
 if vim.g.neovide then
-	set.neovide_padding_top = 0
-	set.neovide_padding_bottom = 0
-	set.neovide_padding_right = 0
-	set.neovide_padding_left = 0
-	set.neovide_floating_blur_amount_x = 2.0
-	set.neovide_floating_blur_amount_y = 2.0
-	-- set.neovide_transparency = 0.66
-	set.neovide_refresh_rate = 60
-	set.neovide_refresh_rate_idle = 5
-	set.neovide_cursor_antialiasing = true
-	set.neovide_cursor_animate_in_insert_mode = true
-	set.neovide_cursor_animate_command_line = true
+  set.neovide_padding_top = 0
+  set.neovide_padding_bottom = 0
+  set.neovide_padding_right = 0
+  set.neovide_padding_left = 0
+  set.neovide_floating_blur_amount_x = 2.0
+  set.neovide_floating_blur_amount_y = 2.0
+  -- set.neovide_transparency = 0.66
+  set.neovide_refresh_rate = 60
+  set.neovide_refresh_rate_idle = 5
+  set.neovide_cursor_antialiasing = true
+  set.neovide_cursor_animate_in_insert_mode = true
+  set.neovide_cursor_animate_command_line = true
 end
 
 -- General visual settings
@@ -56,10 +56,10 @@ set.mouse = "a"                -- Enable mouse support for all modes
 
 -- Restore cursor position when reopening files
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-	pattern = { "*" },
-	callback = function()
-		vim.api.nvim_exec('silent! normal! g`"zv', false)
-	end,
+  pattern = { "*" },
+  callback = function()
+    vim.api.nvim_exec('silent! normal! g`"zv', false)
+  end,
 })
 
 -- Search settings

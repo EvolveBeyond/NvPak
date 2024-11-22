@@ -6,7 +6,7 @@ local themes_status = pcall(require, "onedarkpro")
 
 -- auto load theme
 if themes_status then
-    require("plugins.ui.colors.onedarkpro")
+  require("plugins.ui.colors.onedarkpro")
 end
 
 set.syntax = "Enable"

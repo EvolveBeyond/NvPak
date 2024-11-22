@@ -8,18 +8,18 @@ treesitte.setup({
   ensure_installed = vim.tbl_extend("force", default_languages, user_languages),
   sync_install = true, -- Install languages synchronously
 
-	highlight = {
+  highlight = {
     enable = true, -- Enable syntax highlighting
     additional_vim_regex_highlighting = false, -- Avoid duplicate highlights
   },
 
-	indent = {
+  indent = {
     enable = true, -- Enable indentation
     disable = { "python" }, -- Disable for Python due to conflicts
   },
 
   incremental_selection = {
-		enable = true,
+    enable = true,
     keymaps = {
       init_selection = "gnn", -- Initialize selection
       node_incremental = "grn", -- Increment to next node
@@ -37,5 +37,5 @@ treesitte.setup({
   context_commentstring = {
     enable = true, -- Enable context-aware commenting
     enable_autocmd = false, -- Use only with explicit configuration
-	},
+  },
 })

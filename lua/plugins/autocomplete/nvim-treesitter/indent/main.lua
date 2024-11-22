@@ -2,13 +2,13 @@ local blackline = require("ibl")
 local hooks = require "ibl.hooks"
 
 local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
+  "RainbowRed",
+  "RainbowYellow",
+  "RainbowBlue",
+  "RainbowOrange",
+  "RainbowGreen",
+  "RainbowViolet",
+  "RainbowCyan",
 }
 
 -- Reset highlight groups on colorscheme change
@@ -78,10 +78,10 @@ blackline.setup({
   indent = {
     highlight = highlight, -- Apply rainbow colors to indent lines
   },
-        scope = {
+  scope = {
     enabled = true,       -- Enable scope highlighting
     highlight = highlight, -- Use rainbow colors for scope lines
-        },
+  },
 })
 
 -- Ensure scope highlighting uses extmarks, but skip unsupported buffers

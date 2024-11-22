@@ -39,6 +39,8 @@ catppuccin = "0.1.0"
 "trouble.nvim" = "3.6.0"
 "telescope-ui-select.nvim" = "scm"
 "telescope.nvim" = "scm"
+"ruff.nvim" = "scm"  # Add Ruff as a dedicated plugin
+"pyright.nvim" = "scm"  # Add Pyright as a dedicated plugin
 
 [plugin.cmp-nvim-lua]
 git = "hrsh7th/cmp-nvim-lua"
@@ -127,4 +129,3 @@ items = [
 
 [plugins.trouble]
 config = "plugins.autocomplete.trouble.config"
-

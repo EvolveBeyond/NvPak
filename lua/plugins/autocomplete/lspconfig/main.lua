@@ -45,22 +45,19 @@ mason.setup({
 
 -- Setup LSP configurations after installation
 mason_lspconfig.setup({
-
   ensure_installed = {
     "lua_ls",
-    "pylsp"
+    "ruff",     -- Ruff for Python linting and formatting
+    "pyright",  -- Pyright for Python type checking
   },
-
-  automatic_installation = true,
+  automatic_installation = true,  -- Automatically install missing LSP servers
 
   handlers = {
     ["lua_ls"] = function()
       nvim_lsp.lua_ls.setup({
         settings = {
           Lua = {
-            completion = {
-              callSnippet = "Replace",
-            },
+            completion = { callSnippet = "Replace" },
             diagnostics = {
               enable = true,
               globals = { "vim" },
@@ -76,43 +73,43 @@ mason_lspconfig.setup({
       })
     end,
 
-    ["pylsp"] = {
-      ensure_installed = {
-        "pylsp_mypy",
-        "pylsp_black",
-        "pylsp_isort",
-      },
-    },
-    ["pylsp"] = function()
-      nvim_lsp.pylsp.setup({
-        cmd = { "pylsp" },
-        filetypes = { "python" },
-        root_dir = nvim_lsp.util.root_pattern(".git", "venv", ".env", "main.py"),
-        settings = {
-          pylsp = {
-            plugins = {
-              pylsp_mypy = { enabled = true },
-              pylsp_black = { enabled = true },
-              pylsp_isort = { enabled = true },
-              -- disabled standard plugins
-              autopep8 = { enabled = false }, -- covered by black
-              yapf = { enabled = false },     -- covered by black
-              pycodestyle = { enabled = false },
-              pydocstyle = { enabled = false },
-            },
+    ["ruff"] = function()
+      nvim_lsp.ruff.setup({
+        init_options = {
+          settings = {
+            logLevel = "warn",  -- Adjust logging level if needed (e.g., 'debug', 'info', 'warn', 'error')
           },
         },
-        single_file_support = true,
-        on_attach = on_attach,
-        capabilities = capabilities,
+        on_attach = on_attach,           -- Attach your custom on_attach function
+        capabilities = capabilities,     -- Use the capabilities defined earlier
       })
     end,
+
+    ["pyright"] = function()
+      nvim_lsp.pyright.setup({
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",  -- Set type checking level (can be 'basic' or 'strict')
+              ignore = { "*" },            -- Ignore all files for analysis, using Ruff for linting/diagnostics
+            },
+          },
+          pyright = {
+            disableOrganizeImports = true, -- Use Ruff's import organizer instead
+          },
+        },
+        on_attach = on_attach,           -- Attach your custom on_attach function
+        capabilities = capabilities,     -- Use the capabilities defined earlier
+      })
+    end,
+
     ["html"] = function()
       nvim_lsp.html.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
     end,
+
     ["cssls"] = function()
       nvim_lsp.cssls.setup({
         on_attach = on_attach,

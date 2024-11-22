@@ -4,11 +4,11 @@
 
 <div align="center">
 
-[![APACHEv3 license](https://img.shields.io/badge/License-APACHEv2-red.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/blob/main/LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/graphs/commit-activity)
+[![APACHEv3 license](https://img.shields.io/badge/License-APACHEv2-red.svg?style=flat-square)](https://github.com/EvolveBeyond/NvPak/blob/main/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/EvolveBeyond/NvPak/graphs/commit-activity)
 [![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.8.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![Maintainer](https://img.shields.io/badge/maintainer-theMaintainer-blue?style=flat-square)](https://github.com/Pakrohk)
-[![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/EvolveBeyond/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/EvolveBeyond/NvPak/issues)
 
 </div>
 
@@ -38,7 +38,7 @@ Before using NvPak, ensure the following dependencies are installed:
 
 ### Core Requirements 🛠️
 
-- **Neovim**: Version `0.8.0` or newer.
+- **Neovim**: Version >= 0.10.0
 - **Unzip**
 - **Curl**
 - **Ripgrep** or **fd**: Required for [Telescope](https://github.com/BurntSushi/ripgrep) fuzzy finder.
@@ -73,7 +73,7 @@ Before using NvPak, ensure the following dependencies are installed:
 Run the following command in your terminal:
 
 ```bash
-git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~/.config/nvim && nvim
+git clone --depth 1 https://github.com/EvolveBeyond/NvPak.git ~/.config/nvim && nvim
 ```
 
 ### Windows 🪟
@@ -83,7 +83,7 @@ Execute this in PowerShell:
 ```powershell
 bucket add extras
 scoop install lazygit
-(git clone --depth 1 https://github.com/Pakrohk-DotFiles/NvPak.git ~\AppData\Local\nvim\) -and (nvim)
+(git clone --depth 1 https://github.com/EvolveBeyond/NvPak.git ~\AppData\Local\nvim\) -and (nvim)
 ```
 
 ### Notes 📝
@@ -169,4 +169,4 @@ By contributing, you help make NvPak better for everyone and collaborate with li
 
 ## License 📜
 
-NvPak is licensed under the [Apache v2.0 License](https://github.com/Pakrohk-DotFiles/NvPak/blob/main/LICENSE). Feel free to use and modify it according to the license terms.
+NvPak is licensed under the [Apache v2.0 License](https://github.com/EvolveBeyond/NvPak/blob/main/LICENSE). Feel free to use and modify it according to the license terms.

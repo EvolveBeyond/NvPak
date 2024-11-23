@@ -2,11 +2,11 @@ local set = vim.o
 local vimscript = vim.cmd
 
 -- chack found themes
-local themes_status = pcall(require, "onedarkpro")
+local themes_status = pcall(require, "monokai_pro")
 
 -- auto load theme
 if themes_status then
-  require("plugins.ui.colors.onedarkpro")
+  require("plugins.ui.colors.monokai")
 end
 
 set.syntax = "Enable"

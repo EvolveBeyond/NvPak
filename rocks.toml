@@ -40,19 +40,19 @@ catppuccin = "0.1.0"
 "telescope-ui-select.nvim" = "scm"
 "telescope.nvim" = "scm"
 
-[plugin.cmp-nvim-lua]
+[plugins.cmp-nvim-lua]
 git = "hrsh7th/cmp-nvim-lua"
-[plugin.cmp-spell]
+[plugins.cmp-spell]
 git = "f3fora/cmp-spell"
-[plugin.cmp-nvim-lsp-document-symbol]
+[plugins.cmp-nvim-lsp-document-symbol]
 git = "hrsh7th/cmp-nvim-lsp-document-symbol"
-[plugin.cmp-nvim-lsp-signature-help]
+[plugins.cmp-nvim-lsp-signature-help]
 git = "hrsh7th/cmp-nvim-lsp-signature-help"
-[plugin.iceberg] # Theme/ColorSchrome
+[plugins.iceberg] # Theme/ColorSchrome
 git = "cocopon/iceberg.vim"
-[plugin.nord] # Theme/ColorSchrome
+[plugins.nord] # Theme/ColorSchrome
 git = "shaunsingh/nord.nvim"
-[plugin.rose-pine] # Theme/ColorSchrome
+[plugins.rose-pine] # Theme/ColorSchrome
 git = "rose-pine/neovim"
 name = "rose-pine"
 

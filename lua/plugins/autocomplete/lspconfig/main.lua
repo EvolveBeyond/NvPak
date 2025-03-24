@@ -51,6 +51,10 @@ mason_lspconfig.setup({
     automatic_installation = true,
 
     handlers = {
+        function (server_name)
+            nvim_lsp[server_name].setup {}
+        end,
+
         ["lua_ls"] = function()
             nvim_lsp.lua_ls.setup({
                 settings = {

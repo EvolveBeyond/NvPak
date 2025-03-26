@@ -12,9 +12,7 @@
 "rocks-treesitter.nvim" = "1.0.3"
 "rocks-git.nvim" = "2.0.1"
 "rocks-config.nvim" = "2.2.0"
-nvim-notify = "3.13.5"
 tree-sitter-toml = "0.0.2"
-"mason-lspconfig.nvim" = "scm"
 "neodev.nvim" = "3.0.0"
 neorg = "9.1.1"
 nvim-cmp = "scm"
@@ -26,33 +24,28 @@ cmp-cmdline = "scm"
 cmp_luasnip = "scm"
 luasnip = "2.3.0"
 friendly-snippets = "scm"
-"ultimate-autopair.nvim" = "scm"
-"nvim-tree.lua" = "1.6.0"
 nvim-web-devicons = "0.100"
-"staline.nvim" = "scm"
-dashboard-nvim = "scm"
 tree-sitter-python = "0.0.2"
 "dracula.nvim" = "scm"
 catppuccin = "0.1.0"
 "onedarkpro.nvim" = "0.8.0"
 "monokai.nvim" = "scm"
-"trouble.nvim" = "3.6.0"
 "telescope-ui-select.nvim" = "scm"
 "telescope.nvim" = "scm"
 
-[plugin.cmp-nvim-lua]
+[plugins.cmp-nvim-lua]
 git = "hrsh7th/cmp-nvim-lua"
-[plugin.cmp-spell]
+[plugins.cmp-spell]
 git = "f3fora/cmp-spell"
-[plugin.cmp-nvim-lsp-document-symbol]
+[plugins.cmp-nvim-lsp-document-symbol]
 git = "hrsh7th/cmp-nvim-lsp-document-symbol"
-[plugin.cmp-nvim-lsp-signature-help]
+[plugins.cmp-nvim-lsp-signature-help]
 git = "hrsh7th/cmp-nvim-lsp-signature-help"
-[plugin.iceberg] # Theme/ColorSchrome
+[plugins.iceberg] # Theme/ColorSchrome
 git = "cocopon/iceberg.vim"
-[plugin.nord] # Theme/ColorSchrome
+[plugins.nord] # Theme/ColorSchrome
 git = "shaunsingh/nord.nvim"
-[plugin.rose-pine] # Theme/ColorSchrome
+[plugins.rose-pine] # Theme/ColorSchrome
 git = "rose-pine/neovim"
 name = "rose-pine"
 
@@ -85,13 +78,17 @@ plugins_dir = "plugins/"
 auto_setup = false
 
 # User Interface Plugins Settings
-[plugin.nvim-notify]
+[plugins.nvim-notify]
+version = "3.13.5"
 config = "plugins.ui.nvim-notify.config"
-[plugins.nvim-tree]
+[plugins."nvim-tree.lua"]
+version = "1.6.0"
 config = "plugins.ui.nvim-tree.config"
-[plugins.staline]
+[plugins."staline.nvim"]
+version = "scm"
 config = "plugins.ui.staline.config"
-[plugins.dashboard]
+[plugins.dashboard-nvim]
+version = "scm"
 config = "plugins.ui.dashboard.config"
 
 [bundles.telescope]
@@ -101,13 +98,15 @@ items = [
 ]
 config = "plugins.ui.telescope.config"
 
-[plugins.ultimate-autopair]
+[plugins."ultimate-autopair.nvim"]
+version = "scm"
 config = "plugins.autocomplete.autopair.config"
 
 
 # LSP & autocomplete System Plugins Settings
-[plugins.mason-lspconfig]
+[plugins."mason-lspconfig.nvim"]
 config = "plugins.autocomplete.lspconfig"
+version = "scm"
 
 
 [bundles.cmp] # Create a bundle called `cmp`
@@ -125,6 +124,7 @@ items = [
  ]
  config = "plugins.autocomplete.cmp"
 
-[plugins.trouble]
+[plugins."trouble.nvim"]
 config = "plugins.autocomplete.trouble.config"
+version = "3.6.0"
 

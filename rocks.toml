@@ -90,6 +90,9 @@ config = "plugins.ui.staline.config"
 [plugins.dashboard-nvim]
 version = "scm"
 config = "plugins.ui.dashboard.config"
+[plugins."indent-blankline.nvim"]
+version = "3.9.0"
+config = "plugins.autocomplete.indent.config"
 
 [bundles.telescope]
 items = [

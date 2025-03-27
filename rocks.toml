@@ -33,6 +33,9 @@ catppuccin = "0.1.0"
 "telescope-ui-select.nvim" = "scm"
 "telescope.nvim" = "scm"
 
+[plugins.nvim-terminal]
+git = "s1n7ax/nvim-terminal"
+config = "plugins.ui.nvim-terminal.config"
 [plugins.cmp-nvim-lua]
 git = "hrsh7th/cmp-nvim-lua"
 [plugins.cmp-spell]

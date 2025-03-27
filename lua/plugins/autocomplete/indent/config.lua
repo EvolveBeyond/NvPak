@@ -9,7 +9,6 @@ local highlight = {
     "RainbowGreen",
     "RainbowViolet",
     "RainbowCyan",
-
 }
 
 -- create the highlight groups in the highlight setup hook, so they are reset

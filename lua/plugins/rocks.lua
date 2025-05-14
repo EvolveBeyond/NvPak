@@ -1,51 +1,55 @@
+local fn   = vim.fn
+local uv   = vim.uv
+local fs   = vim.fs
+
+-- Determine OS-specific library extension
+local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+local lib_ext     = is_windows and "dll" or "so"
+
+-- Base paths
+local data_dir   = fn.stdpath("data")
+local cache_dir  = fn.stdpath("cache")
+local rocks_root = fs.joinpath(data_dir, "rocks")
+
+-- rocks.nvim config
+vim.g.rocks_nvim = {
+  rocks_path = fs.normalize(rocks_root),
+}
+
+-- Extend Lua module search path
 do
-    -- Specifies where to install/use rocks.nvim
-    local install_location = vim.fs.joinpath(vim.fn.stdpath("data"), "rocks")
+  local rp = vim.g.rocks_nvim.rocks_path
+  local lua_paths = {
+    fs.joinpath(rp, "share", "lua", "5.1", "?.lua"),
+    fs.joinpath(rp, "share", "lua", "5.1", "?", "init.lua"),
+  }
+  package.path = package.path .. ";" .. table.concat(lua_paths, ";")
 
-    -- Set up configuration options related to rocks.nvim (recommended to leave as default)
-    local rocks_config = {
-        rocks_path = vim.fs.normalize(install_location),
-    }
+  local c_paths = {
+    fs.joinpath(rp, "lib",  "lua", "5.1", "?." .. lib_ext),
+    fs.joinpath(rp, "lib64","lua", "5.1", "?." .. lib_ext),
+  }
+  package.cpath = package.cpath .. ";" .. table.concat(c_paths, ";")
 
-    vim.g.rocks_nvim = rocks_config
-
-    -- Configure the package path (so that plugin code can be found)
-    local luarocks_path = {
-        vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?.lua"),
-        vim.fs.joinpath(rocks_config.rocks_path, "share", "lua", "5.1", "?", "init.lua"),
-    }
-    package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
-
-    -- Configure the C path (so that e.g. tree-sitter parsers can be found)
-    local luarocks_cpath = {
-        vim.fs.joinpath(rocks_config.rocks_path, "lib", "lua", "5.1", "?.so"),
-        vim.fs.joinpath(rocks_config.rocks_path, "lib64", "lua", "5.1", "?.so"),
-    }
-    package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
-
-    -- Load all installed plugins, including rocks.nvim itself
-    vim.opt.runtimepath:append(vim.fs.joinpath(rocks_config.rocks_path, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*"))
+  -- Add all installed rocks (including rocks.nvim) to runtimepath
+  local bundle = fs.joinpath(rp, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*")
+  vim.opt.runtimepath:append(bundle)
 end
 
--- If rocks.nvim is not installed then install it!
+-- Bootstrap rocks.nvim if not already installed
 if not pcall(require, "rocks") then
-    local rocks_location = vim.fs.joinpath(vim.fn.stdpath("cache"), "rocks.nvim")
+  local bootstrap_dir = fs.joinpath(cache_dir, "rocks.nvim")
 
-    if not vim.uv.fs_stat(rocks_location) then
-        -- Pull down rocks.nvim
-        vim.fn.system({
-            "git",
-            "clone",
-            "--filter=blob:none",
-            "https://github.com/nvim-neorocks/rocks.nvim",
-            rocks_location,
-        })
-    end
+  if not uv.fs_stat(bootstrap_dir) then
+    vim.fn.system({
+      "git", "clone", "--filter=blob:none",
+      "https://github.com/nvim-neorocks/rocks.nvim",
+      bootstrap_dir,
+    })
+  end
 
-    -- If the clone was successful then source the bootstrapping script
-    assert(vim.v.shell_error == 0, "rocks.nvim installation failed. Try exiting and re-entering Neovim!")
-
-    vim.cmd.source(vim.fs.joinpath(rocks_location, "bootstrap.lua"))
-
-    vim.fn.delete(rocks_location, "rf")
+  assert(vim.v.shell_error == 0, "rocks.nvim installation failed")
+  vim.cmd.source(fs.joinpath(bootstrap_dir, "bootstrap.lua"))
+  vim.fn.delete(bootstrap_dir, "rf")
 end
+

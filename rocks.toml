@@ -1,38 +1,53 @@
-# This is your rocks.nvim plugins declaration file.
-# Here is a small yet pretty detailed example on how to use it:
+# rocks.toml — Plugin declaration for rocks.nvim
 
-# This includes things like `toml` or other lua packages.
+# -----------------------------------------------------------------------------
+# LuaRocks dependencies (pure Lua modules, non-Neovim plugins)
+# -----------------------------------------------------------------------------
 [rocks]
+# e.g. toml parser for Lua scripts 
+# toml = "0.1.0"
 
-# List of Neovim plugins to install alongside their versions.
-# If the plugin name contains a dot then you must add quotes to the key name!
+# -----------------------------------------------------------------------------
+# Neovim plugins (core plugins, installed via rocks.nvim)
+# -----------------------------------------------------------------------------
 [plugins]
-"rocks.nvim" = "2.44.0"
-"rocks-edit.nvim" = "scm"
-"rocks-treesitter.nvim" = "1.3.0"
-"rocks-git.nvim" = "2.5.3"
-"rocks-config.nvim" = "3.1.1"
-tree-sitter-toml = "0.0.31"
-"neodev.nvim" = "3.0.0"
-neorg = "9.3.0"
-nvim-cmp = "scm"
-cmp-nvim-lsp = "scm"
-"lspkind.nvim" = "scm"
-cmp-buffer = "scm"
-cmp-path = "scm"
-cmp-cmdline = "scm"
-cmp_luasnip = "scm"
-luasnip = "2.4.0"
-friendly-snippets = "scm"
-nvim-web-devicons = "0.100"
-tree-sitter-python = "0.0.46"
-"dracula.nvim" = "scm"
-catppuccin = "0.1.0"
-"onedarkpro.nvim" = "2.17.1"
-"monokai.nvim" = "scm"
-"telescope-ui-select.nvim" = "scm"
-"telescope.nvim" = "scm"
+# If the plugin name contains a dot, wrap it in quotes
+"rocks.nvim"            = "2.44.0"    # the rock manager itself
+"rocks-edit.nvim"       = "scm"       # rock-based file editor integration
+"rocks-treesitter.nvim" = "1.3.0"     # treesitter integration for rocks
+"rocks-git.nvim"        = "2.5.3"     # git utilities via rocks
+"rocks-config.nvim"     = "3.1.1"     # dynamic config loader
+tree-sitter-toml        = "0.0.31"    # TOML parser for treesitter
+"neodev.nvim"           = "3.0.0"     # enhanced Lua dev for Neovim
+neorg                   = "9.3.0"     # Neorg note-taking system
+nvim-cmp                = "scm"       # completion engine
+cmp-nvim-lsp            = "scm"       # LSP source for nvim-cmp
+"lspkind.nvim"          = "scm"       # icons for completion items
+cmp-buffer              = "scm"       # buffer source for nvim-cmp
+cmp-path                = "scm"       # filesystem source for cmp
+cmp-cmdline             = "scm"       # command-line source for cmp
+cmp_luasnip             = "scm"       # LuaSnip source for cmp
+luasnip                 = "2.4.0"     # snippet engine
+friendly-snippets       = "scm"       # community snippet collection
+nvim-web-devicons       = "0.100"     # file icons
+tree-sitter-python      = "0.0.46"    # Python parser for treesitter
 
+# Theme plugins (installed via rocks, placed under plugins/theme/themes/)
+"dracula.nvim"          = "scm"
+catppuccin              = "0.1.0"
+"onedarkpro.nvim"       = "2.17.1"
+"monokai.nvim"          = "scm"
+"rose-pine"             = "v3.0.2"
+"nord"                  = "80c1e5321505aeb22b7a9f23eb82f1e193c12470"
+"iceberg"               = "1.0^{}"
+
+# Telescope extensions
+"telescope.nvim"           = "scm"
+"telescope-ui-select.nvim" = "scm"
+
+# -----------------------------------------------------------------------------
+# Plugin-specific Git refs (for non-rocks plugins or custom forks)
+# -----------------------------------------------------------------------------
 [plugins.nvim-terminal]
 git = "s1n7ax/nvim-terminal"
 rev = "e058de4b8029d7605b17275f30f83be8f8df5f62"
@@ -53,6 +68,7 @@ rev = "f94f7ba948e32cd302caba1c2ca3f7c697fb4fcf"
 git = "hrsh7th/cmp-nvim-lsp-signature-help"
 rev = "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7"
 
+# Theme-specific Git plugins (if you prefer direct Git install)
 [plugins.iceberg]
 git = "cocopon/iceberg.vim"
 rev = "1.0^{}"
@@ -65,85 +81,87 @@ rev = "80c1e5321505aeb22b7a9f23eb82f1e193c12470"
 git = "rose-pine/neovim"
 rev = "v3.0.2"
 
-
+# -----------------------------------------------------------------------------
+# Treesitter settings (parser installation)
+# -----------------------------------------------------------------------------
 [treesitter]
-# auto_highlight = "all"
-# NOTE: These are parsers, not filetypes.
-auto_highlight = [
-  "haskell",
-  "dhall",
-  "rust",
-  "toml",
+# List of parsers to auto-install or prompt for
+auto_install = "prompt"   # options: true | false | "prompt"
+auto_highlight = [        # enable highlighting for these languages
+  "lua",
   "python",
-  "lua"
+  "rust",
+  "haskell",
+  "toml",
+  "dhall"
 ]
-
-auto_install = "prompt" # true | false
 
 [treesitter.parser_map]
-# You can add custom filetype to parser mappings.
-# Determine the filetype with ':lua =vim.bo[0].filetype'.
-# NOTE: You don't actually have to add these examples.
-# They are added by default.
-PKGBUILD = "bash"
-cls = "latex"
-sty = "latex"
+PKGBUILD = "bash"         # map PKGBUILD filetype to bash parser
+cls      = "latex"        # map .cls to latex
+sty      = "latex"        # map .sty to latex
 
+# -----------------------------------------------------------------------------
+# Core config
+# -----------------------------------------------------------------------------
 [config]
-plugins_dir = "plugins/"
-auto_setup = false
+plugins_dir = "plugins/"  # root directory for plugin configs
+auto_setup  = false       # disable automatic plugin setup
 
-# User Interface Plugins Settings
+# -----------------------------------------------------------------------------
+# Plugin configuration (via rocks-config.nvim)
+# -----------------------------------------------------------------------------
 [plugins.nvim-notify]
 version = "3.15.0"
-config = "plugins.ui.nvim-notify.config"
+config  = "plugins.ui.nvim-notify.config"
+
 [plugins."nvim-tree.lua"]
 version = "1.6.0"
-config = "plugins.ui.nvim-tree.config"
+config  = "plugins.ui.nvim-tree.config"
+
 [plugins."staline.nvim"]
 version = "scm"
-config = "plugins.ui.staline.config"
+config  = "plugins.ui.staline.config"
+
 [plugins.dashboard-nvim]
 version = "scm"
-config = "plugins.ui.dashboard.config"
+config  = "plugins.ui.dashboard.config"
+
 [plugins."indent-blankline.nvim"]
 version = "3.9.0"
-config = "plugins.autocomplete.indent.config"
+config  = "plugins.autocomplete.indent.config"
 
 [bundles.telescope]
-items = [
-  "telescope.nvim",
-  "telescope-ui-select.nvim"
-]
+items  = ["telescope.nvim", "telescope-ui-select.nvim"]
 config = "plugins.ui.telescope.config"
 
 [plugins."ultimate-autopair.nvim"]
 version = "scm"
-config = "plugins.autocomplete.autopair.config"
+config  = "plugins.autocomplete.autopair.config"
 
-
-# LSP & autocomplete System Plugins Settings
+# -----------------------------------------------------------------------------
+# LSP & completion
+# -----------------------------------------------------------------------------
 [plugins."mason-lspconfig.nvim"]
-config = "plugins.autocomplete.lspconfig"
 version = "scm"
+config  = "plugins.autocomplete.lspconfig"
 
-
-[bundles.cmp] # Create a bundle called `cmp`
-items = [
-    "lspkind.nvim",
-    "nvim-cmp",
-    "cmp-nvim-lsp",
-    "cmp-buffer",
-    "cmp-path",
-    "cmp-cmdline",
-    "luasnip",
-    "cmp_luasnip",
-    "friendly-snippets",
-    "neodev.nvim",
- ]
- config = "plugins.autocomplete.cmp"
+[bundles.cmp]
+items  = [
+  "lspkind.nvim",
+  "nvim-cmp",
+  "cmp-nvim-lsp",
+  "cmp-buffer",
+  "cmp-path",
+  "cmp-cmdline",
+  "luasnip",
+  "cmp_luasnip",
+  "friendly-snippets",
+  "neodev.nvim"
+]
+config = "plugins.autocomplete.cmp"
 
 [plugins."trouble.nvim"]
-config = "plugins.autocomplete.trouble.config"
 version = "3.7.1"
+config  = "plugins.autocomplete.trouble.config"
 

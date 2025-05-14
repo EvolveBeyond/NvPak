@@ -1,22 +1,25 @@
+local vim = vim
+local fn  = vim.fn
+
 local M = {}
 
-local config_dir = vim.fn.stdpath("config")
-local local_config_dir = vim.fn.stdpath("data") .. "/nvpak/themes"
+-- Directory under stdpath("data") to store user theme settings
+M.user_dir = fn.stdpath("data") .. "/nvpak/themes"
 
-M.user_config_path = function()
-  return local_config_dir
-end
+-- Path to plain file storing current theme name
+M.user_theme_file = M.user_dir .. "/current_theme"
 
-M.user_theme_file = function()
-  return local_config_dir .. "/current_theme"
-end
-
+-- Path to user-editable theme config for a given theme
 M.user_theme_config = function(theme)
-  return local_config_dir .. "/" .. theme .. ".lua"
+  return M.user_dir .. "/" .. theme .. ".lua"
 end
 
+-- Module path prefix for bundled theme definitions
 M.plugin_theme_module = function(theme)
-  return "plugins.ui.colors." .. theme
+  return "plugins.theme.themes." .. theme
 end
+
+-- Directory where bundled themes reside
+M.plugin_themes_dir = fn.stdpath("config") .. "/lua/plugins/theme/themes"
 
 return M

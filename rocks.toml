@@ -11,35 +11,34 @@
 # Neovim plugins (core plugins, installed via rocks.nvim)
 # -----------------------------------------------------------------------------
 [plugins]
-# If the plugin name contains a dot, wrap it in quotes
-"rocks.nvim"            = "2.44.0"    # the rock manager itself
-"rocks-edit.nvim"       = "scm"       # rock-based file editor integration
-"rocks-treesitter.nvim" = "1.3.0"     # treesitter integration for rocks
-"rocks-git.nvim"        = "2.5.3"     # git utilities via rocks
-"rocks-config.nvim"     = "3.1.1"     # dynamic config loader
-tree-sitter-toml        = "0.0.31"    # TOML parser for treesitter
-"neodev.nvim"           = "3.0.0"     # enhanced Lua dev for Neovim
-neorg                   = "9.3.0"     # Neorg note-taking system
-nvim-cmp                = "scm"       # completion engine
-cmp-nvim-lsp            = "scm"       # LSP source for nvim-cmp
-"lspkind.nvim"          = "scm"       # icons for completion items
-cmp-buffer              = "scm"       # buffer source for nvim-cmp
-cmp-path                = "scm"       # filesystem source for cmp
-cmp-cmdline             = "scm"       # command-line source for cmp
-cmp_luasnip             = "scm"       # LuaSnip source for cmp
-luasnip                 = "2.4.0"     # snippet engine
-friendly-snippets       = "scm"       # community snippet collection
-nvim-web-devicons       = "0.100"     # file icons
-tree-sitter-python      = "0.0.46"    # Python parser for treesitter
+"rocks.nvim"            = "2.44.0"
+"rocks-edit.nvim"       = "scm"
+"rocks-treesitter.nvim" = "1.3.0"
+"rocks-git.nvim"        = "2.5.3"
+"rocks-config.nvim"     = "3.1.1"
+tree-sitter-toml        = "0.0.31"
+"neodev.nvim"           = "3.0.0"
+neorg                   = "9.3.0"
+nvim-cmp                = "scm"
+cmp-nvim-lsp            = "scm"
+"lspkind.nvim"          = "scm"
+cmp-buffer              = "scm"
+cmp-path                = "scm"
+cmp-cmdline             = "scm"
+cmp_luasnip             = "scm"
+luasnip                 = "2.4.0"
+friendly-snippets       = "scm"
+nvim-web-devicons       = "0.100"
+tree-sitter-python      = "0.0.46"
 
-# Theme plugins (installed via rocks, placed under plugins/theme/themes/)
+# Theme plugins (some available via rocks, others only via git)
 "dracula.nvim"          = "scm"
 catppuccin              = "0.1.0"
 "onedarkpro.nvim"       = "2.17.1"
 "monokai.nvim"          = "scm"
-"rose-pine"             = "v3.0.2"
-"nord"                  = "80c1e5321505aeb22b7a9f23eb82f1e193c12470"
-"iceberg"               = "1.0^{}"
+"rose-pine"             = { git = "rose-pine/neovim", rev = "v3.0.2" }
+"nord"                  = { git = "shaunsingh/nord.nvim", rev = "80c1e5321505aeb22b7a9f23eb82f1e193c12470" }
+"iceberg"               = { git = "cocopon/iceberg.vim", rev = "1.0^{}" }
 
 # Telescope extensions
 "telescope.nvim"           = "scm"
@@ -68,26 +67,12 @@ rev = "f94f7ba948e32cd302caba1c2ca3f7c697fb4fcf"
 git = "hrsh7th/cmp-nvim-lsp-signature-help"
 rev = "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7"
 
-# Theme-specific Git plugins (if you prefer direct Git install)
-[plugins.iceberg]
-git = "cocopon/iceberg.vim"
-rev = "1.0^{}"
-
-[plugins.nord]
-git = "shaunsingh/nord.nvim"
-rev = "80c1e5321505aeb22b7a9f23eb82f1e193c12470"
-
-[plugins.rose-pine]
-git = "rose-pine/neovim"
-rev = "v3.0.2"
-
 # -----------------------------------------------------------------------------
 # Treesitter settings (parser installation)
 # -----------------------------------------------------------------------------
 [treesitter]
-# List of parsers to auto-install or prompt for
-auto_install = "prompt"   # options: true | false | "prompt"
-auto_highlight = [        # enable highlighting for these languages
+auto_install    = "prompt"   # options: true | false | "prompt"
+auto_highlight = [
   "lua",
   "python",
   "rust",
@@ -97,16 +82,16 @@ auto_highlight = [        # enable highlighting for these languages
 ]
 
 [treesitter.parser_map]
-PKGBUILD = "bash"         # map PKGBUILD filetype to bash parser
-cls      = "latex"        # map .cls to latex
-sty      = "latex"        # map .sty to latex
+PKGBUILD = "bash"
+cls      = "latex"
+sty      = "latex"
 
 # -----------------------------------------------------------------------------
 # Core config
 # -----------------------------------------------------------------------------
 [config]
-plugins_dir = "plugins/"  # root directory for plugin configs
-auto_setup  = false       # disable automatic plugin setup
+plugins_dir = "plugins/"
+auto_setup  = false
 
 # -----------------------------------------------------------------------------
 # Plugin configuration (via rocks-config.nvim)
@@ -147,7 +132,7 @@ version = "scm"
 config  = "plugins.autocomplete.lspconfig"
 
 [bundles.cmp]
-items  = [
+items = [
   "lspkind.nvim",
   "nvim-cmp",
   "cmp-nvim-lsp",
@@ -164,4 +149,5 @@ config = "plugins.autocomplete.cmp"
 [plugins."trouble.nvim"]
 version = "3.7.1"
 config  = "plugins.autocomplete.trouble.config"
+
 

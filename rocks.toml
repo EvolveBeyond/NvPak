@@ -25,11 +25,12 @@ cmp-nvim-lsp            = "scm"
 cmp-buffer              = "scm"
 cmp-path                = "scm"
 cmp-cmdline             = "scm"
-cmp_luasnip             = "scm"
-luasnip                 = "2.4.0"
 friendly-snippets       = "scm"
 nvim-web-devicons       = "0.100"
 tree-sitter-python      = "0.0.46"
+"mini.nvim"             = "scm"
+"cmp-mini-snippets"     = "scm"
+
 
 # Theme plugins (some available via rocks, others only via git)
 "dracula.nvim"          = "scm"

@@ -1,127 +1,106 @@
-local mason = require("mason")
-local mason_lspconfig = require("mason-lspconfig")
-local nvim_lsp = require("lspconfig")
+-- Import dependencies
+local mason       = require("mason")
+local mason_lsp   = require("mason-lspconfig")
+local lspconfig   = require("lspconfig")
 
-local on_attach = function(client, bufnr)
-  -- Enable hover preview
+-- Utility: get server config directory
+local function get_servers_path()
+  return vim.fn.stdpath("config") .. "/lua/plugins/autocomplete/lspconfig/servers"
+end
+
+-- Common on_attach for all LSP servers
+local function on_attach(client, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- Display error and warning indicators
   if client.server_capabilities.documentHighlightProvider then
     vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
     vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "LspDocumentHighlight" })
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
-      group = "LspDocumentHighlight",
-      callback = function()
-        vim.lsp.buf.document_highlight()
-      end,
+      group  = "LspDocumentHighlight",
+      callback = vim.lsp.buf.document_highlight,
     })
   end
 end
 
--- Define capabilities with snippet and resolve support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { "documentation", "detail", "additionalTextEdits" },
-}
+-- Build capabilities merged with nvim-cmp
+local function make_capabilities()
+  local caps = vim.lsp.protocol.make_client_capabilities()
+  caps.textDocument.completion.completionItem.snippetSupport = true
+  caps.textDocument.completion.completionItem.resolveSupport = {
+    properties = { "documentation", "detail", "additionalTextEdits" }
+  }
+  return require("cmp_nvim_lsp").default_capabilities(caps)
+end
 
--- Merge in capabilities from cmp_nvim_lsp
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+-- Initialize Mason and ensure installation
+local function init_mason(servers)
+  mason.setup({ ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } } })
+  mason_lsp.setup({ ensure_installed = servers, automatic_installation = true })
+end
 
-mason.setup({
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗",
-        },
-    },
-})
+-- Load server configs from `servers/` folder
+local function load_server_configs(on_attach, capabilities)
+  local handlers = { function(server)
+    lspconfig[server].setup({ on_attach = on_attach, capabilities = capabilities })
+  end }
 
--- Setup LSP configurations after installation
-mason_lspconfig.setup({
+  local dir = get_servers_path()
+  for _, file in ipairs(vim.fn.readdir(dir)) do
+    local name = file:match('^(.*)%.lua$')
+    if name then
+      local opts = require("plugins.autocomplete.lspconfig.servers." .. name)
+      handlers[name] = function()
+        local cfg = vim.tbl_deep_extend("force", { on_attach = on_attach, capabilities = capabilities }, opts)
+        lspconfig[name].setup(cfg)
+      end
+    end
+  end
 
-    ensure_installed = {
-        "lua_ls",
-        "pylsp"
-    },
+  mason_lsp.setup_handlers(handlers)
+end
 
-    automatic_installation = true,
+-- Auto-create config file stub after Mason install
+local function init_autogen()
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "MasonInstallEnd",
+    callback = function(event)
+      local pkg = event.data[1]
+      local path = get_servers_path() .. "/" .. pkg .. ".lua"
+      if lspconfig[pkg] and vim.fn.filereadable(path) == 0 then
+        vim.fn.writefile({ "return {}" }, path)
+        vim.notify("Created LSP config: " .. path)
+      end
+    end,
+  })
+end
 
-    handlers = {
-        function (server_name)
-            nvim_lsp[server_name].setup {}
-        end,
+-- Command to edit a server config
+local function init_edit_command(handlers)
+  vim.api.nvim_create_user_command("LspEdit", function(opts)
+    local name = opts.args
+    local path = get_servers_path() .. "/" .. name .. ".lua"
+    if vim.fn.filereadable(path) == 0 then
+      vim.fn.writefile({ "return {}" }, path)
+      vim.notify("Stub created: " .. path)
+    end
+    vim.cmd("edit " .. path)
+  end, { nargs = 1, complete = function(_, line)
+    return vim.tbl_filter(function(k) return k:match("^" .. line) end, vim.tbl_keys(handlers))
+  end })
+end
 
-        ["lua_ls"] = function()
-            nvim_lsp.lua_ls.setup({
-                settings = {
-                    Lua = {
-                        completion = {
-                            callSnippet = "Replace",
-                        },
-                        diagnostics = {
-                            enable = true,
-                            globals = { "vim" },
-                            underline = true,     -- underline errors/warnings in the code
-                            severity_sort = true, -- sort errors/warnings by severity
-                            signs = true,         -- add signs in the gutter for errors/warnings
-                        },
-                        workspace = { checkThirdParty = false },
-                    },
-                },
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-        end,
+-- Main setup
+local function setup()
+  local servers = { "lua_ls", "pylsp", "html", "cssls" }
+  local caps = make_capabilities()
 
-        ["pylsp"] = {
-            ensure_installed = {
-                "pylsp_mypy",
-                "pylsp_black",
-                "pylsp_isort",
-            },
-        },
-        ["pylsp"] = function()
-            nvim_lsp.pylsp.setup({
-                cmd = { "pylsp" },
-                filetypes = { "python" },
-                root_dir = nvim_lsp.util.root_pattern(".git", "venv", ".env", "main.py"),
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pylsp_mypy = { enabled = true },
-                            pylsp_black = { enabled = true },
-                            pylsp_isort = { enabled = true },
-                            -- disabled standard plugins
-                            autopep8 = { enabled = false }, -- covered by black
-                            yapf = { enabled = false },     -- covered by black
-                            pycodestyle = { enabled = false },
-                            pydocstyle = { enabled = false },
-                        },
-                    },
-                },
-                single_file_support = true,
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-        end,
-        ["html"] = function()
-            nvim_lsp.html.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-        end,
-        ["cssls"] = function()
-            nvim_lsp.cssls.setup({
-                on_attach = on_attach,
-                capabilities = capabilities,
-            })
-        end,
-    },
-})
+  init_mason(servers)
+  load_server_configs(on_attach, caps)
+  init_autogen()
+  init_edit_command(lspconfig)
+end
 
--- Set logging level for LSP messages
--- vim.lsp.set_log_level("debug") -- Uncomment this line for debugging
+-- Execute setup
+setup()
+
+return { setup = setup }

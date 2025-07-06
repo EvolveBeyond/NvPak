@@ -1,0 +1,26 @@
+# Example aliases for NvPak CLI
+# Format: alias_name=command_name
+# Lines starting with # or empty lines are ignored.
+
+# Installation
+in=install
+add=install
+
+# Uninstallation
+un=uninstall
+rm=uninstall
+remove=uninstall
+
+# Update/Upgrade
+up=update
+ud=update
+ug=upgrade
+
+# Fetch NvPak updates
+pull=fetch
+sync=fetch # Could also be an alias for a plugin sync command if one exists
+
+# Help
+h=help
+man=help
+? =help

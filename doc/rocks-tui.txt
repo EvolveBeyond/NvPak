@@ -1,0 +1,191 @@
+*rocks-tui.txt*    Plugin for managing Neovim plugins with rocks.nvim
+
+CONTENTS                                      *rocks-tui-contents*
+
+1. Introduction         |rocks-tui-introduction|
+2. Installation         |rocks-tui-installation|
+3. Usage                |rocks-tui-usage|
+   3.1 Plugin Manager   |rocks-tui-usage-manager|
+   3.2 Plugin Search    |rocks-tui-usage-search|
+   3.3 Progress View    |rocks-tui-usage-progress|
+4. Configuration        |rocks-tui-configuration|
+   4.1 Default Config   |rocks-tui-default-configuration|
+5. Commands             |rocks-tui-commands|
+6. Mappings             |rocks-tui-mappings|
+
+==============================================================================
+1. Introduction                                 *rocks-tui-introduction*
+
+rocks-tui is a Lua-based TUI (Terminal User Interface) / Wrapper for
+|rocks.nvim| that aims to enhance the user experience of managing Neovim
+plugins. It provides a more interactive, visual, and intuitive way to
+discover, install, update, and remove plugins.
+
+==============================================================================
+2. Installation                             *rocks-tui-installation*
+
+Prerequisites:
+- Neovim >= 0.8 (or higher, depending on API usage, 0.10+ recommended)
+- |rocks.nvim| installed and configured.
+
+Using |rocks.nvim| (once this plugin is published, name might vary e.g., rocks-tui.nvim):
+>
+  :Rocks install owner/rocks-tui
+<
+Alternatively, clone this repository and add it to your runtime path using your
+preferred method if developing or testing locally.
+
+==============================================================================
+3. Usage                                            *rocks-tui-usage*
+
+This plugin provides commands to open different TUI views. See
+|rocks-tui-commands| for a list of commands.
+
+------------------------------------------------------------------------------
+3.1 Plugin Manager                            *rocks-tui-usage-manager*
+
+Command: |:RocksTUI|
+
+This view lists all plugins currently managed by |rocks.nvim| (as understood
+by this TUI, typically from `rocks.toml` via `core.get_installed_plugins`).
+You can perform actions like:
+- Refreshing the list.
+- Updating a selected plugin.
+- Removing a selected plugin.
+- Updating all plugins.
+- Triggering a `:Rocks sync`.
+- Viewing `rocks.nvim` logs.
+
+Default key mappings are listed under |rocks-tui-mappings|.
+
+------------------------------------------------------------------------------
+3.2 Plugin Search                             *rocks-tui-usage-search*
+
+Command: |:RocksTUISearch|
+
+This interface allows you to search for plugins.
+1. You will be prompted to enter a search query (e.g., plugin name).
+2. Results (currently illustrative, pending full `rocks.nvim` search API
+   integration) are displayed in a new window.
+3. You can select a plugin from the results to install it. You'll be prompted
+   to confirm and can optionally specify a version (e.g., `dev`, `1.2.3`).
+
+Default key mappings are listed under |rocks-tui-mappings|.
+
+------------------------------------------------------------------------------
+3.3 Progress View                             *rocks-tui-usage-progress*
+
+Command: |:RocksTUIProgress|
+
+This window displays the progress of ongoing `rocks.nvim` operations, such as
+installing or updating plugins. It shows:
+- The current operation.
+- Overall progress (if available).
+- Number of plugins processed out of the total.
+- A text-based progress bar.
+- Detailed status per plugin (conceptual, depends on `core.lua` feeding data).
+- Log messages related to the operation.
+
+This window is intended to be opened automatically by operations like
+installing from the search view, but can also be opened manually.
+
+Default key mappings are listed under |rocks-tui-mappings|.
+
+==============================================================================
+4. Configuration                            *rocks-tui-configuration*
+
+The plugin can be configured by calling the `setup` function in your Neovim
+configuration (e.g., `init.lua`):
+>
+  require('rocks-tui').setup({
+    -- Example: Change the border of the manager window
+    -- ui = {
+    --   manager_window = {
+    --     border = "single",
+    --   }
+    -- },
+    -- Example: Change some keymaps
+    -- keymaps = {
+    --   manager_close = "<Esc>",
+    --   search_install_selected = "<CR>",
+    -- }
+  })
+<
+If `setup` is not called, default configurations will be used.
+
+------------------------------------------------------------------------------
+4.1 Default Configuration               *rocks-tui-default-configuration*
+
+The default configuration structure is as follows:
+(Note: This is a representation. Refer to `lua/rocks-tui/config.lua` for the
+exact defaults at the time of use.)
+>
+  {
+    keymaps = {
+      manager_close = "q",
+      manager_refresh = "r",
+      manager_update_selected = "u",
+      manager_remove_selected = "R",
+      manager_update_all = "U",
+      manager_sync = "s",
+      manager_view_log = "l",
+      search_close = "q",
+      search_install_selected = "i",
+      progress_close = "q",
+    },
+    ui = {
+      manager_window = { border = "rounded", width_ratio = 0.8, height_ratio = 0.7, title = "rocks.nvim TUI - Manager" },
+      search_window = { border = "rounded", width_ratio = 0.8, height_ratio = 0.7, title = "Plugin Search Results" },
+      progress_window = { border = "double", width_ratio = 0.7, height_ratio = 0.5, title = "Installation Progress", zindex = 100 },
+    }
+  }
+<
+
+==============================================================================
+5. Commands                                       *rocks-tui-commands*
+
+All commands are exposed via `vim.api.nvim_create_user_command`.
+
+*:RocksTUI*
+  Opens the main TUI window for managing installed plugins.
+  See |rocks-tui-usage-manager|.
+
+*:RocksTUISearch*
+  Opens the plugin search interface.
+  See |rocks-tui-usage-search|.
+
+*:RocksTUIProgress*
+  Shows the progress of the current `rocks.nvim` installation or sync process.
+  Can be opened manually if needed. See |rocks-tui-usage-progress|.
+
+*:RocksTUISetup [{args}]*
+  A command to call the setup function, primarily for testing or re-applying
+  configuration. Arguments are not currently parsed but are passed to the
+  setup function if provided. Example: `:RocksTUISetup { ui = { manager_window = { border = 'solid' } } }` (The argument needs to be valid Lua).
+
+==============================================================================
+6. Mappings                                       *rocks-tui-mappings*
+
+Default key mappings are defined in `lua/rocks-tui/config.lua` and can be
+overridden via the `setup` function. These mappings are local to the
+respective TUI windows.
+
+*Plugin Manager Window Mappings (|:RocksTUI|):*
+  `q` : Close window (default: `keymaps.manager_close`)
+  `r` : Refresh plugin list (default: `keymaps.manager_refresh`)
+  `u` : Update selected plugin (default: `keymaps.manager_update_selected`)
+  `R` : Remove selected plugin (default: `keymaps.manager_remove_selected`)
+  `U` : Update all plugins (default: `keymaps.manager_update_all`)
+  `s` : Sync with `rocks.toml` (runs `:Rocks sync`) (default: `keymaps.manager_sync`)
+  `l` : View `rocks.nvim` logs (runs `:Rocks log`) (default: `keymaps.manager_view_log`)
+
+*Search Results Window Mappings (|:RocksTUISearch|):*
+  `q` : Close window (default: `keymaps.search_close`)
+  `i` : Install selected plugin (default: `keymaps.search_install_selected`)
+
+*Progress Window Mappings (|:RocksTUIProgress|):*
+  `q` : Close window (default: `keymaps.progress_close`)
+
+Refer to |rocks-tui-default-configuration| for the default key values.
+
+vim:tw=78:ts=8:ft=help:norl:

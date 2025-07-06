@@ -1,282 +1,232 @@
 #!/usr/bin/env bash
 
-# Function to print colored messages
+# NvPak Installer Script (Shell version)
+# Responsibilities:
+# 1. Ensure Git and Neovim are installed.
+# 2. Clone/update the NvPak repository.
+# 3. Trigger the Lua-based installer within NvPak.
+
+# --- Configuration ---
+NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+NVPAK_REPO_URL="https://github.com/Pakrohk-DotFiles/NvPak.git"
+NVPAK_INSTALLER_LUA_MODULE="nvpak.core.installer" # Lua module to run e.g., require('nvpak.core.installer').init()
+
+# --- Helper Functions ---
 print_message() {
   local color_code="$1"
   local message="$2"
   echo -e "\033[${color_code}m${message}\033[0m"
 }
 
-info() {
-  print_message "34" "INFO: $1" # Blue
-}
-
-success() {
-  print_message "32" "SUCCESS: $1" # Green
-}
-
-warning() {
-  print_message "33" "WARNING: $1" # Yellow
-}
-
-error() {
-  print_message "31" "ERROR: $1" # Red
+info() { print_message "34" "INFO: $1"; } # Blue
+success() { print_message "32" "SUCCESS: $1"; } # Green
+warning() { print_message "33" "WARNING: $1"; } # Yellow
+error_exit() {
+  print_message "31" "ERROR: $1" >&2 # Red, to stderr
   exit 1
 }
 
-# Function to check if a command exists
 command_exists() {
-  command -v "$1" &> /dev/null
+  command -v "$1" &>/dev/null
 }
 
-# Detect OS
-OS=""
-if [[ "$(uname)" == "Linux" ]]; then
-  OS="Linux"
-  if command_exists apt-get; then
-    PM="sudo apt-get install -y"
-    PM_UPDATE="sudo apt-get update"
-  elif command_exists yum; then
-    PM="sudo yum install -y"
-    PM_UPDATE="sudo yum update"
-  elif command_exists dnf; then
-    PM="sudo dnf install -y"
-    PM_UPDATE="sudo dnf check-update"
-  elif command_exists pacman; then
-    PM="sudo pacman -Syu --noconfirm" # Pacman usually updates and installs in one go
-    PM_UPDATE="" # No separate update needed before install usually
-  elif grep -q "Android" /proc/version; then
-    OS="Android"
-    if command_exists pkg; then
-        PM="pkg install -y"
-        PM_UPDATE="pkg update -y && pkg upgrade -y"
-    else
-        error "Termux 'pkg' package manager not found. Please install it first."
-    fi
-  else
-    error "Unsupported Linux distribution. Please install dependencies manually."
-  fi
-elif [[ "$(uname)" == "Darwin" ]]; then
-  OS="Mac"
-  if command_exists brew; then
-    PM="brew install"
-    PM_UPDATE="brew update"
-  else
-    error "Homebrew not found. Please install Homebrew first: https://brew.sh/"
-  fi
-else
-  # Rudimentary check for Windows, assuming Git Bash or WSL
-  # A dedicated PowerShell script is better for Windows native support
-  if [[ -n "$WINDIR" ]] || [[ "$(uname -o 2>/dev/null)" == "Msys" ]] || [[ "$(uname -o 2>/dev/null)" == "Cygwin" ]]; then
-    OS="Windows_Shell" # Indicates a Unix-like shell on Windows
-    info "Detected Windows with a Unix-like shell (Git Bash, WSL, Cygwin, Msys)."
-    info "Attempting to use common commands. For best results, use PowerShell or ensure your environment has necessary tools."
-    # No standard package manager here, dependencies might need manual setup or specific instructions.
-    # We'll try to check for common tools but installation will be tricky.
-  else
-    error "Unsupported operating system: $(uname). This script supports Linux, macOS, and Unix-like shells on Windows."
-  fi
-fi
+# --- Prerequisite Installation ---
+install_prerequisites() {
+  local os_type="$1"
+  local pm_cmd="$2"
+  local pm_update_cmd="$3"
+  local missing_deps=()
 
-info "Detected OS: $OS"
+  # Update package manager if an update command is defined
+  if [[ -n "$pm_update_cmd" ]]; then
+    info "Updating package list via $pm_update_cmd..."
+    eval "$pm_update_cmd" || warning "Failed to update package list. Proceeding with caution."
+  fi
 
-# --- Dependency Installation Placeholder ---
-# Will be filled in subsequent steps
+  info "Checking for Git..."
+  if ! command_exists git; then
+    info "Git not found."
+    missing_deps+=("git")
+  else
+    info "Git is installed."
+  fi
 
-# --- Clone NvPak ---
-NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
-NVPAK_REPO_URL="https://github.com/Pakrohk-DotFiles/NvPak.git"
+  info "Checking for Neovim..."
+  if ! command_exists nvim; then
+    info "Neovim (nvim) not found."
+    missing_deps+=("neovim") # Use 'neovim' as common package name, 'nvim' for command
+  else
+    info "Neovim is installed."
+  fi
+
+  if [[ ${#missing_deps[@]} -gt 0 ]]; then
+    info "Attempting to install missing prerequisites: ${missing_deps[*]} using '$pm_cmd'..."
+    for dep_pkg_name in "${missing_deps[@]}"; do
+      # Handle common package name variations (e.g., neovim vs nvim)
+      local actual_pkg_name="$dep_pkg_name"
+      if [[ "$dep_pkg_name" == "neovim" && "$os_type" == "Linux" ]]; then
+        # On some systems, the package is 'nvim', on others 'neovim'
+        # We'll try 'neovim' first as it's more common for explicit install
+        # If 'neovim' fails and 'nvim' is the command, the Lua installer can handle specific checks.
+        : # Keep actual_pkg_name as neovim
+      elif [[ "$dep_pkg_name" == "neovim" && "$os_type" == "Android" ]]; then
+        actual_pkg_name="neovim" # Termux uses 'neovim'
+      fi
+
+      info "Installing $actual_pkg_name..."
+      if eval "$pm_cmd $actual_pkg_name"; then
+        success "$actual_pkg_name installed successfully."
+      else
+        warning "Failed to install $actual_pkg_name automatically."
+        warning "Please install it manually and re-run this script."
+        if [[ "$actual_pkg_name" == "neovim" ]]; then
+            warning "For Neovim, see: https://github.com/neovim/neovim/wiki/Installing-Neovim"
+        elif [[ "$actual_pkg_name" == "git" ]]; then
+            warning "For Git, see: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git"
+        fi
+        error_exit "Prerequisite installation failed for $actual_pkg_name."
+      fi
+    done
+  else
+    info "All prerequisites (Git, Neovim) are already installed."
+  fi
+
+  # Final check after install attempts
+  if ! command_exists git; then error_exit "Git is required but could not be installed/found. Please install Git manually."; fi
+  if ! command_exists nvim; then error_exit "Neovim is required but could not be installed/found. Please install Neovim manually."; fi
+}
 
 # --- Main Logic ---
 main() {
-  info "Starting NvPak installation..."
+  info "Starting NvPak installation for Unix-like systems..."
 
-  # Update package manager (if applicable and defined)
-  if [[ -n "$PM_UPDATE" ]]; then
-    info "Updating package manager..."
-    eval "$PM_UPDATE" || warning "Failed to update package manager. Proceeding with caution."
-  fi
+  local os=""
+  local pm=""
+  local pm_update=""
 
-  # Install core dependencies
-  info "Installing core dependencies (git, curl, unzip, neovim)..."
-  CORE_DEPS=("git" "curl" "unzip" "nvim") # nvim might be named differently (neovim)
-
-  if [[ "$OS" == "Linux" || "$OS" == "Mac" ]]; then
-    for dep in "${CORE_DEPS[@]}"; do
-      if ! command_exists "$dep"; then
-        # Special handling for nvim package name
-        if [[ "$dep" == "nvim" ]]; then
-            if command_exists nvim; then
-                info "Neovim is already installed."
-                continue
-            fi
-            info "Installing Neovim..."
-            if [[ "$OS" == "Mac" ]]; then
-                eval "$PM neovim" || error "Failed to install Neovim."
-            elif [[ "$PM" == "sudo apt-get install -y" ]]; then # Debian/Ubuntu
-                # Add Neovim PPA for latest stable or nightly
-                # For simplicity, let's try installing 'neovim' package directly.
-                # Users might need to add PPA for newer versions.
-                eval "$PM neovim" || error "Failed to install Neovim. You might need to add a PPA for the latest version."
-            else # Other Linux distros
-                eval "$PM neovim" || eval "$PM nvim" || error "Failed to install Neovim."
-            fi
-        else
-            info "Installing $dep..."
-            eval "$PM $dep" || error "Failed to install $dep."
-        fi
-      else
-        info "$dep is already installed."
-      fi
-    done
-  elif [[ "$OS" == "Android" ]]; then
-    # Termux specific
-    info "Installing core dependencies for Termux (git, curl, unzip, neovim)..."
-    eval "$PM git curl unzip neovim" || error "Failed to install core dependencies on Termux."
-  elif [[ "$OS" == "Windows_Shell" ]]; then
-    info "Please ensure Git, Curl, Unzip, and Neovim are installed and in your PATH."
-    # Attempt to check, but installation is manual here
-    for dep in "${CORE_DEPS[@]}"; do
-        if ! command_exists "$dep"; then
-            if [[ "$dep" == "nvim" ]] && command_exists "neovim"; then # check for neovim as well
-                 info "Neovim (as neovim) is already installed."
-            else
-                warning "$dep not found. Please install it manually."
-            fi
-        else
-            info "$dep is already installed."
-        fi
-    done
-  fi
-
-  # Install additional tools (ripgrep, clipboard tools)
-  info "Installing additional tools (ripgrep, fd, clipboard tools)..."
-  if [[ "$OS" == "Linux" ]]; then
-    # Ripgrep
-    if ! command_exists rg; then
-      info "Installing ripgrep..."
-      eval "$PM ripgrep" || warning "Failed to install ripgrep. Telescope search might be slower."
+  # OS and Package Manager Detection
+  if [[ "$(uname)" == "Linux" ]]; then
+    os="Linux"
+    if command_exists apt-get; then
+      pm="sudo apt-get install -y"
+      pm_update="sudo apt-get update"
+    elif command_exists yum; then
+      pm="sudo yum install -y"
+      pm_update="sudo yum update -y" # Often -y is good for yum update too
+    elif command_exists dnf; then
+      pm="sudo dnf install -y"
+      pm_update="sudo dnf check-update" # dnf check-update doesn't need -y, it's not modifying
+    elif command_exists pacman; then
+      pm="sudo pacman -S --noconfirm" # For install, update is separate or part of -Syu
+      pm_update="sudo pacman -Syu --noconfirm" # Full system upgrade
+    elif grep -q "Android" /proc/version && command_exists pkg; then
+      os="Android" # Termux
+      pm="pkg install -y"
+      pm_update="pkg update -y && pkg upgrade -y"
     else
-      info "ripgrep is already installed."
+      error_exit "Unsupported Linux distribution or package manager not found. Please install Git and Neovim manually and re-run."
     fi
-    # fd
-    if ! command_exists fd; then
-      info "Installing fd-find (often packaged as fd-find, binary is fd)..."
-      eval "$PM fd-find" || eval "$PM fd" || warning "Failed to install fd. Telescope might use alternative finders."
+  elif [[ "$(uname)" == "Darwin" ]]; then
+    os="Mac"
+    if command_exists brew; then
+      pm="brew install"
+      pm_update="brew update"
     else
-      info "fd is already installed."
+      error_exit "Homebrew not found on macOS. Please install Homebrew (https://brew.sh/) and re-run."
     fi
-    # Clipboard
-    if ! command_exists xclip && ! command_exists xsel && ! command_exists wl-copy; then
-      info "Installing clipboard tools (xclip/xsel for Xorg, wl-clipboard for Wayland)..."
-      if [[ -n "$WAYLAND_DISPLAY" ]]; then
-        eval "$PM wl-clipboard" || warning "Failed to install wl-clipboard for Wayland."
-      else
-        eval "$PM xclip" || eval "$PM xsel" || warning "Failed to install xclip or xsel for Xorg."
-      fi
-    else
-      info "Clipboard tool (xclip, xsel, or wl-clipboard) is already installed."
+  elif [[ -n "$WINDIR" ]] || [[ "$(uname -o 2>/dev/null)" == "Msys" ]] || [[ "$(uname -o 2>/dev/null)" == "Cygwin" ]]; then
+    info "Detected a Windows-based Unix-like shell (e.g., Git Bash, WSL, Cygwin, Msys)."
+    info "This script will attempt to check for Git and Neovim."
+    info "For a native Windows experience, please use the 'install.ps1' script."
+    if ! command_exists git || ! command_exists nvim; then
+       warning "Git or Neovim might not be installed or not in PATH."
+       warning "Please ensure Git and Neovim are installed and accessible in your PATH."
+       # Do not error_exit here, let user try if they know what they are doing.
+       # The Lua installer will perform more checks.
     fi
-  elif [[ "$OS" == "Mac" ]]; then
-    if ! command_exists rg; then info "Installing ripgrep..."; eval "$PM ripgrep" || warning "Failed to install ripgrep."; else info "ripgrep is already installed."; fi
-    if ! command_exists fd; then info "Installing fd..."; eval "$PM fd" || warning "Failed to install fd."; else info "fd is already installed."; fi
-    # Clipboard on macOS is usually handled by pbcopy/pbpaste, which are built-in.
-  elif [[ "$OS" == "Android" ]]; then
-    if ! command_exists rg; then info "Installing ripgrep for Termux..."; eval "$PM ripgrep" || warning "Failed to install ripgrep."; else info "ripgrep is already installed."; fi
-    if ! command_exists fd; then info "Installing fd for Termux..."; eval "$PM fd" || warning "Failed to install fd."; else info "fd is already installed."; fi
-    info "For clipboard on Termux, use termux-clipboard-get/set (install with 'pkg install termux-api')."
-    if ! command_exists termux-clipboard-get; then
-        info "Installing termux-api for clipboard..."
-        eval "$PM termux-api" || warning "Failed to install termux-api for clipboard access."
-    else
-        info "termux-api (for clipboard) is already installed."
-    fi
-  elif [[ "$OS" == "Windows_Shell" ]]; then
-    info "Please ensure ripgrep and fd are installed and in your PATH for Telescope."
-    if ! command_exists rg; then warning "ripgrep (rg) not found. Please install it manually."; else info "ripgrep is already installed."; fi
-    if ! command_exists fd; then warning "fd not found. Please install it manually."; else info "fd is already installed."; fi
-    info "Clipboard on Windows is typically handled by Neovim itself or via PowerShell/WSL integrations."
-  fi
-
-  # Pynvim (optional, for Python devs)
-  if command_exists pip3; then
-    if ! python3 -c "import pynvim" &> /dev/null; then
-      info "pynvim (Python 3) not found. Installing..."
-      pip3 install --user pynvim || warning "Failed to install pynvim with pip3. Python integration might not work."
-    else
-      info "pynvim is already installed."
-    fi
-  elif command_exists pip; then
-     if ! python -c "import pynvim" &> /dev/null; then
-      info "pynvim (Python 2/default) not found. Installing..."
-      pip install --user pynvim || warning "Failed to install pynvim with pip. Python integration might not work."
-    else
-      info "pynvim is already installed."
-    fi
+    # No standard package manager for these environments, so skip auto-install.
   else
-    warning "pip/pip3 not found. Cannot install pynvim automatically. If you are a Python developer, please install it manually."
+    error_exit "Unsupported operating system: $(uname). This script supports Linux, macOS, and Unix-like shells on Windows."
   fi
 
+  info "Detected OS: $os"
+  if [[ -n "$pm" ]]; then # If a package manager was identified for auto-installation
+    install_prerequisites "$os" "$pm" "$pm_update"
+  else
+    info "Skipping automatic prerequisite installation due to OS/environment."
+    info "Please ensure Git and Neovim are installed and in your PATH."
+    if ! command_exists git; then error_exit "Git is required. Please install it manually."; fi
+    if ! command_exists nvim; then error_exit "Neovim (nvim) is required. Please install it manually."; fi
+    success "Git and Neovim found."
+  fi
 
   # Clone or update NvPak repository
   info "Setting up NvPak configuration directory: $NVIM_CONFIG_DIR"
-  if [ -d "$NVIM_CONFIG_DIR" ]; then
-    info "NvPak directory already exists. Checking for updates..."
-    cd "$NVIM_CONFIG_DIR" || error "Could not cd into $NVIM_CONFIG_DIR"
-    if [ -d ".git" ]; then
-      current_remote=$(git remote get-url origin)
+  if [ -d "$NVIM_CONFIG_DIR/.git" ]; then
+    info "NvPak directory already exists and is a git repository. Checking for updates..."
+    ( # Subshell to avoid cd side effects
+      cd "$NVIM_CONFIG_DIR" || error_exit "Could not cd into $NVIM_CONFIG_DIR"
+      current_remote=$(git remote get-url origin 2>/dev/null)
       if [[ "$current_remote" == "$NVPAK_REPO_URL" ]]; then
-        info "Pulling latest changes from NvPak repository..."
-        git pull || warning "Failed to pull latest changes. Your configuration might be outdated."
+        info "Pulling latest changes from NvPak repository ($NVPAK_REPO_URL)..."
+        if git pull; then
+          success "NvPak updated successfully."
+        else
+          warning "Failed to pull latest NvPak changes. Your configuration might be outdated or you have local changes."
+          warning "Attempting to continue. If issues arise, consider a fresh clone after backing up."
+        fi
       else
-        warning "The existing directory $NVIM_CONFIG_DIR is a git repository, but not for NvPak ($current_remote)."
-        warning "Please move or backup your existing Neovim configuration and re-run the script."
-        # Potentially offer to backup and clone, but for now, let's be safe.
-        # read -p "Do you want to backup the existing directory and clone NvPak? (y/N): " backup_confirm
-        # if [[ "$backup_confirm" =~ ^[Yy]$ ]]; then
-        #   mv "$NVIM_CONFIG_DIR" "${NVIM_CONFIG_DIR}.backup.$(date +%s)"
-        #   info "Backed up existing config to ${NVIM_CONFIG_DIR}.backup.$(date +%s)"
-        #   info "Cloning NvPak repository..."
-        #   git clone --depth 1 "$NVPAK_REPO_URL" "$NVIM_CONFIG_DIR" || error "Failed to clone NvPak repository."
-        # else
-        #   error "Installation aborted by user."
-        # fi
-        error "Please backup/move your existing Neovim config from $NVIM_CONFIG_DIR and re-run."
+        warning "The existing directory $NVIM_CONFIG_DIR is a git repository, but not for NvPak."
+        warning "Current remote: $current_remote"
+        warning "Expected remote: $NVPAK_REPO_URL"
+        error_exit "Please backup/move your existing Neovim config from $NVIM_CONFIG_DIR and re-run."
       fi
+    )
+  elif [ -d "$NVIM_CONFIG_DIR" ] && [ -z "$(ls -A "$NVIM_CONFIG_DIR")" ]; then
+    info "$NVIM_CONFIG_DIR exists but is empty. Cloning NvPak..."
+    if git clone --depth 1 "$NVPAK_REPO_URL" "$NVIM_CONFIG_DIR"; then
+      success "NvPak cloned successfully to $NVIM_CONFIG_DIR."
     else
-      warning "$NVIM_CONFIG_DIR exists but is not a git repository. It might be an old NvPak install or a custom config."
-      error "Please backup/move your existing Neovim config from $NVIM_CONFIG_DIR and re-run."
+      error_exit "Failed to clone NvPak repository to $NVIM_CONFIG_DIR."
     fi
-    cd - > /dev/null # Go back to previous directory
+  elif [ -d "$NVIM_CONFIG_DIR" ]; then
+     warning "$NVIM_CONFIG_DIR exists and is not empty, nor is it a NvPak git repository."
+     error_exit "Please backup/move your existing Neovim config from $NVIM_CONFIG_DIR and re-run."
   else
     info "Cloning NvPak repository to $NVIM_CONFIG_DIR..."
-    git clone --depth 1 "$NVPAK_REPO_URL" "$NVIM_CONFIG_DIR" || error "Failed to clone NvPak repository."
+    if git clone --depth 1 "$NVPAK_REPO_URL" "$NVIM_CONFIG_DIR"; then
+      success "NvPak cloned successfully to $NVIM_CONFIG_DIR."
+    else
+      error_exit "Failed to clone NvPak repository to $NVIM_CONFIG_DIR."
+    fi
   fi
 
-  # Nerd Fonts Installation (Guidance)
-  info "--- Nerd Fonts ---"
-  info "For the best visual experience, please install a Nerd Font."
-  info "You can find them at: https://www.nerdfonts.com/"
-  info "After installation, set it as your terminal font."
-  echo "" # Newline for readability
+  # Trigger Lua installer
+  info "Launching Neovim to run NvPak Lua installer ($NVPAK_INSTALLER_LUA_MODULE)..."
+  # We use -u $NVIM_CONFIG_DIR/init.lua to ensure it loads NvPak's init.lua,
+  # which should then correctly set up package paths for the installer module.
+  # The --headless ensures no UI pops up if not needed, but the Lua script can decide.
+  # The Lua script itself should handle further user interaction.
+  # The +qa is removed as the Lua script will handle exit or further steps.
+  local nvim_cmd_args=(
+    "--headless"
+    "-u" "$NVIM_CONFIG_DIR/init.lua" # Ensure NvPak's init is loaded
+    "-c" "lua require('$NVPAK_INSTALLER_LUA_MODULE').init()"
+    # "+qa" # Lua script will manage quitting or further interaction
+  )
 
-  # Initial Neovim run for plugin installation
-  info "Running Neovim for the first time to install plugins via rocks.nvim..."
-  info "This might take a few moments. Please wait for Neovim to fully load and install plugins."
-  info "If prompted by rocks.nvim, confirm any installations."
-
-  if command_exists nvim; then
-    nvim --headless "+qa" # Attempt a headless quit to trigger initial setup if possible
-    info "Neovim headless setup attempt complete. Starting Neovim..."
-    info "Please close Neovim after plugins are installed (you might see messages from rocks.nvim)."
-    nvim
+  info "Executing: nvim ${nvim_cmd_args[*]}"
+  if nvim "${nvim_cmd_args[@]}"; then
+    success "NvPak Lua installer finished successfully."
+    info "NvPak setup is complete. You can now start Neovim with 'nvim'."
+    info "Further configuration or plugin installations might happen on the first interactive launch."
   else
-    error "Neovim command (nvim) not found even after installation attempt. Please check your PATH."
+    error_exit "NvPak Lua installer failed. Check Neovim output for errors."
   fi
 
-  success "NvPak installation script finished!"
-  info "Please restart your terminal or source your shell configuration if you installed new tools."
-  info "Open Neovim with 'nvim'."
+  # The old messages about Nerd Fonts and running Neovim for plugins are now handled by the Lua installer.
+  success "NvPak shell script part finished!"
+  info "Please restart your terminal if new tools were installed by your package manager earlier (e.g., Neovim itself)."
 }
 
 # --- Entry Point ---

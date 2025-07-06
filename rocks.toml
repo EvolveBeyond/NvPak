@@ -37,21 +37,10 @@ catppuccin = "0.1.0"
 git = "s1n7ax/nvim-terminal"
 rev = "e058de4b8029d7605b17275f30f83be8f8df5f62"
 
-[plugins.cmp-nvim-lua]
-git = "hrsh7th/cmp-nvim-lua"
-rev = "f12408bdb54c39c23e67cab726264c10db33ada8"
-
-[plugins.cmp-spell]
-git = "f3fora/cmp-spell"
-rev = "694a4e50809d6d645c1ea29015dad0c293f019d6"
-
-[plugins.cmp-nvim-lsp-document-symbol]
-git = "hrsh7th/cmp-nvim-lsp-document-symbol"
-rev = "f94f7ba948e32cd302caba1c2ca3f7c697fb4fcf"
-
-[plugins.cmp-nvim-lsp-signature-help]
-git = "hrsh7th/cmp-nvim-lsp-signature-help"
-rev = "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7"
+"cmp-nvim-lua" = "scm"
+"cmp-spell" = "scm"
+"cmp-nvim-lsp-document-symbol" = "scm"
+"cmp-nvim-lsp-signature-help" = "scm"
 
 [plugins.iceberg]
 git = "cocopon/iceberg.vim"

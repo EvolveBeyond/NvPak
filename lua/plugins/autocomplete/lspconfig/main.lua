@@ -51,8 +51,12 @@ mason_lspconfig.setup({
     automatic_installation = true,
 
     handlers = {
+        -- Default handler for servers without specific configurations
         function (server_name)
-            nvim_lsp[server_name].setup {}
+            nvim_lsp[server_name].setup {
+                on_attach = on_attach,
+                capabilities = capabilities,
+            }
         end,
 
         ["lua_ls"] = function()
@@ -60,16 +64,19 @@ mason_lspconfig.setup({
                 settings = {
                     Lua = {
                         completion = {
-                            callSnippet = "Replace",
+                            callSnippet = "Replace", -- "Disable" | "Replace"
                         },
                         diagnostics = {
                             enable = true,
                             globals = { "vim" },
-                            underline = true,     -- underline errors/warnings in the code
-                            severity_sort = true, -- sort errors/warnings by severity
-                            signs = true,         -- add signs in the gutter for errors/warnings
+                            underline = true,
+                            severity_sort = true,
+                            signs = true,
                         },
-                        workspace = { checkThirdParty = false },
+                        workspace = {
+                            checkThirdParty = false, -- Avoids warnings for vim non-standard libraries
+                        },
+                        -- telemetry = { enable = false }, -- Opt-out of telemetry
                     },
                 },
                 on_attach = on_attach,
@@ -77,16 +84,12 @@ mason_lspconfig.setup({
             })
         end,
 
-        ["pylsp"] = {
-            ensure_installed = {
-                "pylsp_mypy",
-                "pylsp_black",
-                "pylsp_isort",
-            },
-        },
+        -- Note: Installation of pylsp extensions like pylsp_mypy, pylsp_black, pylsp_isort
+        -- should be handled by the user's Python environment (e.g., pip install ...).
+        -- Mason ensures 'pylsp' server itself is installed if listed in the outer 'ensure_installed'.
         ["pylsp"] = function()
             nvim_lsp.pylsp.setup({
-                cmd = { "pylsp" },
+                cmd = { "pylsp" }, -- Ensure pylsp is in PATH
                 filetypes = { "python" },
                 root_dir = nvim_lsp.util.root_pattern(".git", "venv", ".env", "main.py"),
                 settings = {

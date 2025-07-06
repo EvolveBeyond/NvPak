@@ -205,8 +205,51 @@ function Main {
         Error-Exit "NvPak Lua installer failed. Exit code: $LASTEXITCODE. Check Neovim output for errors (if any was printed)."
     }
 
+    # --- Deploy nvpak.ps1 CLI script ---
+    Info "Attempting to deploy 'nvpak.ps1' CLI script..."
+    $nvpakCliSource = Join-Path $NvimConfigDir "scripts\nvpak.ps1" # Note backslash for PowerShell
+    $nvpakCliDestDir = Join-Path $env:LOCALAPPDATA "NvPak\bin"
+    $nvpakCliDestFile = Join-Path $nvpakCliDestDir "nvpak.ps1"
+
+    if (-not (Test-Path $nvpakCliSource)) {
+        Warning "'nvpak.ps1' not found in NvPak scripts directory: $nvpakCliSource"
+        Warning "Cannot deploy 'nvpak' CLI automatically."
+    }
+    else {
+        try {
+            if (-not (Test-Path $nvpakCliDestDir)) {
+                New-Item -ItemType Directory -Path $nvpakCliDestDir -Force -ErrorAction Stop | Out-Null
+                Info "Created directory: $nvpakCliDestDir"
+            }
+            Copy-Item -Path $nvpakCliSource -Destination $nvpakCliDestFile -Force -ErrorAction Stop
+            Success "'nvpak.ps1' CLI script copied to: $nvpakCliDestFile"
+
+            # Check if the destination directory is in PATH
+            $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+            if ($currentPath -notlike "*$($nvpakCliDestDir -replace '\\', '\\')*") { # Escape backslashes for regex like comparison
+                Warning "The directory '$nvpakCliDestDir' is not in your User PATH."
+                Info "To use the 'nvpak' command directly in PowerShell, you need to add this directory to your PATH."
+                Info "You can do this by running the following commands in PowerShell (consider running as Administrator if you want to set System PATH):"
+                Info "---"
+                Info "  `$CurrentUserPath = [Environment]::GetEnvironmentVariable('Path', 'User')`"
+                Info "  `$NewPath = `$CurrentUserPath;$nvpakCliDestDir`" # Or `$NewPath = "$nvpakCliDestDir;$CurrentUserPath"` to prepend
+                Info "  `[Environment]::SetEnvironmentVariable('Path', `$NewPath, 'User')`"
+                Info "  `# For System PATH (requires Admin): [Environment]::SetEnvironmentVariable('Path', `$NewPath, 'Machine')`"
+                Info "---"
+                Info "After updating your PATH, you MUST open a new PowerShell window for the changes to take effect."
+            } else {
+                Success "'$nvpakCliDestDir' seems to be in your PATH. 'nvpak' command should be available in new PowerShell sessions."
+            }
+        }
+        catch {
+            Warning "Failed to deploy 'nvpak.ps1' CLI script. Error: $($_.Exception.Message)"
+            Info "You can manually copy '$nvpakCliSource' to a directory in your PATH."
+        }
+    }
+    Write-Host "" # Extra line for readability
+
     Success "NvPak PowerShell script part finished!"
-    Info "If Scoop installed or updated tools, a new PowerShell session might be needed for PATH changes to fully apply."
+    Info "If Scoop installed or updated tools, or if you modified your PATH for 'nvpak' CLI, a new PowerShell session is likely needed."
 }
 
 # --- Entry Point ---

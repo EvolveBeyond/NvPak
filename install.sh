@@ -225,8 +225,78 @@ main() {
   fi
 
   # The old messages about Nerd Fonts and running Neovim for plugins are now handled by the Lua installer.
+
+  # --- Deploy nvpak CLI script ---
+  info "Attempting to deploy 'nvpak' CLI script..."
+  local nvpak_cli_source="$NVIM_CONFIG_DIR/scripts/nvpak.sh"
+  if [ ! -f "$nvpak_cli_source" ]; then
+    warning "'nvpak.sh' not found in NvPak scripts directory: $nvpak_cli_source"
+    warning "Cannot deploy 'nvpak' CLI automatically."
+  else
+    local cli_installed_path=""
+    # Try ~/.local/bin first
+    local local_bin_dir="$HOME/.local/bin"
+    if [ -d "$local_bin_dir" ]; then
+      if [[ ":$PATH:" == *":$local_bin_dir:"* ]]; then
+        info "Found '$local_bin_dir' in PATH. Attempting to install 'nvpak' there."
+        if cp "$nvpak_cli_source" "$local_bin_dir/nvpak" && chmod +x "$local_bin_dir/nvpak"; then
+          success "'nvpak' CLI script installed to $local_bin_dir/nvpak"
+          cli_installed_path="$local_bin_dir/nvpak"
+        else
+          warning "Failed to copy 'nvpak.sh' to $local_bin_dir. Permissions?"
+        fi
+      else
+        info "'$local_bin_dir' exists but does not seem to be in your PATH."
+        info "You might need to add it to your PATH: export PATH=\"\$HOME/.local/bin:\$PATH\" (in .bashrc/.zshrc)"
+      fi
+    else
+      info "'$HOME/.local/bin' not found."
+    fi
+
+    # If not installed in ~/.local/bin, try /usr/local/bin (might need sudo)
+    if [ -z "$cli_installed_path" ]; then
+      local usr_local_bin_dir="/usr/local/bin"
+      if [ -w "$usr_local_bin_dir" ]; then # Check if writable directly
+        info "Attempting to install 'nvpak' to $usr_local_bin_dir (writable)."
+        if cp "$nvpak_cli_source" "$usr_local_bin_dir/nvpak" && chmod +x "$usr_local_bin_dir/nvpak"; then
+          success "'nvpak' CLI script installed to $usr_local_bin_dir/nvpak"
+          cli_installed_path="$usr_local_bin_dir/nvpak"
+        else
+          warning "Failed to copy 'nvpak.sh' to $usr_local_bin_dir even though it seemed writable."
+        fi
+      elif command_exists sudo && [ "$EUID" -ne 0 ]; then # Not root, but sudo exists
+         info "'$usr_local_bin_dir' is not writable by current user."
+         read -r -p "Do you want to try installing 'nvpak' to $usr_local_bin_dir using sudo? (y/N): " response
+         if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+            info "Attempting to install 'nvpak' to $usr_local_bin_dir using sudo..."
+            if sudo cp "$nvpak_cli_source" "$usr_local_bin_dir/nvpak" && sudo chmod +x "$usr_local_bin_dir/nvpak"; then
+                success "'nvpak' CLI script installed to $usr_local_bin_dir/nvpak using sudo."
+                cli_installed_path="$usr_local_bin_dir/nvpak"
+            else
+                warning "Failed to install 'nvpak.sh' to $usr_local_bin_dir using sudo."
+            fi
+         else
+            info "Skipped installing 'nvpak' to $usr_local_bin_dir via sudo."
+         fi
+      fi
+    fi
+
+    if [ -n "$cli_installed_path" ]; then
+      info "The 'nvpak' command should now be available in new terminal sessions."
+      info "If not, ensure '$cli_installed_path' is in a directory included in your PATH."
+    else
+      warning "Could not automatically install 'nvpak' CLI to a standard PATH directory."
+      info "You can manually make it available by:"
+      info "  1. Creating a symbolic link: sudo ln -s \"$nvpak_cli_source\" /usr/local/bin/nvpak"
+      info "  2. Or copying it: sudo cp \"$nvpak_cli_source\" /usr/local/bin/nvpak && sudo chmod +x /usr/local/bin/nvpak"
+      info "  3. Or adding the '$NVIM_CONFIG_DIR/scripts' directory to your PATH."
+      info "     (e.g., export PATH=\"\$PATH:$NVIM_CONFIG_DIR/scripts\" in your .bashrc or .zshrc)"
+    fi
+  fi
+  echo "" # Extra line for readability
+
   success "NvPak shell script part finished!"
-  info "Please restart your terminal if new tools were installed by your package manager earlier (e.g., Neovim itself)."
+  info "Please restart your terminal if new tools were installed by your package manager earlier (e.g., Neovim itself), or for 'nvpak' CLI to become available."
 }
 
 # --- Entry Point ---

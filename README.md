@@ -145,19 +145,31 @@ NvPak now includes a command-line interface (CLI) tool named `nvpak` to help you
 
 **Setup for `nvpak` CLI:**
 
-The installer scripts (`install.sh`/`install.ps1`) do not automatically add the `nvpak` CLI scripts to your system's PATH. You'll need to do this manually for now, or you can run them directly by specifying their path. The CLI scripts are located in the `scripts/` directory of your NvPak installation (`$NVIM_CONFIG_DIR/scripts/`).
+The `nvpak` CLI scripts (`nvpak.sh` for Linux/macOS, `nvpak.ps1` for Windows) are located in the `scripts/` directory within your NvPak configuration folder (e.g., `~/.config/nvim/scripts`). The main installation scripts attempt to make these CLI tools easily accessible:
 
-**Recommended: Add to PATH**
-1.  Choose one of the following methods:
-    *   **Symlink:** Create symbolic links to `nvpak.sh` (and `nvpak.ps1` for Windows PowerShell users) in a directory that is already in your PATH (e.g., `~/.local/bin` on Linux/macOS).
+*   **Linux/macOS (`install.sh`):**
+    The `install.sh` script will try to copy `nvpak.sh` to:
+    1.  `~/.local/bin/nvpak` (if `~/.local/bin` exists and is in your PATH).
+    2.  Or, `/usr/local/bin/nvpak` (it may ask for `sudo` permission if needed and not already running as root).
+    If successful, the `nvpak` command should be available after opening a new terminal session. If automatic installation fails, the script will provide manual instructions (e.g., creating a symlink or copying the script to a directory in your PATH).
+
+*   **Windows (`install.ps1`):**
+    The `install.ps1` script will:
+    1.  Copy `nvpak.ps1` to `$env:LOCALAPPDATA\NvPak\bin\nvpak.ps1`.
+    2.  Provide you with PowerShell commands to add the `$env:LOCALAPPDATA\NvPak\bin` directory to your User PATH environment variable.
+    You **must** run these provided commands and then **open a new PowerShell window** for the `nvpak` command to be recognized.
+
+**Manual Setup (If Needed):**
+
+If the automatic setup by the installers doesn't work for your environment, or if you prefer a manual setup:
+1.  Ensure the NvPak `scripts` directory (e.g., `~/.config/nvim/scripts` or `~\AppData\Local\nvim\scripts`) is added to your system's PATH environment variable.
+2.  Alternatively, you can copy or create symbolic links for `nvpak.sh` (or `nvpak.ps1`) into a directory that is already in your PATH (e.g., `~/.local/bin` for Linux/macOS).
+    *   Example for Linux/macOS symlink:
         ```bash
-        # For Linux/macOS (assuming ~/.local/bin is in your PATH)
         mkdir -p ~/.local/bin
         ln -sfn "$HOME/.config/nvim/scripts/nvpak.sh" "$HOME/.local/bin/nvpak"
         ```
-        For PowerShell, you might add the `scripts` directory to your `$env:Path` or create an alias.
-    *   **Copy:** Copy `nvpak.sh` and `nvpak.ps1` to a directory in your PATH.
-    *   **Add NvPak's `scripts` directory to PATH:** Add `$HOME/.config/nvim/scripts` (or equivalent) to your shell's configuration file (e.g., `.bashrc`, `.zshrc`, PowerShell Profile).
+    Ensure the script is executable (`chmod +x ~/.local/bin/nvpak`).
 
 **CLI Commands:**
 

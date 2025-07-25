@@ -30,7 +30,12 @@ tree-sitter-python = "0.0.46"
 catppuccin = "0.1.0"
 "onedarkpro.nvim" = "2.17.1"
 "monokai.nvim" = "scm"
-"snacks.nvim" = "scm"
+"telescope-ui-select.nvim" = "scm"
+"telescope.nvim" = "scm"
+
+[plugins.nvim-terminal]
+git = "s1n7ax/nvim-terminal"
+rev = "e058de4b8029d7605b17275f30f83be8f8df5f62"
 
 "cmp-nvim-lua" = "scm"
 "cmp-spell" = "scm"
@@ -78,12 +83,28 @@ plugins_dir = "plugins/"
 auto_setup = false
 
 # User Interface Plugins Settings
+[plugins.nvim-notify]
+version = "3.15.0"
+config = "plugins.ui.nvim-notify.config"
 [plugins."nvim-tree.lua"]
 version = "1.6.0"
 config = "plugins.ui.nvim-tree.config"
 [plugins."staline.nvim"]
 version = "scm"
 config = "plugins.ui.staline.config"
+[plugins.dashboard-nvim]
+version = "scm"
+config = "plugins.ui.dashboard.config"
+[plugins."indent-blankline.nvim"]
+version = "3.9.0"
+config = "plugins.autocomplete.indent.config"
+
+[bundles.telescope]
+items = [
+  "telescope.nvim",
+  "telescope-ui-select.nvim"
+]
+config = "plugins.ui.telescope.config"
 
 [plugins."ultimate-autopair.nvim"]
 version = "scm"
@@ -114,4 +135,3 @@ items = [
 [plugins."trouble.nvim"]
 config = "plugins.autocomplete.trouble.config"
 version = "3.7.1"
-

@@ -1,0 +1,5 @@
+return {
+  terminal = {
+    enabled = true,
+  },
+}

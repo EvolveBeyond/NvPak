@@ -1,0 +1,5 @@
+return {
+  indent = {
+    enabled = true,
+  },
+}

@@ -2,3 +2,4 @@
 require("plugins.rocks")
 require("plugins.theme")
 
+require("rocks").setup()

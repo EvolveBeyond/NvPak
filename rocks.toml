@@ -83,28 +83,28 @@ plugins_dir = "plugins/"
 auto_setup = false
 
 # User Interface Plugins Settings
-[plugins.nvim-notify]
-version = "3.15.0"
-config = "plugins.ui.nvim-notify.config"
-[plugins."nvim-tree.lua"]
-version = "1.6.0"
-config = "plugins.ui.nvim-tree.config"
-[plugins."staline.nvim"]
-version = "scm"
-config = "plugins.ui.staline.config"
-[plugins.dashboard-nvim]
-version = "scm"
-config = "plugins.ui.dashboard.config"
-[plugins."indent-blankline.nvim"]
-version = "3.9.0"
-config = "plugins.autocomplete.indent.config"
+# [plugins.nvim-notify]
+# version = "3.15.0"
+# config = "plugins.ui.snacks.notify"
+# [plugins."nvim-tree.lua"]
+# version = "1.6.0"
+# config = "plugins.ui.snacks.explorer"
+# [plugins."staline.nvim"]
+# version = "scm"
+# config = "plugins.ui.snacks.statuscolumn"
+# [plugins.dashboard-nvim]
+# version = "scm"
+# config = "plugins.ui.snacks.dashboard"
+# [plugins."indent-blankline.nvim"]
+# version = "3.9.0"
+# config = "plugins.ui.snacks.indent"
 
-[bundles.telescope]
-items = [
-  "telescope.nvim",
-  "telescope-ui-select.nvim"
-]
-config = "plugins.ui.telescope.config"
+# [bundles.telescope]
+# items = [
+#   "telescope.nvim",
+#   "telescope-ui-select.nvim"
+# ]
+# config = "plugins.ui.snacks.picker"
 
 [plugins."ultimate-autopair.nvim"]
 version = "scm"
@@ -132,7 +132,12 @@ items = [
  ]
  config = "plugins.autocomplete.cmp"
 
-[plugins."trouble.nvim"]
-config = "plugins.autocomplete.trouble.config"
-version = "3.7.1"
+[plugins."snacks.nvim"]
+git = "folke/snacks.nvim"
+config = "plugins.ui.snacksMain"
+version = "scm"
+
+# [plugins."trouble.nvim"]
+# config = "plugins.ui.snacks.debug"
+# version = "3.7.1"
 

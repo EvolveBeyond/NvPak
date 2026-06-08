@@ -2,37 +2,29 @@
 
 <#
 .SYNOPSIS
-    Installs NvPak, a Neovim configuration, and its dependencies on Windows.
+    Installs NvPak, a Neovim configuration, on Windows.
 .DESCRIPTION
-    This script automates the installation of Neovim, Git, Curl, Unzip, Ripgrep, Fd,
-    and other necessary tools using Scoop package manager. It then clones or updates
-    the NvPak configuration from GitHub.
+    This script ensures Git and Neovim are installed (using Scoop if available),
+    clones or updates the NvPak configuration from GitHub, and then triggers
+    the Lua-based NvPak installer.
 .NOTES
-    Author: Jules (AI Assistant)
+    Author: Jules (AI Assistant) & Pakrohk
     License: Apache 2.0 (Same as NvPak)
 #>
 
 # --- Configuration ---
 $NvPakRepoUrl = "https://github.com/Pakrohk-DotFiles/NvPak.git"
-$NvimConfigDir = "$env:LOCALAPPDATA\nvim"
+$NvimConfigDir = "$env:LOCALAPPDATA\nvim" # Standard Neovim config directory on Windows
+$NvPakInstallerLuaModule = "nvpak.core.installer" # Lua module to run, e.g., require('nvpak.core.installer').init()
 
 # --- Helper Functions ---
 function Print-Message($message, $color) {
     Write-Host $message -ForegroundColor $color
 }
 
-function Info($message) {
-    Print-Message "INFO: $message" "Cyan"
-}
-
-function Success($message) {
-    Print-Message "SUCCESS: $message" "Green"
-}
-
-function Warning($message) {
-    Print-Message "WARNING: $message" "Yellow"
-}
-
+function Info($message) { Print-Message "INFO: $message" "Cyan" }
+function Success($message) { Print-Message "SUCCESS: $message" "Green" }
+function Warning($message) { Print-Message "WARNING: $message" "Yellow" }
 function Error-Exit($message) {
     Print-Message "ERROR: $message" "Red"
     exit 1
@@ -42,171 +34,222 @@ function Command-Exists($command) {
     return (Get-Command $command -ErrorAction SilentlyContinue) -ne $null
 }
 
+# --- Prerequisite Installation ---
 function Install-Scoop {
     Info "Scoop package manager not found."
-    $confirmation = Read-Host "Do you want to install Scoop? (Required for automatic dependency installation) (y/N)"
+    $confirmation = Read-Host "Do you want to install Scoop? (Recommended for automatic Git/Neovim installation) (y/N)"
     if ($confirmation -eq 'y') {
         Info "Installing Scoop..."
         try {
             Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
             Invoke-RestMethod -Uri get.scoop.sh | Invoke-Expression
             Success "Scoop installed successfully."
-            Info "Please open a new PowerShell terminal and re-run this script to continue with NvPak installation."
-            Info "Scoop adds itself to your PATH, which requires a new terminal session to take effect."
-            exit 0 # Exit so user can restart
+            Info "IMPORTANT: Scoop has been installed and added to your PATH."
+            Info "Please OPEN A NEW PowerShell terminal and RE-RUN this script to continue."
+            exit 0 # Exit so user can restart in a new shell where scoop is in PATH
         }
         catch {
-            Error-Exit "Failed to install Scoop. Please install it manually from https://scoop.sh/ and re-run this script."
+            Error-Exit "Failed to install Scoop. Please install it manually from https://scoop.sh/ and ensure Git and Neovim are also installed, then re-run this script."
         }
     }
     else {
-        Error-Exit "Scoop installation declined. Cannot proceed with automatic dependency installation."
+        Warning "Scoop installation declined. Proceeding with checks for existing Git/Neovim."
+        Warning "If Git or Neovim are not found, you will need to install them manually."
     }
 }
 
-function Install-Package($packageName, [switch]$NoUpdate) {
-    Info "Checking for $packageName..."
-    if (-not (Command-Exists $packageName.Split(' ')[0])) { # Check for the command itself, not the scoop package name if different
-        Info "Installing $packageName via Scoop..."
-        try {
-            if (-not $NoUpdate) {
-                Info "Updating Scoop before installing $packageName..."
-                scoop update $packageName -ErrorAction Stop
+function Install-Prerequisites {
+    $scoopAvailable = Command-Exists "scoop"
+    if (-not $scoopAvailable) {
+        Install-Scoop # This might exit if user installs scoop
+        $scoopAvailable = Command-Exists "scoop" # Re-check in case user declined but scoop was already there somehow
+    }
+
+    if ($scoopAvailable) {
+        Info "Scoop is available. Updating Scoop buckets..."
+        scoop update # Update all buckets
+    } else {
+        Info "Scoop not found or installation declined. Will check for manual installations of Git and Neovim."
+    }
+
+    $packagesToInstall = @()
+    # Check for Git
+    Info "Checking for Git..."
+    if (-not (Command-Exists "git")) {
+        Info "Git not found."
+        if ($scoopAvailable) { $packagesToInstall += "git" }
+        else { Error-Exit "Git not found. Please install Git manually (e.g., from https://git-scm.com/download/win) and re-run this script." }
+    } else {
+        Info "Git is installed."
+    }
+
+    # Check for Neovim
+    Info "Checking for Neovim (nvim)..."
+    if (-not (Command-Exists "nvim")) {
+        Info "Neovim (nvim) not found."
+        if ($scoopAvailable) { $packagesToInstall += "neovim" }
+        else { Error-Exit "Neovim (nvim) not found. Please install Neovim manually (e.g., from https://neovim.io/) and re-run this script." }
+    } else {
+        Info "Neovim is installed."
+    }
+
+    if ($packagesToInstall.Count -gt 0 -and $scoopAvailable) {
+        Info "Attempting to install missing prerequisites via Scoop: $($packagesToInstall -join ', ')"
+        foreach ($pkg in $packagesToInstall) {
+            Info "Installing $pkg via Scoop..."
+            try {
+                scoop install $pkg -ErrorAction Stop
+                Success "$pkg installed successfully via Scoop."
             }
-            scoop install $packageName -ErrorAction Stop
-            Success "$packageName installed successfully."
+            catch {
+                Error-Exit "Failed to install $pkg via Scoop. Please install it manually and re-run this script. Scoop error: $($_.Exception.Message)"
+            }
         }
-        catch {
-            Warning "Failed to install $packageName via Scoop. Please try installing it manually: 'scoop install $packageName'"
-            # Optionally, make this an Error-Exit if the package is critical
-        }
+    } elseif ($packagesToInstall.Count -gt 0 -and (-not $scoopAvailable)) {
+        # This case should have been caught by earlier Error-Exits if Scoop was declined and tools were missing.
+        Error-Exit "Prerequisites missing and Scoop is not available for automatic installation. Please install manually."
     }
     else {
-        Info "$packageName is already installed."
+        Info "All prerequisites (Git, Neovim) are already installed or were installed."
     }
+
+    # Final check
+    if (-not (Command-Exists "git")) { Error-Exit "Git is required but could not be installed/found. Please install Git manually." }
+    if (-not (Command-Exists "nvim")) { Error-Exit "Neovim (nvim) is required but could not be installed/found. Please install Neovim manually." }
+    Success "Git and Neovim are available."
 }
+
 
 # --- Main Logic ---
 function Main {
     Info "Starting NvPak installation for Windows..."
 
-    # Check for Scoop
-    if (-not (Command-Exists "scoop")) {
-        Install-Scoop
-    } else {
-        Info "Scoop is installed."
-        Info "Updating Scoop itself..."
-        scoop update scoop # Update scoop itself first
-    }
-
-    # Install core dependencies using Scoop
-    Info "Installing core dependencies (Git, Curl, Unzip, Neovim)..."
-    Install-Package "git"
-    Install-Package "curl"
-    Install-Package "unzip" # 7zip provides unzip capabilities and is more common with scoop
-    Install-Package "neovim"
-
-    # Install additional tools
-    Info "Installing additional tools (ripgrep, fd)..."
-    Install-Package "ripgrep"
-    Install-Package "fd"
-    # Clipboard on Windows is generally handled by Neovim's integration with win32yank (often bundled or installed by LSP/plugins)
-    # Or users can install win32yank via scoop: scoop install win32yank
-
-    # Pynvim (optional, for Python devs)
-    if (Command-Exists "pip3") {
-        Info "Checking for pynvim (Python 3)..."
-        $pynvim_check = python3 -m pynvim -c "import sys; sys.exit(0)" 2>&1
-        if ($LASTEXITCODE -ne 0) {
-            Info "pynvim (Python 3) not found. Installing..."
-            pip3 install --user pynvim
-            if ($LASTEXITCODE -ne 0) {
-                Warning "Failed to install pynvim with pip3. Python integration might not work."
-            } else {
-                Success "pynvim installed."
-            }
-        } else {
-            Info "pynvim (Python 3) is already installed."
-        }
-    }
-    elseif (Command-Exists "pip") {
-        Info "Checking for pynvim (Python)..."
-        $pynvim_check = python -m pynvim -c "import sys; sys.exit(0)" 2>&1
-        if ($LASTEXITCODE -ne 0) {
-            Info "pynvim (Python) not found. Installing..."
-            pip install --user pynvim
-            if ($LASTEXITCODE -ne 0) {
-                Warning "Failed to install pynvim with pip. Python integration might not work."
-            } else {
-                Success "pynvim installed."
-            }
-        } else {
-            Info "pynvim (Python) is already installed."
-        }
-    }
-    else {
-        Warning "pip/pip3 not found. Cannot install pynvim automatically. If you are a Python developer, please install it manually."
-    }
+    Install-Prerequisites
 
     # Clone or update NvPak repository
     Info "Setting up NvPak configuration directory: $NvimConfigDir"
-    if (Test-Path $NvimConfigDir) {
-        Info "NvPak directory already exists. Checking for updates..."
+    $gitDir = Join-Path $NvimConfigDir ".git"
+
+    if (Test-Path $gitDir) {
+        Info "NvPak directory already exists and is a git repository. Checking for updates..."
         Push-Location $NvimConfigDir
-        if (Test-Path ".git") {
+        try {
             $currentRemote = git remote get-url origin
-            if ($currentRemote -eq $NvPakRepoUrl) {
-                Info "Pulling latest changes from NvPak repository..."
+            if ($currentRemote -match [regex]::Escape($NvPakRepoUrl)) { # Use -match for flexibility (http vs https)
+                Info "Pulling latest changes from NvPak repository ($NvPakRepoUrl)..."
                 git pull
                 if ($LASTEXITCODE -ne 0) {
-                    Warning "Failed to pull latest changes. Your configuration might be outdated."
+                    Warning "Failed to pull latest NvPak changes. Your configuration might be outdated or you have local changes."
+                    Warning "Attempting to continue. If issues arise, consider a fresh clone after backing up."
+                } else {
+                    Success "NvPak updated successfully."
                 }
             }
             else {
-                Warning "The existing directory $NvimConfigDir is a git repository, but not for NvPak ($currentRemote)."
-                Warning "Please move or backup your existing Neovim configuration and re-run the script."
-                Error-Exit "Installation aborted due to existing non-NvPak git repository."
+                Warning "The existing directory $NvimConfigDir is a git repository, but not for NvPak."
+                Warning "Current remote: $currentRemote"
+                Warning "Expected remote: $NvPakRepoUrl"
+                Error-Exit "Please backup/move your existing Neovim config from $NvimConfigDir and re-run."
             }
         }
-        else {
-            Warning "$NvimConfigDir exists but is not a git repository. It might be an old NvPak install or a custom config."
+        catch {
+            Error-Exit "Error while checking git repository in $NvimConfigDir: $($_.Exception.Message)"
+        }
+        finally {
+            Pop-Location
+        }
+    }
+    elseif (Test-Path $NvimConfigDir -PathType Container) {
+        # Directory exists but not a .git repo, or .git is not a directory
+        # Check if it's empty
+        if ((Get-ChildItem -Path $NvimConfigDir -Force | Measure-Object).Count -eq 0) {
+            Info "$NvimConfigDir exists but is empty. Cloning NvPak..."
+            git clone --depth 1 $NvPakRepoUrl $NvimConfigDir
+            if ($LASTEXITCODE -ne 0) { Error-Exit "Failed to clone NvPak repository to $NvimConfigDir." }
+            Success "NvPak cloned successfully to $NvimConfigDir."
+        } else {
+            Warning "$NvimConfigDir exists, is not empty, and is not a NvPak git repository."
             Error-Exit "Please backup/move your existing Neovim config from $NvimConfigDir and re-run."
         }
-        Pop-Location
     }
-    else {
+    else { # Directory does not exist
         Info "Cloning NvPak repository to $NvimConfigDir..."
         git clone --depth 1 $NvPakRepoUrl $NvimConfigDir
-        if ($LASTEXITCODE -ne 0) {
-            Error-Exit "Failed to clone NvPak repository."
-        }
+        if ($LASTEXITCODE -ne 0) { Error-Exit "Failed to clone NvPak repository to $NvimConfigDir." }
+        Success "NvPak cloned successfully to $NvimConfigDir."
     }
 
-    # Nerd Fonts Installation (Guidance)
-    Info "--- Nerd Fonts ---"
-    Info "For the best visual experience, please install a Nerd Font."
-    Info "You can find them at: https://www.nerdfonts.com/"
-    Info "After installation, set it as your terminal font (e.g., in Windows Terminal settings)."
-    Write-Host "" # Newline
+    # Trigger Lua installer
+    Info "Launching Neovim to run NvPak Lua installer ($NvPakInstallerLuaModule)..."
+    $nvimPath = Get-Command nvim | Select-Object -ExpandProperty Source
+    $initLuaPath = Join-Path $NvimConfigDir "init.lua"
 
-    # Initial Neovim run for plugin installation
-    Info "Running Neovim for the first time to install plugins via rocks.nvim..."
-    Info "This might take a few moments. Please wait for Neovim to fully load and install plugins."
-    Info "If prompted by rocks.nvim, confirm any installations."
+    $arguments = @(
+        "--headless"
+        "-u", "`"$initLuaPath`"" # Ensure NvPak's init.lua is loaded
+        "-c", "`"lua require('$NvPakInstallerLuaModule').init()`""
+    )
 
-    if (Command-Exists "nvim") {
-        Start-Process nvim -ArgumentList "--headless", "+qa" -Wait
-        Info "Neovim headless setup attempt complete. Starting Neovim..."
-        Info "Please close Neovim after plugins are installed (you might see messages from rocks.nvim)."
-        Start-Process nvim
+    Info "Executing: $nvimPath $arguments"
+    # Start-Process $nvimPath -ArgumentList $arguments -Wait -NoNewWindow # Using -NoNewWindow can be good for seeing output
+    # However, for scripts that might need interactive prompts from Lua (less likely for pure headless)
+    # or if Neovim itself has issues with -NoNewWindow in some contexts, running directly might be better.
+    # Let's try invoking directly, which is more common for CLI tools.
+    & $nvimPath $arguments
+
+    if ($LASTEXITCODE -eq 0) {
+        Success "NvPak Lua installer finished successfully."
+        Info "NvPak setup is complete. You can now start Neovim with 'nvim'."
+        Info "Further configuration or plugin installations might happen on the first interactive launch."
+    } else {
+        Error-Exit "NvPak Lua installer failed. Exit code: $LASTEXITCODE. Check Neovim output for errors (if any was printed)."
+    }
+
+    # --- Deploy nvpak.ps1 CLI script ---
+    Info "Attempting to deploy 'nvpak.ps1' CLI script..."
+    $nvpakCliSource = Join-Path $NvimConfigDir "scripts\nvpak.ps1" # Note backslash for PowerShell
+    $nvpakCliDestDir = Join-Path $env:LOCALAPPDATA "NvPak\bin"
+    $nvpakCliDestFile = Join-Path $nvpakCliDestDir "nvpak.ps1"
+
+    if (-not (Test-Path $nvpakCliSource)) {
+        Warning "'nvpak.ps1' not found in NvPak scripts directory: $nvpakCliSource"
+        Warning "Cannot deploy 'nvpak' CLI automatically."
     }
     else {
-        Error-Exit "Neovim command (nvim) not found even after installation attempt. Please check your PATH."
-    }
+        try {
+            if (-not (Test-Path $nvpakCliDestDir)) {
+                New-Item -ItemType Directory -Path $nvpakCliDestDir -Force -ErrorAction Stop | Out-Null
+                Info "Created directory: $nvpakCliDestDir"
+            }
+            Copy-Item -Path $nvpakCliSource -Destination $nvpakCliDestFile -Force -ErrorAction Stop
+            Success "'nvpak.ps1' CLI script copied to: $nvpakCliDestFile"
 
-    Success "NvPak installation script finished!"
-    Info "Please restart your terminal or source your shell configuration if you installed new tools."
-    Info "Open Neovim with 'nvim'."
+            # Check if the destination directory is in PATH
+            $currentPath = [Environment]::GetEnvironmentVariable("Path", "User")
+            if ($currentPath -notlike "*$($nvpakCliDestDir -replace '\\', '\\')*") { # Escape backslashes for regex like comparison
+                Warning "The directory '$nvpakCliDestDir' is not in your User PATH."
+                Info "To use the 'nvpak' command directly in PowerShell, you need to add this directory to your PATH."
+                Info "You can do this by running the following commands in PowerShell (consider running as Administrator if you want to set System PATH):"
+                Info "---"
+                Info "  `$CurrentUserPath = [Environment]::GetEnvironmentVariable('Path', 'User')`"
+                Info "  `$NewPath = `$CurrentUserPath;$nvpakCliDestDir`" # Or `$NewPath = "$nvpakCliDestDir;$CurrentUserPath"` to prepend
+                Info "  `[Environment]::SetEnvironmentVariable('Path', `$NewPath, 'User')`"
+                Info "  `# For System PATH (requires Admin): [Environment]::SetEnvironmentVariable('Path', `$NewPath, 'Machine')`"
+                Info "---"
+                Info "After updating your PATH, you MUST open a new PowerShell window for the changes to take effect."
+            } else {
+                Success "'$nvpakCliDestDir' seems to be in your PATH. 'nvpak' command should be available in new PowerShell sessions."
+            }
+        }
+        catch {
+            Warning "Failed to deploy 'nvpak.ps1' CLI script. Error: $($_.Exception.Message)"
+            Info "You can manually copy '$nvpakCliSource' to a directory in your PATH."
+        }
+    }
+    Write-Host "" # Extra line for readability
+
+    Success "NvPak PowerShell script part finished!"
+    Info "If Scoop installed or updated tools, or if you modified your PATH for 'nvpak' CLI, a new PowerShell session is likely needed."
 }
 
 # --- Entry Point ---

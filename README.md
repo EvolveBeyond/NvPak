@@ -24,34 +24,31 @@ Now you can configure only what you need by forking nvpak without any add-ons. P
 
 ## Requirements 📋
 
-To ensure the installation scripts and NvPak work correctly, please have the following:
+To ensure NvPak installs and works correctly, please have the following:
 
 - **Operating System:**
   - Linux (most distributions)
   - macOS
-  - Windows 10/11 (with PowerShell 5.1+)
-  - Android (via Termux)
-- **Core Tools (the scripts will attempt to install these if missing):**
-  - `git`
-  - `curl`
-  - `unzip`
-  - `neovim v0.8.0` or later (the script aims for the latest stable version)
+  - Windows 10/11 (with PowerShell 5.1+ for the installer)
+  - Android (via Termux, using the Linux installer)
+- **Core Prerequisites (the main `install.sh` or `install.ps1` scripts will attempt to install these):**
+  - `git` (version 2.19.0+ recommended for some plugin manager features)
+  - `neovim v0.8.0` or later (LuaJIT build required)
 - **Shell:**
-  - `bash` or `dash` for Unix-like systems (Linux, macOS, Termux, Git Bash on Windows).
-  - `PowerShell v5.1` or later for the native Windows installation script.
-- **Recommended for full functionality (the scripts will attempt to install these):**
-  - `ripgrep` (for Telescope live grep)
-  - `fd` (alternative for Telescope)
+  - `bash` (or a compatible shell like `zsh`, `dash`) for Unix-like systems.
+  - `PowerShell v5.1` or later for the native Windows installation script (`install.ps1`).
+- **Recommended for full functionality (the NvPak Lua installer will guide you or check for these):**
+  - `ripgrep` (for Telescope live grep and other search functionalities)
+  - `fd` (a fast alternative to `find`, used by Telescope)
   - Clipboard tools:
-    - Linux: `xclip` or `xsel` (Xorg), `wl-clipboard` (Wayland)
-    - macOS: `pbcopy`/`pbpaste` (built-in)
-    - Windows: Handled by Neovim/win32yank (often auto-installed or installable via `scoop install win32yank`)
-    - Termux: `termux-api` (for `termux-clipboard-get`/`set`)
-  - `pynvim` (if you are a Python developer)
-- **For Windows Native Installation:**
-  - `Scoop.sh` package manager. The script can help you install it.
-- **Important for UI:**
-  - **Nerd Fonts:** Install a [Nerd Font](https://www.nerdfonts.com/) and set it as your terminal's font for proper icon display.
+    - Linux: `xclip` or `xsel` (for X11), `wl-clipboard` (for Wayland)
+    - macOS: `pbcopy`/`pbpaste` (usually built-in)
+    - Windows: `win32yank` (installable via `scoop install win32yank`; Neovim might have fallbacks)
+  - `pynvim` (Python 3 bindings for Neovim, if you are a Python developer)
+- **For Windows Native Installation (`install.ps1`):**
+  - `Scoop.sh` package manager is highly recommended. The script will offer to install it if not found.
+- **Crucial for UI:**
+  - **Nerd Fonts:** To display icons and symbols correctly, you **must** install a [Nerd Font](https://www.nerdfonts.com/font-downloads) and configure your terminal emulator to use it. Popular choices include FiraCode Nerd Font, JetBrainsMono Nerd Font, and Hack Nerd Font. The Lua installer will remind you about this.
 
 ### Screenshots 📷
 
@@ -79,13 +76,11 @@ Show
 
 # Installation 💻
 
-NvPak provides automated installation scripts for various operating systems.
+NvPak provides streamlined installation scripts that handle core dependencies and then delegate to an internal Lua-based installer for further setup.
 
-## Prerequisites
-
-Before running the installation scripts, ensure you have:
-- **Internet connection:** To download dependencies and the NvPak repository.
-- **Permissions:** You might need administrative/sudo rights to install some packages.
+**General Prerequisites for Installation Scripts:**
+- **Internet connection:** Required to download dependencies and the NvPak repository.
+- **Permissions:** You might need administrative/sudo rights to install system-level packages like Git or Neovim if they are not already present.
 
 ## Linux / macOS / Android (Termux) / Unix-like shells on Windows (Git Bash, WSL)
 
@@ -102,13 +97,20 @@ Before running the installation scripts, ensure you have:
     ```bash
     ./install.sh
     ```
-    The script will attempt to detect your OS and package manager to install all necessary dependencies, clone/update NvPak to `~/.config/nvim` (or `$XDG_CONFIG_HOME/nvim`), and guide you through the final steps.
+    This script will:
+    - Attempt to detect your OS and package manager.
+    - Ensure `git` and `neovim` are installed, prompting for installation if missing.
+    - Clone or update NvPak to `~/.config/nvim` (or `$XDG_CONFIG_HOME/nvim`).
+    - Launch Neovim headlessly to run the NvPak Lua installer, which will:
+        - Check for recommended secondary dependencies (like `ripgrep`, `fd`, `pynvim`, clipboard tools) and guide you if any are missing.
+        - Guide you on installing Nerd Fonts.
+        - Synchronize and install all configured plugins using `lazy.nvim` (via `rocks.nvim`).
 
 ## Windows (Native PowerShell)
 
-1.  **Open PowerShell as Administrator.** This is highly recommended to ensure Scoop and other dependencies can be installed or configured correctly.
+1.  **Open PowerShell.** Running as Administrator is recommended if you anticipate needing to install Scoop or other system-level tools.
 2.  **Set Execution Policy (if needed):**
-    If you haven't run PowerShell scripts from the internet before, you might need to allow script execution for the current user:
+    If you haven't run PowerShell scripts from the internet before, you might need to allow script execution:
     ```powershell
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
     ```
@@ -117,34 +119,101 @@ Before running the installation scripts, ensure you have:
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pakrohk-DotFiles/NvPak/main/install.ps1" -OutFile "install.ps1"
     .\install.ps1
     ```
-    The script will use Scoop to install dependencies (it will offer to install Scoop itself if not found), clone/update NvPak to `~\AppData\Local\nvim`, and prepare Neovim for first use.
-    *Note: If Scoop is installed for the first time by the script, you will be prompted to open a new PowerShell window and re-run `.\install.ps1` for the PATH changes (especially for Scoop itself) to take effect.*
+    This script will:
+    - Offer to install `Scoop.sh` if it's not found (Scoop is used to install `git` and `neovim`).
+    - Ensure `git` and `neovim` are installed.
+    - Clone or update NvPak to `~\AppData\Local\nvim`.
+    - Launch Neovim headlessly to run the NvPak Lua installer (with the same responsibilities as mentioned in the Linux section).
+    *Note: If Scoop is installed for the first time by the script, you will be prompted to open a new PowerShell window and re-run `.\install.ps1` for the PATH changes to take effect.*
 
-## Post-Installation Steps
+## Post-Installation Essentials
 
-After the script finishes:
-1.  **Nerd Fonts:** Crucial for UI icons. Ensure you have a [Nerd Font](https://www.nerdfonts.com/) installed and **set as your terminal's font**. The installation script will remind you, but the font configuration is manual.
-2.  **First Neovim Run:** The installation script will attempt to run Neovim once (often headlessly) to finalize plugin installations via `rocks.nvim`. You might see messages from `rocks.nvim` about installing plugins. Please wait for this process to complete. If you open Neovim manually for the first time, this process will also occur.
-3.  **Restart Terminal (Recommended):** After new tools are installed (especially by Scoop or system package managers), it's a good idea to restart your terminal or source your shell's configuration file (e.g., `.bashrc`, `.zshrc`) for all PATH changes to apply.
+1.  **Nerd Fonts:** This is crucial for a proper UI experience with icons. If you haven't already, install a [Nerd Font](https://www.nerdfonts.com/font-downloads) and **set it as your terminal's display font**. The Lua installer will remind you, but the font configuration in your terminal is a manual step.
+2.  **Restart Terminal (Recommended):** Especially if new tools like Neovim, Git, or Scoop were installed, restarting your terminal ensures all PATH changes are correctly applied.
 
 # Usage 🚀
 
-Once NvPak is installed:
+Once NvPak is installed, simply open Neovim:
+```bash
+nvim
+```
+All configured plugins should be installed and ready to use.
 
-1.  **Open Neovim:**
-    ```bash
-    nvim
+## Managing NvPak with the `nvpak` CLI
+
+NvPak now includes a command-line interface (CLI) tool named `nvpak` to help you manage your NvPak installation and plugins from outside Neovim.
+
+**Setup for `nvpak` CLI:**
+
+The `nvpak` CLI scripts (`nvpak.sh` for Linux/macOS, `nvpak.ps1` for Windows) are located in the `scripts/` directory within your NvPak configuration folder (e.g., `~/.config/nvim/scripts`). The main installation scripts attempt to make these CLI tools easily accessible:
+
+*   **Linux/macOS (`install.sh`):**
+    The `install.sh` script will try to copy `nvpak.sh` to:
+    1.  `~/.local/bin/nvpak` (if `~/.local/bin` exists and is in your PATH).
+    2.  Or, `/usr/local/bin/nvpak` (it may ask for `sudo` permission if needed and not already running as root).
+    If successful, the `nvpak` command should be available after opening a new terminal session. If automatic installation fails, the script will provide manual instructions (e.g., creating a symlink or copying the script to a directory in your PATH).
+
+*   **Windows (`install.ps1`):**
+    The `install.ps1` script will:
+    1.  Copy `nvpak.ps1` to `$env:LOCALAPPDATA\NvPak\bin\nvpak.ps1`.
+    2.  Provide you with PowerShell commands to add the `$env:LOCALAPPDATA\NvPak\bin` directory to your User PATH environment variable.
+    You **must** run these provided commands and then **open a new PowerShell window** for the `nvpak` command to be recognized.
+
+**Manual Setup (If Needed):**
+
+If the automatic setup by the installers doesn't work for your environment, or if you prefer a manual setup:
+1.  Ensure the NvPak `scripts` directory (e.g., `~/.config/nvim/scripts` or `~\AppData\Local\nvim\scripts`) is added to your system's PATH environment variable.
+2.  Alternatively, you can copy or create symbolic links for `nvpak.sh` (or `nvpak.ps1`) into a directory that is already in your PATH (e.g., `~/.local/bin` for Linux/macOS).
+    *   Example for Linux/macOS symlink:
+        ```bash
+        mkdir -p ~/.local/bin
+        ln -sfn "$HOME/.config/nvim/scripts/nvpak.sh" "$HOME/.local/bin/nvpak"
+        ```
+    Ensure the script is executable (`chmod +x ~/.local/bin/nvpak`).
+
+**CLI Commands:**
+
+*   `nvpak help`: Displays the help message with all available commands.
+*   `nvpak install <plugin-spec>`:
+    *   **Note:** Fully automated installation by modifying configuration files is complex and **not yet implemented**.
+    *   This command will currently guide you to manually add the plugin to your NvPak plugin configuration (e.g., `rocks.toml` or relevant Lua files).
+    *   After manual addition, run `nvpak refresh` to synchronize.
+*   `nvpak uninstall <plugin-name>`:
+    *   **Note:** Similar to `install`, fully automated uninstallation is **not yet implemented**.
+    *   This command will guide you to manually remove the plugin from your configuration.
+    *   After manual removal, run `nvpak refresh` to synchronize and clean.
+*   `nvpak update [plugin-name]`: Updates a specific plugin if `plugin-name` is provided, or all installed plugins if no name is given.
+*   `nvpak upgrade`: A convenient alias to update all installed plugins.
+*   `nvpak refresh`: Synchronizes your plugin state with `lazy.nvim` based on your current configuration. Use this after manually adding or removing plugins from your config files.
+*   `nvpak fetch`: Fetches the latest updates for NvPak itself from its Git repository (i.e., runs `git pull` in the NvPak directory).
+
+**CLI Aliases:**
+
+You can define short aliases for `nvpak` commands.
+1.  Create the alias configuration file:
+    *   Linux/macOS: `~/.config/nvpak/aliases.conf` (or `$XDG_CONFIG_HOME/nvpak/aliases.conf`)
+    *   Windows: `~\AppData\Local\nvpak\aliases.conf`
+2.  Add aliases in the format `alias_name=command_name`. Example:
+    ```ini
+    # Example aliases.conf
+    in=install
+    rm=uninstall
+    up=update
+    ug=upgrade
+    sy=refresh # sy for sync
+    fp=fetch   # fp for fetch pak
     ```
-2.  **Plugin Management (with rocks.nvim):**
-    NvPak uses [rocks.nvim](https://github.com/nvim-neorocks/rocks.nvim) for plugin management, defined in the `rocks.toml` file.
-    - Plugins are automatically installed or updated by `rocks.nvim` when Neovim starts if there are changes to `rocks.toml` or if new plugins are added.
-    - The installation script already triggers this initial plugin setup.
-    - You generally don't need to manually sync plugins. However, if you modify `rocks.toml` or want to force a sync/update, you can use commands within Neovim:
-        - `:Rocks sync` - Installs any missing plugins, updates plugins marked as `scm` or those with newer version constraints.
-        - `:Rocks update [<plugin_name>]` - Updates a specific plugin or all plugins to their latest allowed versions.
-        - `:Rocks clean` - Removes any installed plugins that are no longer listed in `rocks.toml`.
-        - `:Rocks build [<plugin_name>]` - To rebuild a specific plugin if needed.
-    - Refer to the `rocks.nvim` documentation for more commands and details.
+    An example file `scripts/nvpak_aliases.conf.example` is provided in the NvPak repository.
+
+## Plugin Management within Neovim (via rocks.nvim & lazy.nvim)
+
+NvPak uses [rocks.nvim](https://github.com/nvim-neorocks/rocks.nvim) which in turn utilizes [lazy.nvim](https://github.com/folke/lazy.nvim) for plugin management. Plugins are primarily defined in `rocks.toml`.
+- `lazy.nvim` automatically installs missing plugins and updates them based on the lockfile (`lazy-lock.json`) or plugin specifications during startup.
+- You can also manage plugins from within Neovim using `lazy.nvim` commands:
+    - `:Lazy` or `:Lazyui`: Opens the `lazy.nvim` user interface.
+    - `:Lazy sync`: Synchronizes plugins (installs missing, cleans unused).
+    - `:Lazy update [plugin_name]`: Updates plugins.
+    - Refer to the `lazy.nvim` documentation for more commands.
 
 Enjoy your clean and powerful Neovim setup!
 

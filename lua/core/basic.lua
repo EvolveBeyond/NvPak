@@ -51,7 +51,7 @@ set.signcolumn = "yes"         -- Always show sign column for diagnostics/icons
 
 -- Code folding using treesitter for better accuracy
 set.foldmethod = "expr"                   -- Use expression-based folding
-set.foldexpr = "nvim_treesitter#foldexpr()" -- Use treesitter for folding logic
+set.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use native treesitter folding
 set.foldlevelstart = 99                   -- Start with all folds open by default
 
 -- Clipboard and mouse integration

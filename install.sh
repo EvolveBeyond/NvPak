@@ -98,7 +98,7 @@ main() {
   fi
 
   # Install core dependencies
-  info "Installing core dependencies (git, curl, unzip, neovim)..."
+  info "Installing core dependencies (git, curl, unzip, neovim >= 0.10)..."
   CORE_DEPS=("git" "curl" "unzip" "nvim") # nvim might be named differently (neovim)
 
   if [[ "$OS" == "Linux" || "$OS" == "Mac" ]]; then

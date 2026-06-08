@@ -6,7 +6,7 @@
 
 [![APACHEv3 license](https://img.shields.io/badge/License-APACHEv2-red.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/blob/main/LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/graphs/commit-activity)
-[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.8.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.10.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![Maintainer](https://img.shields.io/badge/maintainer-theMaintainer-blue?style=flat-square)](https://github.com/Pakrohk)
 [![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
 
@@ -35,7 +35,7 @@ To ensure the installation scripts and NvPak work correctly, please have the fol
   - `git`
   - `curl`
   - `unzip`
-  - `neovim v0.8.0` or later (the script aims for the latest stable version)
+  - `neovim v0.10.0` or later (the script aims for the latest stable version)
 - **Shell:**
   - `bash` or `dash` for Unix-like systems (Linux, macOS, Termux, Git Bash on Windows).
   - `PowerShell v5.1` or later for the native Windows installation script.

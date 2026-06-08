@@ -7,14 +7,15 @@
 # List of Neovim plugins to install alongside their versions.
 # If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.44.0"
+"rocks.nvim" = "2.70.0"
 "rocks-edit.nvim" = "scm"
-"rocks-treesitter.nvim" = "1.3.0"
-"rocks-git.nvim" = "2.5.3"
-"rocks-config.nvim" = "3.1.1"
+"rocks-treesitter.nvim" = "1.5.0"
+"rocks-git.nvim" = "2.7.0"
+"rocks-config.nvim" = "3.2.0"
 tree-sitter-toml = "0.0.31"
-"neodev.nvim" = "3.0.0"
-neorg = "9.3.0"
+"lazydev.nvim" = "scm"
+"luvit-meta" = "scm"
+neorg = "10.0.0"
 nvim-cmp = "scm"
 cmp-nvim-lsp = "scm"
 "lspkind.nvim" = "scm"
@@ -24,10 +25,10 @@ cmp-cmdline = "scm"
 cmp_luasnip = "scm"
 luasnip = "2.4.0"
 friendly-snippets = "scm"
-nvim-web-devicons = "0.100"
-tree-sitter-python = "0.0.46"
+nvim-web-devicons = "scm"
+tree-sitter-python = "scm"
 "dracula.nvim" = "scm"
-catppuccin = "0.1.0"
+catppuccin = "scm"
 "onedarkpro.nvim" = "2.17.1"
 "monokai.nvim" = "scm"
 "telescope-ui-select.nvim" = "scm"
@@ -84,10 +85,10 @@ auto_setup = false
 
 # User Interface Plugins Settings
 [plugins.nvim-notify]
-version = "3.15.0"
+version = "scm"
 config = "plugins.ui.nvim-notify.config"
 [plugins."nvim-tree.lua"]
-version = "1.6.0"
+version = "scm"
 config = "plugins.ui.nvim-tree.config"
 [plugins."staline.nvim"]
 version = "scm"
@@ -128,7 +129,8 @@ items = [
     "luasnip",
     "cmp_luasnip",
     "friendly-snippets",
-    "neodev.nvim",
+    "lazydev.nvim",
+    "luvit-meta",
  ]
  config = "plugins.autocomplete.cmp"
 

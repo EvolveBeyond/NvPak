@@ -100,7 +100,7 @@ function Main {
     }
 
     # Install core dependencies using Scoop
-    Info "Installing core dependencies (Git, Curl, Unzip, Neovim)..."
+    Info "Installing core dependencies (Git, Curl, Unzip, Neovim >= 0.10)..."
     Install-Package "git"
     Install-Package "curl"
     Install-Package "unzip" # 7zip provides unzip capabilities and is more common with scoop

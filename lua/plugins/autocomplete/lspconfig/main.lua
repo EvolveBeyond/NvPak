@@ -4,31 +4,27 @@ local nvim_lsp = require("lspconfig")
 
 local on_attach = function(client, bufnr)
   -- Enable hover preview
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
   -- Display error and warning indicators
   if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
-    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "LspDocumentHighlight" })
+    local group = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
       buffer = bufnr,
-      group = "LspDocumentHighlight",
-      callback = function()
-        vim.lsp.buf.document_highlight()
-      end,
+      group = group,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      buffer = bufnr,
+      group = group,
+      callback = vim.lsp.buf.clear_references,
     })
   end
 end
 
 -- Define capabilities with snippet and resolve support
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { "documentation", "detail", "additionalTextEdits" },
-}
-
--- Merge in capabilities from cmp_nvim_lsp
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 mason.setup({
     ui = {
@@ -67,16 +63,12 @@ mason_lspconfig.setup({
                             callSnippet = "Replace", -- "Disable" | "Replace"
                         },
                         diagnostics = {
-                            enable = true,
                             globals = { "vim" },
-                            underline = true,
-                            severity_sort = true,
-                            signs = true,
                         },
                         workspace = {
                             checkThirdParty = false, -- Avoids warnings for vim non-standard libraries
                         },
-                        -- telemetry = { enable = false }, -- Opt-out of telemetry
+                        telemetry = { enable = false }, -- Opt-out of telemetry
                     },
                 },
                 on_attach = on_attach,

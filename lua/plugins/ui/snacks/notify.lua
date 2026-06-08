@@ -8,4 +8,3 @@ notify.setup({
 	top_down = false,
 	stages = "fade_in_slide_out",
 })
-

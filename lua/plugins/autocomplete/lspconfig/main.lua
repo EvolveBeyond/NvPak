@@ -24,7 +24,8 @@ local on_attach = function(client, bufnr)
 end
 
 -- Define capabilities with snippet and resolve support
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- Merge in capabilities from blink.cmp
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 mason.setup({
     ui = {

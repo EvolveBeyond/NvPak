@@ -16,15 +16,8 @@ tree-sitter-toml = "0.0.31"
 "lazydev.nvim" = "scm"
 "luvit-meta" = "scm"
 neorg = "10.0.0"
-nvim-cmp = "scm"
-cmp-nvim-lsp = "scm"
-"lspkind.nvim" = "scm"
-cmp-buffer = "scm"
-cmp-path = "scm"
-cmp-cmdline = "scm"
-cmp_luasnip = "scm"
-luasnip = "2.4.0"
-friendly-snippets = "scm"
+"blink.cmp" = "scm"
+"snacks.nvim" = "scm"
 nvim-web-devicons = "scm"
 tree-sitter-python = "scm"
 "dracula.nvim" = "scm"
@@ -84,21 +77,13 @@ plugins_dir = "plugins/"
 auto_setup = false
 
 # User Interface Plugins Settings
-[plugins.nvim-notify]
+[plugins."snacks.nvim"]
 version = "scm"
-config = "plugins.ui.nvim-notify.config"
-[plugins."nvim-tree.lua"]
+config = "plugins.ui.snacks"
+
+[plugins."blink.cmp"]
 version = "scm"
-config = "plugins.ui.nvim-tree.config"
-[plugins."staline.nvim"]
-version = "scm"
-config = "plugins.ui.staline.config"
-[plugins.dashboard-nvim]
-version = "scm"
-config = "plugins.ui.dashboard.config"
-[plugins."indent-blankline.nvim"]
-version = "3.9.0"
-config = "plugins.autocomplete.indent.config"
+config = "plugins.autocomplete.blink"
 
 [bundles.telescope]
 items = [
@@ -118,21 +103,12 @@ config = "plugins.autocomplete.lspconfig"
 version = "scm"
 
 
-[bundles.cmp] # Create a bundle called `cmp`
+[bundles.lsp]
 items = [
-    "lspkind.nvim",
-    "nvim-cmp",
-    "cmp-nvim-lsp",
-    "cmp-buffer",
-    "cmp-path",
-    "cmp-cmdline",
-    "luasnip",
-    "cmp_luasnip",
-    "friendly-snippets",
     "lazydev.nvim",
     "luvit-meta",
- ]
- config = "plugins.autocomplete.cmp"
+    "blink.cmp",
+]
 
 [plugins."trouble.nvim"]
 config = "plugins.autocomplete.trouble.config"

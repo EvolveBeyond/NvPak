@@ -42,7 +42,7 @@ mason_lspconfig.setup({
 
     ensure_installed = {
         "lua_ls",
-        "pylsp"
+        "pyright"
     },
 
     automatic_installation = true,
@@ -77,29 +77,8 @@ mason_lspconfig.setup({
             })
         end,
 
-        -- Note: Installation of pylsp extensions like pylsp_mypy, pylsp_black, pylsp_isort
-        -- should be handled by the user's Python environment (e.g., pip install ...).
-        -- Mason ensures 'pylsp' server itself is installed if listed in the outer 'ensure_installed'.
-        ["pylsp"] = function()
-            nvim_lsp.pylsp.setup({
-                cmd = { "pylsp" }, -- Ensure pylsp is in PATH
-                filetypes = { "python" },
-                root_dir = nvim_lsp.util.root_pattern(".git", "venv", ".env", "main.py"),
-                settings = {
-                    pylsp = {
-                        plugins = {
-                            pylsp_mypy = { enabled = true },
-                            pylsp_black = { enabled = true },
-                            pylsp_isort = { enabled = true },
-                            -- disabled standard plugins
-                            autopep8 = { enabled = false }, -- covered by black
-                            yapf = { enabled = false },     -- covered by black
-                            pycodestyle = { enabled = false },
-                            pydocstyle = { enabled = false },
-                        },
-                    },
-                },
-                single_file_support = true,
+        ["pyright"] = function()
+            nvim_lsp.pyright.setup({
                 on_attach = on_attach,
                 capabilities = capabilities,
             })

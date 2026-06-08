@@ -70,3 +70,6 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 set.updatetime = 250           -- Faster update time for responsiveness (e.g., swap file, cursor hold)
 set.timeoutlen = 500           -- Shorter timeout for key combinations to improve responsiveness
 
+-- BiDi and RTL Support for Persian
+set.termbidi = true            -- Enable terminal BiDi support (if supported by terminal like Konsole)
+set.arabicshape = true         -- Improve Arabic/Persian character shaping

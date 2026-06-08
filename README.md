@@ -51,7 +51,7 @@ To ensure the installation scripts and NvPak work correctly, please have the fol
 - **For Windows Native Installation:**
   - `Scoop.sh` package manager. The script can help you install it.
 - **Important for UI:**
-  - **Nerd Fonts:** Install a [Nerd Font](https://www.nerdfonts.com/) and set it as your terminal's font for proper icon display.
+  - **Nerd Fonts & Persian Support:** For the best experience with Persian text and icons, we recommend using a font that supports both, such as [Vazirmatn RD Nerd Font](https://github.com/rastikerdar/vazirmatn) or other customized fonts that combine Persian glyphs with Nerd Font icons.
 
 ### Screenshots 📷
 

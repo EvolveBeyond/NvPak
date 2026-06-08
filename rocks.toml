@@ -90,7 +90,6 @@ items = [
   "telescope.nvim",
   "telescope-ui-select.nvim"
 ]
-config = "plugins.ui.telescope.config"
 
 [plugins."ultimate-autopair.nvim"]
 version = "scm"
@@ -111,6 +110,5 @@ items = [
 ]
 
 [plugins."trouble.nvim"]
-config = "plugins.autocomplete.trouble.config"
-version = "3.7.1"
+version = "scm"
 

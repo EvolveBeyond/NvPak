@@ -2,7 +2,6 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local nvim_lsp = require("lspconfig")
-
 local on_attach = function(client, bufnr)
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
   if client.server_capabilities.documentHighlightProvider then

@@ -1,4 +1,4 @@
--- Basic settings - NvPak 2026
+-- Basic settings
 local set = vim.o
 
 -- Encoding settings

@@ -1,106 +1,75 @@
--- Import dependencies
-local mason       = require("mason")
-local mason_lsp   = require("mason-lspconfig")
-local lspconfig   = require("lspconfig")
+-- LSP Main Configuration - NvPak 2026
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
+local nvim_lsp = require("lspconfig")
 
--- Utility: get server config directory
-local function get_servers_path()
-  return vim.fn.stdpath("config") .. "/lua/plugins/autocomplete/lspconfig/servers"
-end
-
--- Common on_attach for all LSP servers
-local function on_attach(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+local on_attach = function(client, bufnr)
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
   if client.server_capabilities.documentHighlightProvider then
-    vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = true })
-    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "LspDocumentHighlight" })
+    local group = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-      buffer = bufnr,
-      group  = "LspDocumentHighlight",
-      callback = vim.lsp.buf.document_highlight,
+      buffer = bufnr, group = group, callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+      buffer = bufnr, group = group, callback = vim.lsp.buf.clear_references,
     })
   end
 end
 
--- Build capabilities merged with nvim-cmp
-local function make_capabilities()
-  local caps = vim.lsp.protocol.make_client_capabilities()
-  caps.textDocument.completion.completionItem.snippetSupport = true
-  caps.textDocument.completion.completionItem.resolveSupport = {
-    properties = { "documentation", "detail", "additionalTextEdits" }
-  }
-  return require("cmp_nvim_lsp").default_capabilities(caps)
-end
+-- Using blink.cmp for capabilities
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
--- Initialize Mason and ensure installation
-local function init_mason(servers)
-  mason.setup({ ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } } })
-  mason_lsp.setup({ ensure_installed = servers, automatic_installation = true })
-end
+mason.setup({
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
 
--- Load server configs from `servers/` folder
-local function load_server_configs(on_attach, capabilities)
-  local handlers = { function(server)
-    lspconfig[server].setup({ on_attach = on_attach, capabilities = capabilities })
-  end }
-
-  local dir = get_servers_path()
-  for _, file in ipairs(vim.fn.readdir(dir)) do
-    local name = file:match('^(.*)%.lua$')
-    if name then
-      local opts = require("plugins.autocomplete.lspconfig.servers." .. name)
-      handlers[name] = function()
-        local cfg = vim.tbl_deep_extend("force", { on_attach = on_attach, capabilities = capabilities }, opts)
-        lspconfig[name].setup(cfg)
-      end
-    end
-  end
-
-  mason_lsp.setup_handlers(handlers)
-end
-
--- Auto-create config file stub after Mason install
-local function init_autogen()
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "MasonInstallEnd",
-    callback = function(event)
-      local pkg = event.data[1]
-      local path = get_servers_path() .. "/" .. pkg .. ".lua"
-      if lspconfig[pkg] and vim.fn.filereadable(path) == 0 then
-        vim.fn.writefile({ "return {}" }, path)
-        vim.notify("Created LSP config: " .. path)
-      end
-    end,
-  })
-end
-
--- Command to edit a server config
-local function init_edit_command(handlers)
-  vim.api.nvim_create_user_command("LspEdit", function(opts)
-    local name = opts.args
-    local path = get_servers_path() .. "/" .. name .. ".lua"
-    if vim.fn.filereadable(path) == 0 then
-      vim.fn.writefile({ "return {}" }, path)
-      vim.notify("Stub created: " .. path)
-    end
-    vim.cmd("edit " .. path)
-  end, { nargs = 1, complete = function(_, line)
-    return vim.tbl_filter(function(k) return k:match("^" .. line) end, vim.tbl_keys(handlers))
-  end })
-end
-
--- Main setup
-local function setup()
-  local servers = { "lua_ls", "pylsp", "html", "cssls" }
-  local caps = make_capabilities()
-
-  init_mason(servers)
-  load_server_configs(on_attach, caps)
-  init_autogen()
-  init_edit_command(lspconfig)
-end
-
--- Execute setup
-setup()
-
-return { setup = setup }
+mason_lspconfig.setup({
+    ensure_installed = { "lua_ls", "pylsp" },
+    automatic_installation = true,
+    handlers = {
+        function (server_name)
+            nvim_lsp[server_name].setup {
+                on_attach = on_attach,
+                capabilities = capabilities
+            }
+        end,
+        ["lua_ls"] = function()
+            nvim_lsp.lua_ls.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                settings = {
+                    Lua = {
+                        completion = { callSnippet = "Replace" },
+                        diagnostics = { globals = { "vim" } },
+                        workspace = { checkThirdParty = false },
+                        telemetry = { enable = false }
+                    }
+                },
+            })
+        end,
+        ["pylsp"] = function()
+            nvim_lsp.pylsp.setup({
+                on_attach = on_attach,
+                capabilities = capabilities,
+                settings = {
+                    pylsp = {
+                        plugins = {
+                            pycodestyle = { enabled = false },
+                            mccabe = { enabled = false },
+                            pyflakes = { enabled = false },
+                            flake8 = { enabled = true },
+                            pylint = { enabled = false },
+                        }
+                    }
+                }
+            })
+        end,
+    },
+})

@@ -1,2 +1,5 @@
-require("core") -- load basic configs
+-- init.lua
+require("core.basic")
+require("core.bindings")
+require("core.rtl").setup()
 require("plugins")

@@ -1,82 +1,32 @@
-# This is your rocks.nvim plugins declaration file.
-# Here is a small yet pretty detailed example on how to use it:
+# rocks.toml — Professional Neovim Configuration (NvPak 2026)
 
-# This includes things like `toml` or other lua packages.
 [rocks]
 
-# List of Neovim plugins to install alongside their versions.
-# If the plugin name contains a dot then you must add quotes to the key name!
 [plugins]
-"rocks.nvim" = "2.70.0"
-"rocks-edit.nvim" = "scm"
+"rocks.nvim"            = "2.70.0"
+"rocks-edit.nvim"       = "scm"
 "rocks-treesitter.nvim" = "1.5.0"
-"rocks-git.nvim" = "2.7.0"
-"rocks-config.nvim" = "3.2.0"
-tree-sitter-toml = "0.0.31"
-"lazydev.nvim" = "scm"
-"luvit-meta" = "scm"
-neorg = "10.0.0"
-"blink.cmp" = "scm"
-"snacks.nvim" = "scm"
-nvim-web-devicons = "scm"
-tree-sitter-python = "scm"
-"dracula.nvim" = "scm"
-catppuccin = "scm"
-"onedarkpro.nvim" = "2.17.1"
-"monokai.nvim" = "scm"
+"rocks-git.nvim"        = "2.7.0"
+"rocks-config.nvim"     = "3.2.0"
+tree-sitter-toml        = "0.0.31"
+"lazydev.nvim"          = "scm"
+"luvit-meta"            = "scm"
+"blink.cmp"             = "scm"
+"snacks.nvim"           = "scm"
+"nvim-web-devicons"     = "scm"
+tree-sitter-python      = "scm"
+"mini.nvim"             = "scm"
+
+# Themes
+"dracula.nvim"          = "scm"
+catppuccin              = "scm"
+"onedarkpro.nvim"       = "scm"
+"iceberg"               = { git = "cocopon/iceberg.vim", rev = "1.0^{}" }
+
+# Telescope
+"telescope.nvim"           = "scm"
 "telescope-ui-select.nvim" = "scm"
-"telescope.nvim" = "scm"
 
-[plugins.nvim-terminal]
-git = "s1n7ax/nvim-terminal"
-rev = "e058de4b8029d7605b17275f30f83be8f8df5f62"
-
-"cmp-nvim-lua" = "scm"
-"cmp-spell" = "scm"
-"cmp-nvim-lsp-document-symbol" = "scm"
-"cmp-nvim-lsp-signature-help" = "scm"
-
-[plugins.iceberg]
-git = "cocopon/iceberg.vim"
-rev = "1.0^{}"
-
-[plugins.nord]
-git = "shaunsingh/nord.nvim"
-rev = "80c1e5321505aeb22b7a9f23eb82f1e193c12470"
-
-[plugins.rose-pine]
-git = "rose-pine/neovim"
-rev = "v3.0.2"
-
-
-[treesitter]
-# auto_highlight = "all"
-# NOTE: These are parsers, not filetypes.
-auto_highlight = [
-  "haskell",
-  "dhall",
-  "rust",
-  "toml",
-  "python",
-  "lua"
-]
-
-auto_install = "prompt" # true | false
-
-[treesitter.parser_map]
-# You can add custom filetype to parser mappings.
-# Determine the filetype with ':lua =vim.bo[0].filetype'.
-# NOTE: You don't actually have to add these examples.
-# They are added by default.
-PKGBUILD = "bash"
-cls = "latex"
-sty = "latex"
-
-[config]
-plugins_dir = "plugins/"
-auto_setup = false
-
-# User Interface Plugins Settings
 [plugins."snacks.nvim"]
 version = "scm"
 config = "plugins.ui.snacks"
@@ -85,22 +35,12 @@ config = "plugins.ui.snacks"
 version = "scm"
 config = "plugins.autocomplete.blink"
 
-[bundles.telescope]
-items = [
-  "telescope.nvim",
-  "telescope-ui-select.nvim"
-]
-
-[plugins."ultimate-autopair.nvim"]
-version = "scm"
-config = "plugins.autocomplete.autopair.config"
-
-
-# LSP & autocomplete System Plugins Settings
 [plugins."mason-lspconfig.nvim"]
-config = "plugins.autocomplete.lspconfig"
 version = "scm"
+config = "plugins.autocomplete.lspconfig"
 
+[plugins."trouble.nvim"]
+version = "scm"
 
 [bundles.lsp]
 items = [
@@ -109,6 +49,13 @@ items = [
     "blink.cmp",
 ]
 
-[plugins."trouble.nvim"]
-version = "scm"
+[bundles.telescope]
+items = ["telescope.nvim", "telescope-ui-select.nvim"]
 
+[treesitter]
+auto_install = "prompt"
+auto_highlight = ["lua", "python", "rust", "toml"]
+
+[config]
+plugins_dir = "plugins/"
+auto_setup = false

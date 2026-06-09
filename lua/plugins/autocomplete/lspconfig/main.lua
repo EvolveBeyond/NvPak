@@ -1,10 +1,8 @@
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local nvim_lsp = require("lspconfig")
-
 local on_attach = function(client, bufnr)
   vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
   if client.server_capabilities.documentHighlightProvider then
     local group = vim.api.nvim_create_augroup("LspDocumentHighlight", { clear = false })
     vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
@@ -16,11 +14,8 @@ local on_attach = function(client, bufnr)
     })
   end
 end
-
 local capabilities = require('blink.cmp').get_lsp_capabilities()
-
 mason.setup({ ui = { icons = { server_installed = "✓", server_pending = "➜", server_uninstalled = "✗" } } })
-
 mason_lspconfig.setup({
     ensure_installed = { "lua_ls", "pyright" },
     automatic_installation = true,

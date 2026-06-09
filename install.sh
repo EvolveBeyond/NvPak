@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
-# NvPak Professional Installer (2026 Edition)
 set -euo pipefail
 BOLD="$(tput bold 2>/dev/null || echo '')"
 GREEN="$(tput setaf 2 2>/dev/null || echo '')"
 MAGENTA="$(tput setaf 5 2>/dev/null || echo '')"
 RESET="$(tput sgr0 2>/dev/null || echo '')"
-
 info()    { printf "${BOLD}info${RESET}  %s\n" "$1"; }
 success() { printf "${GREEN}${BOLD}success${RESET} %s\n" "$1"; }
-
 NVPAK_REPO="https://github.com/Pakrohk-DotFiles/NvPak.git"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
-
 main() {
     clear
     printf "${MAGENTA}${BOLD}NvPak Pro Installer${RESET}\n\n"

@@ -1,4 +1,4 @@
-# rocks.toml — Professional Neovim Configuration (NvPak 2026)
+# rocks.toml — NvPak Core (Modern & Clean 2026)
 
 [rocks]
 
@@ -12,19 +12,16 @@ tree-sitter-toml        = "0.0.31"
 "lazydev.nvim"          = "scm"
 "luvit-meta"            = "scm"
 "blink.cmp"             = "scm"
-"blink.lib"             = "scm"
 "snacks.nvim"           = "scm"
 "nvim-web-devicons"     = "scm"
 tree-sitter-python      = "scm"
-"mini.nvim"             = "scm"
 
-# Themes
-"dracula.nvim"          = "scm"
+# Essential Themes
 catppuccin              = "scm"
 "onedarkpro.nvim"       = "scm"
 "iceberg"               = { git = "cocopon/iceberg.vim", rev = "1.0^{}" }
 
-# Telescope
+# Modern Telescope (Minimal setup)
 "telescope.nvim"           = "scm"
 "telescope-ui-select.nvim" = "scm"
 
@@ -40,23 +37,15 @@ config = "plugins.autocomplete.blink"
 version = "scm"
 config = "plugins.autocomplete.lspconfig"
 
-[plugins."trouble.nvim"]
-version = "scm"
-
 [bundles.lsp]
-items = [
-    "lazydev.nvim",
-    "luvit-meta",
-    "blink.cmp",
-    "blink.lib",
-]
+items = [ "lazydev.nvim", "luvit-meta", "blink.cmp" ]
 
 [bundles.telescope]
 items = ["telescope.nvim", "telescope-ui-select.nvim"]
 
 [treesitter]
 auto_install = "prompt"
-auto_highlight = ["lua", "python", "rust", "toml"]
+auto_highlight = ["lua", "python", "toml"]
 
 [config]
 plugins_dir = "plugins/"

@@ -11,8 +11,6 @@
 tree-sitter-toml        = "0.0.31"
 "lazydev.nvim"          = "scm"
 "luvit-meta"            = "scm"
-"blink.cmp"             = "scm"
-"snacks.nvim"           = "scm"
 "nvim-web-devicons"     = "scm"
 tree-sitter-python      = "scm"
 "mini.nvim"             = "scm"
@@ -26,13 +24,17 @@ catppuccin              = "scm"
 "telescope.nvim"           = "scm"
 "telescope-ui-select.nvim" = "scm"
 
+# Plugins with detailed configuration
 [plugins."snacks.nvim"]
+version = "scm"
 config = "plugins.ui.snacks"
 
 [plugins."blink.cmp"]
+version = "scm"
 config = "plugins.autocomplete.blink"
 
 [plugins."mason-lspconfig.nvim"]
+version = "scm"
 config = "plugins.autocomplete.lspconfig"
 
 [plugins."trouble.nvim"]

@@ -40,6 +40,10 @@ config = "plugins.autocomplete.lspconfig"
 [plugins."trouble.nvim"]
 version = "scm"
 
+[plugins."rocks-tui.nvim"]
+git = "EvolveBeyond/rocks-tui.nvim"
+config = "plugins.ui.rocks-tui"
+
 [bundles.lsp]
 items = [ "lazydev.nvim", "luvit-meta", "blink.cmp" ]
 

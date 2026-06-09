@@ -22,4 +22,3 @@ return {
   -- on_attach = function(client, bufnr) ... end,
   -- capabilities = some_other_capabilities,
 }
-

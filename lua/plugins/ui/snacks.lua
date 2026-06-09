@@ -13,7 +13,7 @@ function M.config()
     words = { enabled = true },
   })
   vim.keymap.set("n", "<leader>un", function() snacks.notifier.show_history() end, { desc = "Notifications" })
-  vim.keymap.set("n", "<leader>bd", function() snacks.bufdelete() end, { desc = "Delete Buffer" })
+  vim.keymap.set("n", "<leader>bx", function() snacks.bufdelete() end, { desc = "Delete Buffer" })
   vim.keymap.set("n", "<leader>gg", function() snacks.lazygit() end, { desc = "Lazygit" })
   vim.keymap.set("n", "<leader>fb", function() snacks.picker.buffers() end, { desc = "Buffers" })
 end

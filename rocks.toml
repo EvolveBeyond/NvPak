@@ -12,6 +12,7 @@ tree-sitter-toml        = "0.0.31"
 "lazydev.nvim"          = "scm"
 "luvit-meta"            = "scm"
 "blink.cmp"             = "scm"
+"blink.lib"             = "scm"
 "snacks.nvim"           = "scm"
 "nvim-web-devicons"     = "scm"
 tree-sitter-python      = "scm"
@@ -47,6 +48,7 @@ items = [
     "lazydev.nvim",
     "luvit-meta",
     "blink.cmp",
+    "blink.lib",
 ]
 
 [bundles.telescope]

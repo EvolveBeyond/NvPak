@@ -143,3 +143,19 @@ bind("v", "<leader>sr", ":s/", { desc = "Replace selection" })
 -- File browser (netrw)
 -- ─────────────────────────────────────────────────────────────────────────────
 bind("n", "<leader>pv", ":Ex<CR>", { desc = "Open file browser" })
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- NvPak Update Tool
+-- ─────────────────────────────────────────────────────────────────────────────
+vim.api.nvim_create_user_command("NvPakUpdate", function()
+  local os = vim.loop.os_uname().sysname
+  local shell_cmd = ""
+  local config_path = vim.fn.stdpath("config")
+  if os == "Windows_NT" then
+    shell_cmd = "powershell -File " .. config_path .. "/update.ps1"
+  else
+    shell_cmd = config_path .. "/update.sh"
+  end
+
+  vim.cmd("split | terminal " .. shell_cmd)
+end, { desc = "Update NvPak with conflict detection" })

@@ -1,5 +1,2 @@
--- init.lua (NvPak 2026 Zen Edition)
-require("core.basic")
-require("core.bindings")
-require("core.rtl").setup()
+require("core") -- load basic configs
 require("plugins")

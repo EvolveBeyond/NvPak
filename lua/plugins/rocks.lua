@@ -34,6 +34,10 @@ do
   -- Add all installed rocks (including rocks.nvim) to runtimepath
   local bundle = fs.joinpath(rp, "lib", "luarocks", "rocks-5.1", "rocks.nvim", "*")
   vim.opt.runtimepath:append(bundle)
+
+  -- Ensure rocks-config is loaded early
+  local config_rock = fs.joinpath(rp, "lib", "luarocks", "rocks-5.1", "rocks-config.nvim", "*")
+  vim.opt.runtimepath:append(config_rock)
 end
 
 -- Bootstrap rocks.nvim if not already installed

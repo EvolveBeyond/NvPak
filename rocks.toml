@@ -18,7 +18,7 @@ tree-sitter-python      = "scm"
 # Essential Themes (Verified Luarocks Names)
 catppuccin              = "scm"
 "onedarkpro.nvim"       = "scm"
-"iceberg"               = { git = "cocopon/iceberg.vim", rev = "1.0^{}" }
+"iceberg"               = { git = "https://github.com/cocopon/iceberg.vim", rev = "1.0^{}" }
 
 # Modern Telescope (Minimal setup)
 "telescope.nvim"           = "scm"
@@ -44,7 +44,7 @@ version = "scm"
 version = "scm"
 
 [plugins."rocks-tui.nvim"]
-git = "EvolveBeyond/rocks-tui.nvim"
+git = "https://github.com/EvolveBeyond/rocks-tui.nvim"
 config = "plugins.ui.rocks-tui"
 
 [bundles.lsp]

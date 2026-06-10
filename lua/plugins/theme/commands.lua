@@ -19,7 +19,7 @@ function M.setup()
     local theme = manager.get_current_theme()
     if theme then
       local path = config.user_theme_config(theme)
-      if vim.loop.fs_stat(path) then
+      if vim.uv.fs_stat(path) then
         vim.cmd("edit " .. path)
       else
         vim.notify("User config for theme '"..theme.."' not found.", vim.log.levels.WARN)

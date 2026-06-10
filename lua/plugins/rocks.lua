@@ -3,7 +3,7 @@ local uv   = vim.uv
 local fs   = vim.fs
 
 -- Determine OS-specific library extension
-local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
+local is_windows = vim.uv.os_uname().sysname == "Windows_NT"
 local lib_ext     = is_windows and "dll" or "so"
 
 -- Base paths

@@ -37,6 +37,9 @@ config = "plugins.autocomplete.blink"
 version = "scm"
 config = "plugins.autocomplete.lspconfig"
 
+[plugins."nvim-lspconfig"]
+version = "scm"
+
 [plugins."trouble.nvim"]
 version = "scm"
 

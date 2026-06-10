@@ -11,7 +11,7 @@ M.user_theme_file = M.user_dir .. "/current_theme"
 
 -- Path to user-editable theme config for a given theme
 M.user_theme_config = function(theme)
-  return M.user_dir .. "/" .. theme .. ".lua"
+  return vim.fs.joinpath(M.user_dir, theme .. ".lua")
 end
 
 -- Module path prefix for bundled theme definitions

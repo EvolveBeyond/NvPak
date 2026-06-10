@@ -18,10 +18,10 @@ end
 -- List all *.lua files under plugin themes directory (without extension)
 function M.list_available_themes()
   local list = {}
-  local scan = vim.loop.fs_scandir(config.plugin_themes_dir)
+  local scan = vim.uv.fs_scandir(config.plugin_themes_dir)
   if scan then
     while true do
-      local name, t = vim.loop.fs_scandir_next(scan)
+      local name, t = vim.uv.fs_scandir_next(scan)
       if not name then break end
       if t == "file" and name:match("(.*)%.lua$") then
         table.insert(list, name:match("(.*)%.lua$"))

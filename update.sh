@@ -1,18 +1,28 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # NvPak Smart Update Script (2026 Edition)
 # Philosophy: User-aware, Conflict-safe, Reliable
 
-set -euo pipefail
+set -eu
 
 # --- UI & Colors ---
-BOLD="$(tput bold 2>/dev/null || echo '')"
-RED="$(tput setaf 1 2>/dev/null || echo '')"
-GREEN="$(tput setaf 2 2>/dev/null || echo '')"
-YELLOW="$(tput setaf 3 2>/dev/null || echo '')"
-BLUE="$(tput setaf 4 2>/dev/null || echo '')"
-MAGENTA="$(tput setaf 5 2>/dev/null || echo '')"
-RESET="$(tput sgr0 2>/dev/null || echo '')"
+if [ -t 1 ]; then
+    BOLD="$(tput bold 2>/dev/null || printf '')"
+    RED="$(tput setaf 1 2>/dev/null || printf '')"
+    GREEN="$(tput setaf 2 2>/dev/null || printf '')"
+    YELLOW="$(tput setaf 3 2>/dev/null || printf '')"
+    BLUE="$(tput setaf 4 2>/dev/null || printf '')"
+    MAGENTA="$(tput setaf 5 2>/dev/null || printf '')"
+    RESET="$(tput sgr0 2>/dev/null || printf '')"
+else
+    BOLD=""
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    MAGENTA=""
+    RESET=""
+fi
 
 info()    { printf "${BLUE}${BOLD}info${RESET}  %s\n" "$1"; }
 success() { printf "${GREEN}${BOLD}success${RESET} %s\n" "$1"; }
@@ -22,10 +32,17 @@ error()   { printf "${RED}${BOLD}error${RESET}   %s\n" "$1"; }
 # --- Constants ---
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 confirm() {
-    read -p "${BOLD}question${RESET} $1 [y/N] " -n 1 -r
-    echo
-    [[ $REPLY =~ ^[Yy]$ ]]
+    printf "${BOLD}question${RESET} %s [y/N] " "$1"
+    read -r REPLY
+    case "$REPLY" in
+        [Yy]*) return 0 ;;
+        *) return 1 ;;
+    esac
 }
 
 check_conflicts() {
@@ -44,9 +61,6 @@ check_conflicts() {
     fi
 
     # Check for merge conflicts if we were to pull
-    local conflicts
-    conflicts=$(git log HEAD..origin/main --oneline --name-only | sort | uniq -d)
-    # Note: Above is a simplified check. A better way:
     if git merge-tree "$(git merge-base HEAD origin/main)" HEAD origin/main | grep -q "<<<<<<<"; then
         warn "Automatic merge might result in conflicts."
         if confirm "Do you want to backup your current config and force update?"; then
@@ -72,7 +86,7 @@ check_conflicts() {
 }
 
 main() {
-    clear
+    if command_exists clear; then clear; fi
     printf "${MAGENTA}${BOLD}NvPak Smart Update Tool${RESET}\n\n"
 
     if [ ! -d "$CONFIG_DIR/.git" ]; then

@@ -32,7 +32,7 @@ set.laststatus = 3             -- Always show status line (global status line)
 set.showtabline = 2            -- Always show tabline with all tabs
 
 -- Line wrapping and numbering
-vimscript([[set nowrap]])      -- Disable line wrapping for cleaner code display
+set.wrap = false               -- Disable line wrapping for cleaner code display
 set.number = true              -- Show absolute line numbers
 set.relativenumber = true      -- Show relative line numbers for easier navigation
 
@@ -50,9 +50,9 @@ set.expandtab = true           -- Convert tabs to spaces
 set.signcolumn = "yes"         -- Always show sign column for diagnostics/icons
 
 -- Code folding using treesitter for better accuracy
-set.foldmethod = "expr"                   -- Use expression-based folding
-set.foldexpr = "nvim_treesitter#foldexpr()" -- Use treesitter for folding logic
-set.foldlevelstart = 99                   -- Start with all folds open by default
+set.foldmethod = "expr"                        -- Use expression-based folding
+set.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Use native treesitter folding (NVIM 0.10+)
+set.foldlevelstart = 99                        -- Start with all folds open by default
 
 -- Clipboard and mouse integration
 set.clipboard = "unnamedplus"  -- Sync Neovim clipboard with system clipboard

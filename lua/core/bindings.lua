@@ -12,9 +12,10 @@ bind("n", "<S-Tab>", ":bprevious<CR>", { desc = "Previous buffer" })
 bind("n", "<C-b>", ":bd<CR>", { desc = "Close buffer" })
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Comment in visual mode
+-- Commenting (Native Neovim 0.10+)
 -- ─────────────────────────────────────────────────────────────────────────────
-bind("v", "<C-/>", ":s/^/\\/\\//<CR>", { desc = "Comment selected lines" })
+bind("n", "<C-/>", "gcc", { remap = true, desc = "Toggle comment" })
+bind("v", "<C-/>", "gc", { remap = true, desc = "Toggle comment selection" })
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Save file
@@ -148,13 +149,13 @@ bind("n", "<leader>pv", ":Ex<CR>", { desc = "Open file browser" })
 -- NvPak Update Tool
 -- ─────────────────────────────────────────────────────────────────────────────
 vim.api.nvim_create_user_command("NvPakUpdate", function()
-  local os = vim.loop.os_uname().sysname
+  local os = vim.uv.os_uname().sysname
   local shell_cmd = ""
   local config_path = vim.fn.stdpath("config")
   if os == "Windows_NT" then
-    shell_cmd = "powershell -File " .. config_path .. "/update.ps1"
+    shell_cmd = "powershell -File " .. vim.fs.joinpath(config_path, "update.ps1")
   else
-    shell_cmd = config_path .. "/update.sh"
+    shell_cmd = vim.fs.joinpath(config_path, "update.sh")
   end
 
   vim.cmd("split | terminal " .. shell_cmd)

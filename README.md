@@ -93,8 +93,6 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pakrohk-DotFiles/NvPak
     - `<leader>gg` - Lazygit.
 - **RTL Toggle:**
     - `<leader>rtl` - Toggle Persian/Arabic RTL mode.
-- **Smart Update:**
-    - `:NvPakUpdate` - Update NvPak with conflict detection and automated plugin sync.
 
 # Contributing 🤝
 

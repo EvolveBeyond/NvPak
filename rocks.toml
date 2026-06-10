@@ -15,7 +15,7 @@ tree-sitter-toml        = "0.0.31"
 tree-sitter-python      = "scm"
 "mini.nvim"             = "scm"
 
-# Essential Themes
+# Essential Themes (Verified Luarocks Names)
 catppuccin              = "scm"
 "onedarkpro.nvim"       = "scm"
 "iceberg"               = { git = "cocopon/iceberg.vim", rev = "1.0^{}" }
@@ -46,9 +46,11 @@ config = "plugins.ui.rocks-tui"
 
 [bundles.lsp]
 items = [ "lazydev.nvim", "luvit-meta", "blink.cmp" ]
+config = "plugins.autocomplete.lsp"
 
 [bundles.telescope]
 items = ["telescope.nvim", "telescope-ui-select.nvim"]
+config = "plugins.ui.telescope"
 
 [treesitter]
 auto_install = "prompt"

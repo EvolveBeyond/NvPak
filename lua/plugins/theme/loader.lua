@@ -9,10 +9,11 @@ function M.load(theme)
   end
 end
 
--- Check if theme module exists
+-- Check if theme module exists (non-side-effecting: uses package.searchpath)
 function M.is_theme_available(theme)
-  local ok = pcall(require, config.plugin_theme_module(theme))
-  return ok
+  local mod = config.plugin_theme_module(theme)
+  local path = package.searchpath(mod, package.path)
+  return path ~= nil
 end
 
 -- List all *.lua files under plugin themes directory (without extension)

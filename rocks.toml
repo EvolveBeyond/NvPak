@@ -21,7 +21,6 @@ dracula                 = "scm"
 monokia                 = "scm"
 nord                    = "scm"
 rose-pine               = "scm"
-"iceberg"               = { git = "https://github.com/cocopon/iceberg.vim", rev = "1.0^{}", version = "scm" }
 
 # Modern Telescope (Minimal setup)
 "telescope.nvim"           = "scm"

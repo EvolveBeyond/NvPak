@@ -4,8 +4,17 @@ function M.config()
   local lspconfig = require("lspconfig")
   local blink = require("blink.cmp")
 
-  -- Mason is automatically available via rocks.nvim
-  -- Configure LSP servers directly (modern approach with lazydev.nvim)
+  -- Mason setup (modern v2+ API: no deprecated ensure_installed)
+  local mason = require("mason")
+  mason.setup({})
+
+  local mason_lspconfig = require("mason-lspconfig")
+  -- Register servers to auto-install (modern API — no setup_handlers)
+  mason_lspconfig.setup({
+    ensure_installed = { "lua_ls", "pyright" },
+  })
+
+  -- Shared capabilities for blink.cmp integration
   local capabilities = blink.get_lsp_capabilities()
 
   -- Lua LSP with lazydev integration
@@ -13,7 +22,11 @@ function M.config()
     capabilities = capabilities,
     settings = {
       Lua = {
-        workspace = { checkThirdParty = false },
+        workspace = {
+          checkThirdParty = false,
+          -- Use lazydev for vim/auxiliary types
+          library = vim.api.nvim_get_runtime_file("lua/", true),
+        },
         telemetry = { enable = false },
       },
     },

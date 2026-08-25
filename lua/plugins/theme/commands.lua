@@ -1,4 +1,5 @@
 local M       = {}
+local config  = require("plugins.theme.config")
 local manager = require("plugins.theme.manager")
 
 function M.setup()

@@ -13,11 +13,14 @@ tree-sitter-toml        = "0.0.31"
 "luvit-meta"            = "scm"
 "nvim-web-devicons"     = "scm"
 tree-sitter-python      = "scm"
-"mini.nvim"             = "scm"
 
 # Essential Themes (Verified Luarocks Names)
 catppuccin              = "scm"
 "onedarkpro.nvim"       = "scm"
+dracula                 = "scm"
+monokia                 = "scm"
+nord                    = "scm"
+rose-pine               = "scm"
 "iceberg"               = { git = "https://github.com/cocopon/iceberg.vim", rev = "1.0^{}", version = "scm" }
 
 # Modern Telescope (Minimal setup)
@@ -33,6 +36,9 @@ config = "plugins.ui.snacks"
 version = "scm"
 config = "plugins.autocomplete.blink"
 
+[plugins."mason.nvim"]
+version = "scm"
+
 [plugins."mason-lspconfig.nvim"]
 version = "scm"
 config = "plugins.autocomplete.lspconfig"
@@ -43,13 +49,21 @@ version = "scm"
 [plugins."trouble.nvim"]
 version = "scm"
 
+[plugins."mini.nvim"]
+version = "scm"
+config = "plugins.ui.mini"
+
+[plugins."codecompanion.nvim"]
+version = "scm"
+config = "plugins.ai.codecompanion"
+
 [plugins."rocks-tui.nvim"]
 git = "https://github.com/EvolveBeyond/rocks-tui.nvim"
 version = "scm"
 config = "plugins.ui.rocks-tui"
 
 [bundles.lsp]
-items = [ "lazydev.nvim", "luvit-meta", "blink.cmp" ]
+items = [ "lazydev.nvim", "luvit-meta", "blink.cmp", "mason.nvim", "mason-lspconfig.nvim", "nvim-lspconfig" ]
 config = "plugins.autocomplete.lsp"
 
 [bundles.telescope]

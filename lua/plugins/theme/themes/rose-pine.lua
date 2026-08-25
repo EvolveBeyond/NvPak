@@ -1,3 +1,4 @@
+-- NvPak theme-name: rose-pine
 require('rose-pine').setup({
 	--- @usage 'auto'|'main'|'moon'|'dawn'
 	variant = 'auto',

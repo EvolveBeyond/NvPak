@@ -12,6 +12,12 @@ function M.set_theme(name)
       table.concat(loader.list_available_themes(), ", "), vim.log.levels.ERROR)
     return
   end
+  if not loader.is_theme_installed(name) then
+    local pkg = registry.get_package(name)
+    vim.notify("Theme '" .. name .. "' is not installed. Run :Rocks sync" ..
+      (pkg and (" (package: " .. pkg .. ")") or ""), vim.log.levels.WARN)
+    return
+  end
   loader.load(name)
   user.save_theme(name)
 end
@@ -27,9 +33,9 @@ function M.load_current_theme()
   if name then loader.load(name) end
 end
 
--- List all bundled themes (installed or not)
+-- List themes that are registered AND installed (ready to apply).
 function M.list_installed_themes()
-  return loader.list_available_themes()
+  return loader.list_installed_themes()
 end
 
 -- List themes whose rock packages are installed (ready to apply without error).

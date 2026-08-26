@@ -31,7 +31,11 @@ function M.config()
 
   -- Configurable server list via vim.g.nvpak_lsp_servers (fallback to defaults)
   local servers = vim.g.nvpak_lsp_servers or { "lua_ls", "pyright" }
-  mason_lspconfig.setup({ ensure_installed = servers })
+  -- Disable automatic_enable to avoid double-setup with the explicit lspconfig[server].setup() below
+  mason_lspconfig.setup({
+    ensure_installed = servers,
+    automatic_enable = false,
+  })
 
   local capabilities = blink.get_lsp_capabilities()
 

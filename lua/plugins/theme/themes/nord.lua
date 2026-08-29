@@ -1,3 +1,4 @@
+-- NvPak theme-name: nord
 local nord = require("nord")
 
 vim.g.nord_contrast = true

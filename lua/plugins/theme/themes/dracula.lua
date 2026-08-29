@@ -1,3 +1,4 @@
+-- NvPak theme-name: dracula
 local dracula = require("dracula")
 
 dracula.setup({

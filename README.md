@@ -4,11 +4,11 @@
 
 <div align="center">
 
-[![APACHEv3 license](https://img.shields.io/badge/License-APACHEv2-red.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/blob/main/LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/Pakrohk-DotFiles/NvPak/graphs/commit-activity)
+[![APACHEv3 license](https://img.shields.io/badge/License-APACHEv2-red.svg?style=flat-square)](https://github.com/EvolveBeyond/NvPak/blob/main/LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=flat-square)](https://github.com/EvolveBeyond/NvPak/graphs/commit-activity)
 [![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.10.0-blueviolet.svg?style=flat-square&logo=Neovim&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![Maintainer](https://img.shields.io/badge/maintainer-theMaintainer-blue?style=flat-square)](https://github.com/Pakrohk)
-[![GitHub Issues](https://img.shields.io/github/issues/pakrohk-dotfiles/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/Pakrohk-DotFiles/NvPak/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/EvolveBeyond/NvPak.svg?style=flat-square&label=Issues&color=d77982)](https://github.com/EvolveBeyond/NvPak/issues)
 
 # What is the purpose of the NvPak project? ✨
 
@@ -74,12 +74,12 @@ NvPak has been rebuilt with performance and simplicity in mind:
 
 ## Linux / macOS / Android (Termux)
 ```bash
-curl -sS https://raw.githubusercontent.com/Pakrohk-DotFiles/NvPak/main/install.sh | bash
+curl -sS https://raw.githubusercontent.com/EvolveBeyond/NvPak/main/install.sh | bash
 ```
 
 ## Windows (Native PowerShell)
 ```powershell
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pakrohk-DotFiles/NvPak/main/install.ps1" -OutFile "install.ps1"; .\install.ps1
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EvolveBeyond/NvPak/main/install.ps1" -OutFile "install.ps1"; .\install.ps1
 ```
 
 # Usage 🚀
@@ -93,6 +93,10 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Pakrohk-DotFiles/NvPak
     - `<leader>gg` - Lazygit.
 - **RTL Toggle:**
     - `<leader>rtl` - Toggle Persian/Arabic RTL mode.
+- **AI Assistant (CodeCompanion):**
+    - `<leader>aa` - Open AI Action palette.
+    - `<leader>ac` - Toggle AI Chat sidebar.
+    - `<leader>ae` - Explain selected code (visual mode).
 - **Smart Update:**
     - `:NvPakUpdate` - Update NvPak with conflict detection and automated plugin sync.
 

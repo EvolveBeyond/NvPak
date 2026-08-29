@@ -15,6 +15,12 @@ end
 -- bundled lua file under themes/ exists.
 function M.is_theme_available(theme)
   local mod = config.plugin_theme_module(theme)
+  -- First check if theme file exists in the bundled themes directory
+  local theme_file = config.plugin_themes_dir .. "/" .. theme .. ".lua"
+  if vim.uv.fs_stat(theme_file) then
+    return true
+  end
+  -- Fallback: check if module is already loadable via package.path (e.g. from luarocks)
   local path = package.searchpath(mod, package.path)
   return path ~= nil
 end

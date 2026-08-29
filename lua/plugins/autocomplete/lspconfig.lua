@@ -27,10 +27,19 @@ function M.config()
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
 
-  mason.setup({})
+  -- Mason setup (modern v2+ API)
+  -- Local NvPak registry shadows python-lsp-server to inject pylsp plugins
+  -- (python-lsp-ruff, pylsp-mypy, ruff, mypy) into its venv. Listed first
+  -- so it takes precedence over the upstream Mason registry.
+  mason.setup({
+    registries = {
+      "lua:nvpak.mason_registry",
+      "github:mason-org/mason-registry",
+    },
+  })
 
   -- Configurable server list via vim.g.nvpak_lsp_servers (fallback to defaults)
-  local servers = vim.g.nvpak_lsp_servers or { "lua_ls", "pyright" }
+  local servers = vim.g.nvpak_lsp_servers or { "lua_ls", "pylsp" }
   -- Disable automatic_enable to avoid double-setup with the explicit lspconfig[server].setup() below
   mason_lspconfig.setup({
     ensure_installed = servers,
@@ -54,14 +63,38 @@ function M.config()
     },
   })
 
-  -- Python LSP
-  if vim.tbl_contains(servers, "pyright") then
-    lspconfig.pyright.setup({ capabilities = capabilities })
+  -- Python LSP via pylsp + Ruff + MyPy
+  if vim.tbl_contains(servers, "pylsp") then
+    lspconfig.pylsp.setup({
+      capabilities = capabilities,
+      settings = {
+        pylsp = {
+          plugins = {
+            -- Ruff: lint + format + code actions (replaces pycodestyle/pyflakes/mccabe/autopep8/yapf)
+            ruff = {
+              enabled = true,
+              formatEnabled = true,
+            },
+            -- MyPy: type checking / diagnostics
+            pylsp_mypy = {
+              enabled = true,
+              live_mode = true,
+            },
+            -- Disable redundant legacy providers superseded by Ruff
+            pycodestyle = { enabled = false },
+            pyflakes = { enabled = false },
+            mccabe = { enabled = false },
+            autopep8 = { enabled = false },
+            yapf = { enabled = false },
+          },
+        },
+      },
+    })
   end
 
   -- Add more servers here as needed (extensible via vim.g.nvpak_lsp_servers)
   for _, server in ipairs(servers) do
-    if server ~= "lua_ls" and server ~= "pyright" then
+    if server ~= "lua_ls" and server ~= "pylsp" then
       local ok = pcall(function() lspconfig[server].setup({ capabilities = capabilities }) end)
       if not ok then
         vim.notify("LSP server '" .. server .. "' not found in nvim-lspconfig", vim.log.levels.WARN)

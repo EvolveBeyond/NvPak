@@ -128,14 +128,17 @@ main() {
     check_conflicts
 
     info "Syncing plugins..."
-    (
-        nvim --headless "+Rocks sync" "+qa" >/dev/null 2>&1 &
-        pid=$!
-        ( sleep 120 && kill $pid 2>/dev/null ) &
-        timer=$!
-        wait $pid 2>/dev/null
-        kill $timer 2>/dev/null
-    ) || warn "Plugin sync had issues. Run ':Rocks sync' manually."
+    nvim --headless "+Rocks sync" "+qa" >/dev/null 2>&1 &
+    pid=$!
+    ( sleep 120 && kill "$pid" 2>/dev/null ) &
+    timer=$!
+    if wait "$pid"; then
+        kill "$timer" 2>/dev/null || true
+    else
+        kill "$timer" 2>/dev/null || true
+        error "Plugin sync failed. Update incomplete. Run ':Rocks sync' manually."
+        exit 1
+    fi
 
     success "NvPak updated to the latest version!"
 }

@@ -30,7 +30,8 @@ warn()    { printf "${YELLOW}${BOLD}warn${RESET}    %s\n" "$1"; }
 error()   { printf "${RED}${BOLD}error${RESET}   %s\n" "$1"; }
 
 # --- Constants ---
-CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+CONFIG_DIR="${NVPAK_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/nvim}"
+NVPAK_BRANCH="${NVPAK_BRANCH:-main}"
 
 command_exists() {
     command -v "$1" >/dev/null 2>&1
@@ -48,7 +49,7 @@ confirm() {
 check_conflicts() {
     info "Checking for potential conflicts..."
     # Fetch latest without merging
-    git fetch origin main >/dev/null 2>&1 || { error "Failed to fetch from remote."; exit 1; }
+    git fetch origin "$NVPAK_BRANCH" >/dev/null 2>&1 || { error "Failed to fetch from remote."; exit 1; }
 
     # Check if there are local changes
     if ! git diff --quiet; then
@@ -61,18 +62,22 @@ check_conflicts() {
     fi
 
     # Check for merge conflicts if we were to pull
-    if git merge-tree "$(git merge-base HEAD origin/main)" HEAD origin/main | grep -q "<<<<<<<"; then
+    if git merge-tree "$(git merge-base HEAD "origin/$NVPAK_BRANCH")" HEAD "origin/$NVPAK_BRANCH" | grep -q "<<<<<<<"; then
         warn "Automatic merge might result in conflicts."
         if confirm "Do you want to backup your current config and force update?"; then
             backup_dir="${CONFIG_DIR}.bak.$(date +%s)"
             cp -r "$CONFIG_DIR" "$backup_dir"
             success "Backup created at $backup_dir"
             info "Force updating to the latest version..."
-            git reset --hard origin/main
+            git stash --include-untracked 2>/dev/null || true
+            git reset --hard "origin/$NVPAK_BRANCH"
+            if ! git stash pop 2>/dev/null; then
+                warn "Stash pop had conflicts. Your changes are in 'git stash list'."
+            fi
             return 0
         else
             info "Attempting to merge anyway..."
-            if git pull origin main; then
+            if git pull origin "$NVPAK_BRANCH"; then
                 success "Merged successfully."
             else
                 error "Merge failed. Please resolve conflicts manually in $CONFIG_DIR."
@@ -81,11 +86,35 @@ check_conflicts() {
         fi
     else
         info "No obvious conflicts detected. Pulling..."
-        git pull origin main
+        git pull origin "$NVPAK_BRANCH"
     fi
 }
 
+usage() {
+    cat <<EOF
+NvPak Smart Update v2026.08.30
+Usage: $0 [options]
+
+Options:
+  --help           Show this help
+
+Environment:
+  NVPAK_CONFIG_DIR Override config directory
+  NVPAK_BRANCH     Override branch (default: main)
+  NO_COLOR         Disable colored output
+EOF
+}
+
 main() {
+    # Parse arguments
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --help)     usage; exit 0 ;;
+            *)          warn "Unknown option: $1" ;;
+        esac
+        shift
+    done
+
     if command_exists clear; then clear; fi
     printf "${MAGENTA}${BOLD}NvPak Smart Update Tool${RESET}\n\n"
 
@@ -99,7 +128,14 @@ main() {
     check_conflicts
 
     info "Syncing plugins..."
-    nvim --headless "+Rocks sync" "+qa" >/dev/null 2>&1 || true
+    (
+        nvim --headless "+Rocks sync" "+qa" >/dev/null 2>&1 &
+        pid=$!
+        ( sleep 120 && kill $pid 2>/dev/null ) &
+        timer=$!
+        wait $pid 2>/dev/null
+        kill $timer 2>/dev/null
+    ) || warn "Plugin sync had issues. Run ':Rocks sync' manually."
 
     success "NvPak updated to the latest version!"
 }

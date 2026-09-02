@@ -61,5 +61,9 @@ auto_install = "prompt"
 auto_highlight = ["lua", "python", "toml"]
 
 [config]
+[luarocks]
+servers = [
+    "https://luarocks.org",
+]
 plugins_dir = "plugins/"
 auto_setup = true

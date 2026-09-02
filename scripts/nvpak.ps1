@@ -16,9 +16,9 @@ $AliasFile = Join-Path $NvPakConfigDir "aliases.conf"
 $InstallerModule = "nvpak.core.installer" # The Lua module containing CLI functions
 
 # --- Helper Functions ---
-function Print-Message($message, $color, $WriteError = $false) {
-    if ($WriteError) {
-        Write-Error $message # Errors go to stderr stream
+function Print-Message($message, $color, $ToStderr = $false) {
+    if ($ToStderr) {
+        [Console]::Error.WriteLine($message)
     } else {
         Write-Host $message -ForegroundColor $color
     }
@@ -28,7 +28,7 @@ function Info($message) { Print-Message $message "Cyan" }
 function Success($message) { Print-Message $message "Green" }
 function Warning($message) { Print-Message $message "Yellow" }
 function Error-Exit($message) {
-    Print-Message $message "Red" -WriteError $true
+    Print-Message $message "Red" -ToStderr $true
     exit 1
 }
 
@@ -53,9 +53,16 @@ function Resolve-AliasCmd {
     )
     if (Test-Path $AliasFile) {
         try {
-            $aliases = Get-Content $AliasFile | Where-Object { $_ -notmatch '^\s*#' -and $_ -match '.=' } | ConvertFrom-StringData -Delimiter '='
-            if ($aliases.$CommandAlias) {
-                return $aliases.$CommandAlias.Trim()
+            $aliases = @{}
+            Get-Content $AliasFile | ForEach-Object {
+                if ($_ -match '^\s*#' -or $_ -notmatch '=') { return }
+                $name, $value = $_ -split '=', 2
+                if ($name -and $value) {
+                    $aliases[$name.Trim()] = $value.Trim()
+                }
+            }
+            if ($aliases.ContainsKey($CommandAlias)) {
+                return $aliases[$CommandAlias]
             }
         }
         catch {
@@ -69,11 +76,11 @@ function Resolve-AliasCmd {
 function Run-NvimLuaCommand {
     param(
         [string]$LuaFunctionName,
-        [string[]]$Arguments
+        [string[]]$Arguments = @()
     )
 
     $luaArgsString = ""
-    if ($Arguments) {
+    if ($Arguments.Count -gt 0) {
         $escapedArgs = $Arguments | ForEach-Object { "'" + ($_ -replace "'", "''") + "'" } # Escape single quotes for Lua
         $luaArgsString = $escapedArgs -join ", "
     }
@@ -84,22 +91,18 @@ function Run-NvimLuaCommand {
     $nvimPath = (Get-Command nvim).Source
     $initLuaPath = Join-Path $NvimConfigDir "init.lua"
 
+    # nvim exits itself via the Lua module's cli_* wrapper (vim.schedule + qall!);
+    # the module guarantees exit code 0 after reporting results.
     $nvimArgs = @(
         "--headless"
-        "-u", "`"$initLuaPath`"" # Ensure NvPak's init.lua is loaded
+        "-u", $initLuaPath
         "-c", "lua $luaCommand"
-        # Similar to bash, ensure messages are flushed and nvim exits.
-        # PowerShell's Start-Process or direct call might behave differently regarding console output.
-        # Using direct call `&` seems more appropriate for CLI tools.
-        "-c", "lua vim.cmd('redraw') vim.cmd('sleep 100m') if vim.v.headless == 1 and vim.fn.argc() == 0 then vim.cmd('qall!') end"
     )
 
     try {
-        & $nvimPath $nvimArgs
-        # $LASTEXITCODE should be set by the direct call.
+        & $nvimPath @nvimArgs
         if ($LASTEXITCODE -ne 0) {
             Warning "Neovim command execution for '$LuaFunctionName' finished with exit code $LASTEXITCODE."
-            # Further error details would ideally come from the Lua script's output.
         }
     }
     catch {
@@ -116,7 +119,10 @@ if ($args.Count -eq 0) {
 }
 
 $actionAlias = $args[0]
-$remainingArgs = $args[1..($args.Count - 1)]
+$remainingArgs = @()
+if ($args.Count -gt 1) {
+    $remainingArgs = $args[1..($args.Count - 1)]
+}
 
 $action = Resolve-AliasCmd -CommandAlias $actionAlias
 
@@ -124,12 +130,12 @@ switch ($action) {
     "install" {
         if ($remainingArgs.Count -lt 1) { Error-Exit "Usage: nvpak install <plugin-spec>" }
         Info "Action: Install plugin '$($remainingArgs[0])'"
-        Run-NvimLuaCommand "cli_install_package" $remainingArgs[0]
+        Run-NvimLuaCommand "cli_install_package" @($remainingArgs[0])
     }
     "uninstall" {
         if ($remainingArgs.Count -lt 1) { Error-Exit "Usage: nvpak uninstall <plugin-name>" }
         Info "Action: Uninstall plugin '$($remainingArgs[0])'"
-        Run-NvimLuaCommand "cli_uninstall_package" $remainingArgs[0]
+        Run-NvimLuaCommand "cli_uninstall_package" @($remainingArgs[0])
     }
     "update" {
         if ($remainingArgs.Count -eq 0) {
@@ -137,7 +143,7 @@ switch ($action) {
             Run-NvimLuaCommand "cli_upgrade_all_packages" @()
         } else {
             Info "Action: Update plugin '$($remainingArgs[0])'"
-            Run-NvimLuaCommand "cli_update_package" $remainingArgs[0]
+            Run-NvimLuaCommand "cli_update_package" @($remainingArgs[0])
         }
     }
     "upgrade" {

@@ -28,8 +28,23 @@ warn()    { printf "${YELLOW}${BOLD}warn${RESET}    %s\n" "$1"; }
 # --- Configuration ---
 NVPAK_REPO="https://github.com/EvolveBeyond/NvPak.git"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+DRY_RUN=0
 
 # --- Functions ---
+usage() {
+    cat <<EOF
+NvPak Installer v2026.08.30
+Usage: $0 [options]
+
+Options:
+  --dry-run        Show what would be done without making changes
+  --help           Show this help
+
+Environment:
+  NVPAK_REPO       Override repository URL
+  NO_COLOR         Disable colored output
+EOF
+}
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
@@ -48,7 +63,7 @@ install_package() {
     install_cmd="$2"
     if ! command_exists "$pkg"; then
         if confirm "Package '$pkg' is missing. Install it?"; then
-            eval "sudo $install_cmd $pkg"
+            sudo -n $install_cmd $pkg 2>/dev/null || warn "Could not install '$pkg' (needs sudo/TTY)."
         else
             warn "Skipping '$pkg'. Some features might not work."
         fi
@@ -56,19 +71,39 @@ install_package() {
 }
 
 main() {
+    # Parse arguments
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            --dry-run)  DRY_RUN=1 ;;
+            --help)     usage; exit 0 ;;
+            *)          warn "Unknown option: $1" ;;
+        esac
+        shift
+    done
+
     # clear might not be available or desired in all environments
     if command_exists clear; then clear; fi
     printf "${MAGENTA}${BOLD}NvPak Pro Installer (Zen Edition)${RESET}\n\n"
 
     PM_INSTALL=""
     # Detect Package Manager & Update Repository Lists (ONLY lists)
-    if command_exists pacman; then
-        info "Updating pacman repositories..."
-        sudo pacman -Sy
+    if [ "${DRY_RUN:-0}" = "1" ]; then
+        info "[dry-run] Would detect package manager and update repos"
+    elif command_exists pacman; then
+        # Index update is non-essential: warn, don't hard-fail (sudo may need a TTY)
+        if sudo -n pacman -Sy 2>/dev/null; then
+            info "Updated pacman repositories."
+        else
+            warn "Could not update pacman index (needs sudo/TTY). Continuing if packages exist."
+        fi
         PM_INSTALL="pacman -S --noconfirm"
     elif command_exists apt-get; then
-        info "Updating apt repositories..."
-        sudo apt-get update
+        # Non-essential index update: warn, don't hard-fail
+        if sudo -n apt-get update 2>/dev/null; then
+            info "Updated apt repositories."
+        else
+            warn "Could not update apt index (needs sudo/TTY). Continuing if packages exist."
+        fi
         PM_INSTALL="apt-get install -y"
     elif command_exists dnf; then
         PM_INSTALL="dnf install -y"
@@ -85,7 +120,9 @@ main() {
     fi
 
     # Setup Directory
-    if [ ! -d "$CONFIG_DIR" ]; then
+    if [ "${DRY_RUN:-0}" = "1" ]; then
+        info "[dry-run] Would clone/update to: $CONFIG_DIR"
+    elif [ ! -d "$CONFIG_DIR" ]; then
         info "Cloning NvPak..."
         git clone --depth 1 "$NVPAK_REPO" "$CONFIG_DIR"
     else
@@ -100,8 +137,21 @@ main() {
         fi
     fi
 
+    if [ "${DRY_RUN:-0}" = "1" ]; then
+        info "[dry-run] Would bootstrap plugins"
+        success "Dry run complete. Run without --dry-run to install."
+        return 0
+    fi
+
     info "Bootstrapping plugins..."
-    nvim --headless "+Rocks sync" "+qa" >/dev/null 2>&1 || true
+    (
+        nvim --headless "+Rocks sync" "+qa" >/dev/null 2>&1 &
+        pid=$!
+        ( sleep 120 && kill $pid 2>/dev/null ) &
+        timer=$!
+        wait $pid 2>/dev/null
+        kill $timer 2>/dev/null
+    ) || warn "Plugin bootstrap had issues. Run ':Rocks sync' manually."
 
     success "NvPak installation complete!"
 }

@@ -24,7 +24,7 @@ if (Get-Command scoop -ErrorAction SilentlyContinue) {
 }
 
 $ConfigDir = "$env:LOCALAPPDATA\nvim"
-$Repo = "https://github.com/Pakrohk-DotFiles/NvPak.git"
+$Repo = "https://github.com/EvolveBeyond/NvPak.git"
 
 if (Test-Path $ConfigDir) {
     if (Test-Path "$ConfigDir\.git") {

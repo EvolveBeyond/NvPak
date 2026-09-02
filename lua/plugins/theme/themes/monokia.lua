@@ -1,3 +1,4 @@
+-- NvPak theme-name: monokia
 local monokai = require("monokai")
 local palette = monokai.classic
 monokai.setup({

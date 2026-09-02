@@ -1,3 +1,4 @@
+-- NvPak theme-name: onedarkpro
 require("onedarkpro").setup({
     filetypes = {
         all = true,
@@ -10,5 +11,4 @@ require("onedarkpro").setup({
     }
 })
 
--- somewhere in your config:
 vim.cmd("colorscheme onedark_vivid") -- onedark onelight onedark_vivid onedark_dark

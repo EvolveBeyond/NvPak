@@ -26,7 +26,7 @@ success() { printf "${GREEN}${BOLD}success${RESET} %s\n" "$1"; }
 warn()    { printf "${YELLOW}${BOLD}warn${RESET}    %s\n" "$1"; }
 
 # --- Configuration ---
-NVPAK_REPO="https://github.com/Pakrohk-DotFiles/NvPak.git"
+NVPAK_REPO="https://github.com/EvolveBeyond/NvPak.git"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 DRY_RUN=0
 

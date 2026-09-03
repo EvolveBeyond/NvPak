@@ -55,7 +55,6 @@ bind("n", "<leader>wl", ":set list!<CR>", { desc = "Toggle listchars" })
 -- ─────────────────────────────────────────────────────────────────────────────
 bind("n", "gD", vim.lsp.buf.declaration, { noremap = true, silent = true, desc = "Go to declaration" })
 bind("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to definition" })
-bind("n", "K", vim.lsp.buf.hover, { noremap = true, silent = true, desc = "Hover documentation" })
 bind("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true, desc = "Go to implementation" })
 bind("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true, desc = "List references" })
 bind("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "Rename symbol" })

@@ -56,6 +56,11 @@ config = "plugins.ui.mini"
 version = "scm"
 config = "plugins.ai.codecompanion"
 
+[plugins."hover.nvim"]
+git = "https://github.com/lewis6991/hover.nvim"
+version = "scm"
+config = "plugins.lsp.hover"
+
 [plugins."rocks-tui.nvim"]
 git = "https://github.com/EvolveBeyond/rocks-tui.nvim"
 version = "scm"

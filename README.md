@@ -85,7 +85,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EvolveBeyond/NvPak/mai
 
 # Usage 🚀
 
-- **NvPak Home (Control Center):** Bare `nvim` lands on Home — the primary dashboard with plugin/system overview, activity, and one-key actions.
+- **NvPak Home (Control Center):** Bare `nvim` (no file args, no flags, no stdin) lands on Home — the primary dashboard with plugin/system overview, activity, and one-key actions. Any other invocation (`nvim <file>`, `nvim -`, `nvim +cmd`, `nvim --cmd …`) skips it; `:NvPakHome` / `<leader>H` toggles anytime.
     - `:NvPakHome` or `<leader>H` - Toggle Home.
     - Inside Home: `u` update all, `i` install, `r` refresh, `s` system check.
 - **Plugin Management:** Powered by [rocks.nvim](https://github.com/nvim-neorocks/rocks.nvim).

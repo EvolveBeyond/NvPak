@@ -431,12 +431,15 @@ function M.toggle()
 end
 
 ---Should Home auto-open on this invocation? True for bare `nvim`:
----no file arguments, no +/-/dash options (stdin, cmds, flags).
+---no file arguments, no +/-/dash options (stdin, cmds, flags),
+---and not reading from a pipe/stdin.
 ---Headless is NOT excluded: `nvim --headless` (e.g. tests, scripts) still
 ---lands on Home unless the caller passes landing=false or file args.
 function M.should_land(argv)
   argv = argv or vim.v.argv
   if vim.fn.argc(-1) ~= 0 then return false end
+  -- piped stdin (nvim - or nvim < file): guess_handle(0) == "pipe"
+  if vim.uv.guess_handle(0) == "pipe" then return false end
   for _, a in ipairs(argv) do
     if a:match("^%+") or a:match("^%-") then return false end
   end

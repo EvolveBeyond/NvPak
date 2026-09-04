@@ -19,7 +19,18 @@ dashboard as the startup experience.)
 2. Opening Home                              *nvpak-home-opening*
 
 Startup:
-    Bare `nvim` (no file arguments) lands on Home automatically.
+    Bare `nvim` (no file arguments, no command flags, not reading from
+    stdin) lands on Home automatically. Landing is suppressed otherwise:
+
+    - `nvim <file>` or `nvim <file1> <file2>` — file arguments given
+    - `nvim -` — reading from stdin
+    - `nvim < file` — redirected/piped stdin
+    - `nvim --cmd <expr>` — any `-`/`--` prefixed option or flag
+    - `nvim +<cmd>` — `+` prefixed command
+    - `nvim -d <file1> <file2>` — diff mode
+    - `nvim --clean`, `--headless`, `--version`, etc.
+
+    Escape hatch (always available): `:NvPakHome` or `<leader>H` toggles.
 
 Command:
     :NvPakHome                    Toggle the Home window

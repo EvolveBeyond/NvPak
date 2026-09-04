@@ -1,4 +1,6 @@
--- NvPak Home / Control Center.
+-- NvPak Home — the primary NvPak dashboard / control center.
+-- Not a splash screen, not a generic dashboard: it is the distro's
+-- command center and the default landing page on bare `nvim` startup.
 -- Native Neovim buffer UI. No new dependencies, no UI framework.
 -- Data comes exclusively from nvpak.home.provider and nvpak.home.nav.
 
@@ -428,6 +430,19 @@ function M.toggle()
   if M.is_open() then M.close() else M.open() end
 end
 
+---Should Home auto-open on this invocation? True for bare `nvim`:
+---no file arguments, no +/-/dash options (stdin, cmds, flags).
+---Headless is NOT excluded: `nvim --headless` (e.g. tests, scripts) still
+---lands on Home unless the caller passes landing=false or file args.
+function M.should_land(argv)
+  argv = argv or vim.v.argv
+  if vim.fn.argc(-1) ~= 0 then return false end
+  for _, a in ipairs(argv) do
+    if a:match("^%+") or a:match("^%-") then return false end
+  end
+  return true
+end
+
 function M.setup(opts)
   opts = opts or {}
 
@@ -448,6 +463,12 @@ function M.setup(opts)
 
   vim.keymap.set("n", "<leader>H", function() M.toggle() end,
     { desc = "NvPak Home" })
+
+  -- Home is the default landing page on bare `nvim`.
+  -- Escape hatch: :NvPakHome toggles it away anytime. Opt out: landing=false.
+  if opts.landing ~= false and M.should_land() then
+    vim.schedule(function() M.open() end)
+  end
 
   -- Issue 3: NO network, NO package operations at startup.
   -- setup() only registers highlights, user command, keymap, and activity listener.

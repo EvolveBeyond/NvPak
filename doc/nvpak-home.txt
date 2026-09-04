@@ -1,24 +1,34 @@
-* nvpak-home.txt*    NvPak Home / Control Center
+* nvpak-home.txt*    NvPak Home — dashboard / control center
 
 ==============================================================================
 1. Introduction                              *nvpak-home-introduction*
 
-NvPak Home is the central control panel for your NvPak Neovim distro.
+NvPak Home is the PRIMARY NvPak dashboard and control center. It is not a
+splash screen or a generic dashboard: it is the distro's command center and
+the default landing page when Neovim starts with no file arguments.
+
 It provides an at-a-glance overview of your system, plugins, and activity,
 plus quick actions for common maintenance tasks.
 
 It is built on native Neovim APIs (buffers, windows, highlights) and
 consumes data from a thin NvPak-owned provider layer over rocks.nvim.
-No external UI framework is used.
+No external UI framework is used. (It replaces the former snacks.nvim
+dashboard as the startup experience.)
 
 ==============================================================================
 2. Opening Home                              *nvpak-home-opening*
+
+Startup:
+    Bare `nvim` (no file arguments) lands on Home automatically.
 
 Command:
     :NvPakHome                    Toggle the Home window
 
 Keymap:
     <leader>H                     Toggle Home
+
+Disabling the startup landing page:
+    require("nvpak.home").setup({ landing = false })
 
 ==============================================================================
 3. Layout                                    *nvpak-home-layout*

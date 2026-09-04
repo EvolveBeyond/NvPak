@@ -1,40 +1,14 @@
 local M = {}
 
-local HEADER = [[
-███╗   ██╗██╗   ██╗██████╗  █████╗ ██╗  ██╗
-████╗  ██║██║   ██║██╔══██╗██╔══██╗██║  ██║
-██╔██╗ ██║██║   ██║██████╔╝███████║███████║
-██║╚██╗██║╚██╗ ██╔╝██╔═══╝ ██╔══██║██╔══██║
-██║ ╚████║ ╚████╔╝ ██║     ██║  ██║██║  ██║
-╚═╝  ╚═══╝  ╚═══╝  ╚═╝     ╚═╝  ╚═╝╚═╝  ╚═╝
-]]
+-- NvPak Home (lua/nvpak/home) is the primary dashboard / default landing page.
+-- Snacks is used for its supporting modules only (notifier, input, etc.),
+-- not as a dashboard replacement.
 
 function M.config()
   local snacks = require("snacks")
   snacks.setup({
     bigfile = { enabled = true },
-    dashboard = {
-      enabled = true,
-      preset = {
-        header = HEADER,
-        keys = {
-          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-        },
-      },
-      sections = {
-        { section = "header", padding = 1 },
-        { section = "keys", gap = 1, padding = 1 },
-        { section = "recent_files", indent = 2, padding = 1, title = "Recent Files" },
-        { section = "projects", indent = 2, padding = 1, title = "Projects" },
-        { section = "startup" },
-      },
-    },
+    dashboard = { enabled = false },
     indent = { enabled = true, scope = { enabled = true } },
     input = { enabled = true },
     notifier = { enabled = true, style = "compact" },

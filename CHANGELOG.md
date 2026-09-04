@@ -21,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 - M5: Added `CHANGELOG.md`.
 - Added `lua/plugins/ui/mini.lua` config module for `mini.nvim` plugins (currently `mini.comment`).
+- Added NvPak Home control center (`:NvPakHome`, `<leader>H`): the primary
+  NvPak dashboard and default landing page on bare `nvim` startup (no file
+  args, no flags, no stdin — all other invocations skip it). Native
+  buffer UI with plugin/system overview, activity log, update/install/refresh
+  actions, and stubs for future LSP/Docs/Projects/AI pages (`lua/nvpak/home/`).
+- Replaced the snacks.nvim dashboard with NvPak Home as the startup
+  experience; snacks retained for notifier/input/indent modules.
 
 ## [2026-Zen] - Modernization Release
 - Migrated to `blink.cmp` completion engine.

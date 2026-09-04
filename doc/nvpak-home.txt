@@ -1,0 +1,154 @@
+* nvpak-home.txt*    NvPak Home — dashboard / control center
+
+==============================================================================
+1. Introduction                              *nvpak-home-introduction*
+
+NvPak Home is the PRIMARY NvPak dashboard and control center. It is not a
+splash screen or a generic dashboard: it is the distro's command center and
+the default landing page when Neovim starts with no file arguments.
+
+It provides an at-a-glance overview of your system, plugins, and activity,
+plus quick actions for common maintenance tasks.
+
+It is built on native Neovim APIs (buffers, windows, highlights) and
+consumes data from a thin NvPak-owned provider layer over rocks.nvim.
+No external UI framework is used. (It replaces the former snacks.nvim
+dashboard as the startup experience.)
+
+==============================================================================
+2. Opening Home                              *nvpak-home-opening*
+
+Startup:
+    Bare `nvim` (no file arguments, no command flags, not reading from
+    stdin) lands on Home automatically. Landing is suppressed otherwise:
+
+    - `nvim <file>` or `nvim <file1> <file2>` — file arguments given
+    - `nvim -` — reading from stdin
+    - `nvim < file` — redirected/piped stdin
+    - `nvim --cmd <expr>` — any `-`/`--` prefixed option or flag
+    - `nvim +<cmd>` — `+` prefixed command
+    - `nvim -d <file1> <file2>` — diff mode
+    - `nvim --clean`, `--headless`, `--version`, etc.
+
+    Escape hatch (always available): `:NvPakHome` or `<leader>H` toggles.
+
+Command:
+    :NvPakHome                    Toggle the Home window
+
+Keymap:
+    <leader>H                     Toggle Home
+
+Disabling the startup landing page:
+    require("nvpak.home").setup({ landing = false })
+
+==============================================================================
+3. Layout                                    *nvpak-home-layout*
+
+The Home window is a centered float with rounded borders. Sections:
+
+    OVERVIEW           NvPak version, plugin count, updates, last activity
+    PLUGIN CENTER      Installed count, outdated list, update/install actions
+    SYSTEM STATUS      Neovim version, rocks.nvim, config health, LSP clients
+    RECENT ACTIVITY    Timestamped NvPak/plugin/install events (persistent log)
+    COMMAND CENTER     One-key actions: update, install, refresh, system check
+    NAVIGATE           Future screens: Plugins, LSP, Docs, Projects, AI
+
+==============================================================================
+4. Keybindings (inside Home)                 *nvpak-home-keys*
+
+    q         Close Home
+    ?         Toggle the key reference (this list) inside Home
+    r         Refresh all data (invalidates caches, re-queries local state)
+    u         Update all outdated plugins (via rocks.nvim)
+    i         Install a plugin (prompts for name)
+    s         System check (shows Neovim/rocks/config/LSP summary in PLUGIN CENTER)
+    o         Open documentation (:help nvpak-home)
+    m         Open RocksTUI plugin manager (if installed)
+
+Navigation (stubbed for future):
+    p         Plugins (opens RocksTUI)
+    l         LSP (coming soon)
+    d         Documentation (coming soon)
+    j         Projects (coming soon)
+    a         AI (coming soon)
+
+    h         Back to Home (from stub pages)
+
+==============================================================================
+5. Data sources                              *nvpak-home-data*
+
+All data comes from `lua/nvpak/home/provider.lua`:
+
+  - Version: top release in CHANGELOG.md
+  - Plugin count: `rocks.state.installed_rocks()`
+  - Outdated: `rocks.state.outdated_rocks()` (network request)
+  - Activity: persistent log at `stdpath("data")/nvpak/activity.log`
+    populated by `RocksInstallPost` autocmds
+  - System: `vim.version()`, `rocks.config`, LSP clients
+
+The provider caches results per session; `r` invalidates and refreshes.
+
+==============================================================================
+6. Highlights                                *nvpak-home-highlights*
+
+Groups (link to base groups by default, adapt to any colorscheme):
+
+  NvPakHomeLogo        -> Special       (header block glyphs)
+  NvPakHomeTitle       -> Title         (section headings)
+  NvPakHomeSection     -> Title
+  NvPakHomeKey         -> Comment       (labels / timestamps)
+  NvPakHomeOk          -> DiagnosticOk  (healthy status)
+  NvPakHomeWarn        -> DiagnosticWarn (warnings / outdated)
+  NvPakHomeError       -> DiagnosticError (errors)
+  NvPakHomeInfo        -> DiagnosticInfo (transient status lines)
+  NvPakHomeAction      -> Special       (action keys [u], [i], etc.)
+
+Override in your theme config if desired:
+  vim.api.nvim_set_hl(0, "NvPakHomeLogo", { fg = "#ff0000" })
+
+==============================================================================
+7. Architecture                              *nvpak-home-architecture*
+
+  lua/nvpak/home/
+    provider.lua   data layer (rocks.nvim state, activity log, actions)
+    nav.lua        page registry (Home, Plugins, LSP, Docs, Projects, AI)
+    init.lua       UI renderer + window mgmt + keymaps + setup()
+
+Design principles:
+  - Separation: provider ≠ UI. UI only calls provider functions.
+  - No rocks.nvim imports in init.lua.
+  - Native buffer/window APIs (no third-party UI framework).
+  - Persistent activity log owned by NvPak (not Snacks recent-files).
+  - Highlights linked to base groups for theme compatibility.
+
+==============================================================================
+8. Future pages (stubs)                      *nvpak-home-stubs*
+
+Registered in nav.lua but not yet implemented:
+  - LSP       (language server management, per-project settings)
+  - Docs      (offline help browser, keymap reference)
+  - Projects  (session-aware project picker)
+  - AI        (codecompanion chat history, model settings)
+
+Adding a page:
+  1. Create lua/nvpak/home/pages/<id>.lua with render(buf, ctx)
+  2. Register in nav.lua with a unique `key` and `order`
+  3. Home menu and keymap appear automatically
+
+==============================================================================
+9. Validation                                *nvpak-home-validation*
+
+Expected behavior:
+  - :NvPakHome opens centered float instantly
+  - Plugin count matches `:Rocks list`
+  - Outdated count matches `:Rocks outdated`
+  - Update (u) triggers rocks.nvim fidget progress
+  - Install (i) prompts name, runs Rocks add, logs activity
+  - Refresh (r) clears caches, re-queries state
+  - System check (s) reports Neovim/rocks/config/LSP
+  - Activity shows real install/update events across sessions
+  - Narrow terminals (<50 cols) render compact header
+  - Closes cleanly with <leader>H or q
+  - No Lazy references anywhere
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

@@ -66,7 +66,8 @@ Show
 NvPak has been rebuilt with performance and simplicity in mind:
 
 - **[blink.cmp](https://github.com/Saghen/blink.cmp):** A lightning-fast completion engine.
-- **[snacks.nvim](https://github.com/folke/snacks.nvim):** A consolidated solution for dashboard, notifications, indentation, and more, replacing multiple heavy plugins.
+- **[NvPak Home](doc/nvpak-home.txt):** The primary dashboard / control center — the default landing page on bare `nvim` startup (`:NvPakHome` or `<leader>H` to toggle).
+- **[snacks.nvim](https://github.com/folke/snacks.nvim):** Notifications, input, indentation, and more, replacing multiple heavy plugins.
 - **Native Folding:** Leverages Neovim 0.10+ native Treesitter folding for a smoother editing experience.
 - **Persian RTL:** Built-in RTL support. Use `<leader>rtl` to toggle Right-to-Left mode. Optimized for Konsole/Plasma environments.
 
@@ -84,6 +85,9 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/EvolveBeyond/NvPak/mai
 
 # Usage 🚀
 
+- **NvPak Home (Control Center):** Bare `nvim` (no file args, no flags, no stdin) lands on Home — the primary dashboard with plugin/system overview, activity, and one-key actions. Any other invocation (`nvim <file>`, `nvim -`, `nvim +cmd`, `nvim --cmd …`) skips it; `:NvPakHome` / `<leader>H` toggles anytime.
+    - `:NvPakHome` or `<leader>H` - Toggle Home.
+    - Inside Home: `u` update all, `i` install, `r` refresh, `s` system check.
 - **Plugin Management:** Powered by [rocks.nvim](https://github.com/nvim-neorocks/rocks.nvim).
     - `:Rocks sync` - Synchronize plugins with `rocks.toml`.
     - `:Rocks install <plugin>` - Install a new plugin.
